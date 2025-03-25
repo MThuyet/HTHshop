@@ -1,9 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Inter:ital,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+    --font-primary: "Be Vietnam Pro", sans-serif;
     --text-color: #323c42;
     --red-color: #eb3e32;
     --orange-color: #ff6200;
+}
+
+body {
+    font-family: var(--font-primary);
+    color: var(--text-color);
+}
+
+@media (max-width: 767px) {
+    body {
+        padding-bottom: 60px;
+    }
+}
+
+/* Header */
+@keyframes phoneRing {
+    0% {
+        transform: rotate(0deg);
+    }
+    15% {
+        transform: rotate(-5deg);
+    }
+    30% {
+        transform: rotate(5deg);
+    }
+    45% {
+        transform: rotate(-5deg);
+    }
+    60% {
+        transform: rotate(5deg);
+    }
+    75% {
+        transform: rotate(0deg);
+    }
+}
+
+.animate-phone-ring {
+    animation: phoneRing 0.8s ease-in-out infinite;
+}
+
+.category-nav .active {
+    color: var(--orange-color);
 }

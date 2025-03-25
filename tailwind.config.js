@@ -12,7 +12,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Figtree", ...defaultTheme.fontFamily.sans],
+                bevietnam: ['"Be Vietnam Pro"', "sans-serif"],
             },
             colors: {
                 textColor: "var(--text-color)",
