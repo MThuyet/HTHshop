@@ -23,6 +23,7 @@ body {
 }
 
 /* Header */
+/* Animation phone */
 @keyframes phoneRing {
     0% {
         transform: rotate(0deg);
@@ -48,6 +49,57 @@ body {
     animation: phoneRing 0.8s ease-in-out infinite;
 }
 
+/* Active category */
 .category-nav .active {
     color: var(--orange-color);
+}
+
+/* Animation */
+/* Promo banner */
+.hidden-promo-banner div:first-child {
+    opacity: 0;
+    transform: translateX(-100px); /* Trôi từ trái vào */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    will-change: opacity, transform;
+}
+
+.hidden-promo-banner div:last-child {
+    opacity: 0;
+    transform: translateX(100px); /* Trôi từ phải vào */
+    transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+    will-change: opacity, transform;
+}
+
+.visible-promo-banner div:first-child,
+.visible-promo-banner div:last-child {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Hiệu ứng trôi từ dưới lên */
+.slide-up-effect {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+}
+
+.visible-slide-up {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hiệu ứng trượt vô hạn */
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.animate-marquee {
+    display: inline-block;
+    animation: marquee 10s linear infinite;
 }

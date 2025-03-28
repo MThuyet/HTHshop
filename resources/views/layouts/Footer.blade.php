@@ -1,5 +1,5 @@
-<footer class="bg-gray-900 text-gray-300 py-10">
-    <div class="container mx-auto px-6 lg:px-12">
+<footer class="bg-gray-900 text-gray-300 py-10 ">
+    <div class="sm:w-10/12 lg:w-10/12 md:w-11/12 mx-auto px-6 lg:px-12">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <!-- Logo & Giới thiệu -->
             <div>
@@ -45,9 +45,12 @@
 
                 <!-- Mạng xã hội -->
                 <div class="mt-4 flex space-x-4 md:text-md sm:text-sm">
-                    <a href="#" class="text-xl hover:text-orange-400"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="text-xl hover:text-orange-400"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-xl hover:text-orange-400"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/MThuyet" class="text-xl hover:text-orange-400"><i
+                            class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/mthuyet294" class="text-xl hover:text-orange-400"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@mthuyet294" class="text-xl hover:text-orange-400"><i
+                            class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
         </div>
