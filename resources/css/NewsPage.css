@@ -7,14 +7,14 @@ main {
 }
 
 .aside {
-    flex: 30%;
+    width: 240px;
     height: 100vh;
     color: #fff;
     background-color: #000;
 }
 
 .news__container {
-    flex: 70%;
+    width: calc(100% - 240px);
 }
 
 .news__hottest {
@@ -125,18 +125,19 @@ main {
     font-weight: 600;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 992px) {
     main {
         flex-direction: column-reverse;
     }
-
     .aside {
-        height: 300px;
-        display: block;
+        width: 100%;
+    }
+    .news__container {
+        width: 100%;
     }
 }
-
-@media (max-width: 576px) {
+ 
+@media (max-width: 768px) {
     .news__hottest {
         grid-template-columns: 1fr;
     }
