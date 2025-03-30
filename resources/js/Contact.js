@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-    document.querySelector("#storeImage").addEventListener('click', openLightbox);
+    document.querySelectorAll(".storeImage").forEach((element) => {
+        element.addEventListener('click', () => openLightbox(element));
+    })
     document.querySelector("#imageLightbox button").addEventListener('click', closeLightbox);
 
     const contactForm = document.querySelector('form');
@@ -117,7 +119,9 @@ function debounce(func, delay = 300) {
     };
 }
 
-function openLightbox() {
+function openLightbox(image) {
+    document.querySelector('#imageLightbox img').src = image.src;
+    document.querySelector('#imageLightbox img').alt = image.alt;
     document.getElementById('imageLightbox').classList.remove('hidden');
     document.getElementById('imageLightbox').classList.add('flex');
     document.body.style.overflow = 'hidden'; 

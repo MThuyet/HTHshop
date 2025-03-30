@@ -102,8 +102,8 @@
                 <img 
                     src="https://aothunxuxu.com/style/images/shop%20ao%20thun%20xuxu-2-min.jpg" 
                     alt="Cơ sở chính" 
-                    class="max-w-full lg:max-w-[800px] rounded-lg shadow-lg cursor-pointer hover:opacity-90 transition-opacity"
-                    id="storeImage"
+                    class="max-w-full lg:max-w-[800px] rounded-lg shadow-lg cursor-pointer hover:opacity-90 transition-opacity 
+                    storeImage"
                 >
             </div>
         </div>
@@ -141,7 +141,8 @@
                     <img 
                     src="https://aothunxuxu.com/style/images/shop%20ao%20thun%20xuxu-binh-dinh-min.jpg" 
                     alt="Chi nhánh Bình Định" 
-                    class="w-full h-full object-cover rounded-lg shadow-md cursor-pointer hover:opacity-90 transition-opacity"
+                    class="w-full h-full object-cover rounded-lg shadow-md cursor-pointer hover:opacity-90 transition-opacity
+                    storeImage"
                     >
                 </div>
             </div>
@@ -153,11 +154,7 @@
             <i class="fa-solid fa-times"></i>
           </button>
           
-          <img 
-            src="https://aothunxuxu.com/style/images/shop%20ao%20thun%20xuxu-2-min.jpg" 
-            alt="Cơ sở chính" 
-            class="w-full h-auto max-h-screen object-contain rounded-md"
-          >
+          <img src="" alt="" class="w-full h-auto max-h-screen object-contain rounded-md">
         </div>
     </div>
 @endsection
