@@ -39,10 +39,12 @@
                 class="absolute -top-2 -right-0 bg-redColor text-white w-5 h-5 flex items-center justify-center rounded-full">0</span>
         </div>
 
-        <div class="flex flex-col items-center justify-between cursor-pointer">
-            <i class="fa-solid fa-user"></i>
-            <span>Đăng nhập</span>
-        </div>
+        <a href="{{ route('LoginRoute') }}">
+            <div class="flex flex-col items-center justify-between cursor-pointer">
+                <i class="fa-solid fa-user"></i>
+                <span">Đăng nhập</span>
+            </div>
+        </a>
     </div>
 </div>
 
