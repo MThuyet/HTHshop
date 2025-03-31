@@ -6,6 +6,14 @@ Route::get('/', function () {
 	return view('pages.HomePage');
 });
 
+Route::get('/dang-nhap', function () {
+	return view('pages.LoginPage');
+})->name('LoginRoute');
+
+Route::get('/dang-ky', function () {
+	return view('pages.RegisterPage');
+})->name('RegisterRoute');
+
 Route::get('/lien-he', function () {
 	return view('pages.ContactPage');
 });
