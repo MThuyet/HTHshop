@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="lg:w-10/12 md:w-11/12 mx-auto py-5 px-4">
-        <h2 class="text-2xl font-bold my-5">Liên Hệ</h2>
+        <h2 class="uppercase text-[28px] tracking-widest my-5">Liên Hệ</h2>
         <div class="grid xl:grid-cols-2 lg:grid-cols-1 grid-row-2 gap-4 my-[30px] bg-[#f3f3f3] p-6 rounded-md">
             <form action="" method="POST" class="xl:col-span-1">
                 <div class="grid lg:grid-cols-2 md:grid-cols-1 gap-5">
@@ -59,7 +59,7 @@
         </div>
 
         <div class="overflow-hidden">
-            <h2 class="text-2xl font-bold my-8">Cơ Sở Chính</h2>
+            <h2 class="uppercase text-[28px] tracking-widest my-5">Cơ Sở Chính</h2>
 
             <div class="grid grid-cols-1 xl:grid-cols-4 gap-6 mb-8">
                 <div class="xl:col-span-2 flex items-start gap-4 p-4 rounded-lg bg-[#f9f9f9] shadow-md">
@@ -113,7 +113,7 @@
             </div>
         </div>
 
-        <h2 class="text-2xl font-bold mb-5 mt-10">Chi nhánh</h2>
+        <h2 class="uppercase text-[28px] tracking-widest mt-10 mb-5">Chi nhánh</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="lg:col-span-2 md:col-span-1 space-y-4">
                 <div class="flex items-start gap-4 rounded-lg p-4 bg-[#f9f9f9] shadow-md">
