@@ -1,7 +1,7 @@
 <div
     class="header lg:w-10/12 md:w-11/12 sm:w-10/12 mx-auto flex flex-wrap md:flex-nowrap md:gap-6 gap-2 justify-between items-center md:p-0 p-3">
     {{-- Logo --}}
-    <a href="">
+    <a href="/">
         <div class="header-logo p-2 flex items-center cursor-pointer">
             <img class="md:w-20 w-[10vw]" src="{{ asset('images/logo-header-crop.png') }}" alt="Logo">
             <p class="text-nowrap sm:text-[1.5vw] lg:text-[1.1vw] text-[#0576a9] font-semibold">HTH Clothes</p>
@@ -53,37 +53,37 @@
         class="flex items-center sm:gap-2 text-gray-800 sm:py-2 py-1 mx-auto
 						 whitespace-nowrap w-max px-4 md:text-[17px] text-[15px]">
         <li>
-            <a href="#"
-                class="active hover:text-orange-500 transition text-nowrap px-4 py-2 flex flex-col md:flex-row items-center md:ms:gap-2 gap-1">
+            <a href="/"
+                class=" hover:text-orange-500 transition text-nowrap px-4 py-2 flex flex-col md:flex-row items-center md:ms:gap-2 gap-1">
                 <span class="md:hidden"><i class="fa-solid fa-house "></i></span> <span>Trang chủ</span>
             </a>
         </li>
         <li>
-            <a href="#"
+            <a href="/san-pham"
                 class="hover:text-orange-500 transition text-nowrap px-4 py-2 flex flex-col md:flex-row items-center ms:gap-2 gap-1">
                 <span class="md:hidden"><i class="fa-solid fa-shirt"></i></span> <span>Sản phẩm</span>
             </a>
         </li>
         <li>
-            <a href="#"
+            <a href="/tin-tuc"
                 class="hover:text-orange-500 transition text-nowrap px-4 py-2 flex flex-col md:flex-row items-center ms:gap-2 gap-1">
                 <span class="md:hidden"><i class="fa-solid fa-newspaper "></i></span> <span>Tin tức</span>
             </a>
         </li>
         <li>
-            <a href="#"
+            <a href="/gioi-thieu"
                 class="hover:text-orange-500 transition text-nowrap px-4 py-2 flex flex-col md:flex-row items-center ms:gap-2 gap-1">
                 <span class="md:hidden"><i class="fa-solid fa-info-circle "></i></span> <span>Giới thiệu</span>
             </a>
         </li>
         <li>
-            <a href="#"
+            <a href="/cau-hoi"
                 class="hover:text-orange-500 transition text-nowrap px-4 py-2 flex flex-col md:flex-row items-center ms:gap-2 gap-1">
                 <span class="md:hidden"><i class="fa-solid fa-question-circle "></i></span> <span>Câu hỏi</span>
             </a>
         </li>
         <li>
-            <a href="#"
+            <a href="/lien-he"
                 class="hover:text-orange-500 transition text-nowrap px-4 py-2 flex flex-col md:flex-row items-center ms:gap-2 gap-1">
                 <span class="md:hidden"><i class="fa-solid fa-phone "></i></span> <span>Liên hệ</span>
             </a>
