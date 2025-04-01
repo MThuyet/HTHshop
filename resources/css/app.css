@@ -16,6 +16,14 @@ body {
     color: var(--text-color);
 }
 
+.responsive {
+    @apply lg:w-10/12 md:w-11/12 mx-auto py-5 px-4;
+}
+
+.sub-title {
+    @apply uppercase text-[28px] tracking-widest mb-6;
+}
+
 @media (max-width: 767px) {
     body {
         padding-bottom: 60px;

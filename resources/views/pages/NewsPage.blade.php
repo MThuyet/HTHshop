@@ -4,7 +4,7 @@
 @section('title', 'Tin tức')
 
 @section('content')
-    <div class="lg:w-10/12 md:w-11/12 mx-auto py-5 px-4 flex flex-col lg:flex-row gap-4">
+    <div class="responsive flex flex-col lg:flex-row gap-4">
         <aside class="lg:min-w-[230px] hidden lg:block bg-gray-100 p-4 rounded-lg shadow h-fit min-h-[350px]">
             <h3 class="uppercase text-[20px] tracking-widest mb-6">Danh mục</h3>
             <ul class="space-y-2">

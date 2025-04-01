@@ -12,7 +12,7 @@
     </div>
 
     {{-- Service --}}
-    <div class="content lg:w-10/12 md:w-11/12 mx-auto py-5 px-4">
+    <div class="content responsive">
         <div class="service grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-6 gap-x-2">
             <div class="flex items-center  lg:justify-center lg:gap-3 sm:gap-2 gap-4">
                 <img class="w-10" src="{{ asset('images/service_1.webp') }}" alt="">
@@ -49,8 +49,8 @@
     </div>
 
     {{-- Mẫu mới về --}}
-    <div class="new-product lg:w-10/12 md:w-11/12 mx-auto py-5 px-4">
-        <h2 class="uppercase text-[28px] tracking-widest mb-6">Mẫu mới về</h2>
+    <div class="new-product responsive">
+        <h2 class="sub-title">Mẫu mới về</h2>
 
         <div class="slide-up-effect grid md:grid-rows-1 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
             <div
@@ -292,8 +292,8 @@
     </div>
 
     {{-- Sale đồng giá --}}
-    <div class="sale-product lg:w-10/12 md:w-11/12 mx-auto py-5 px-4 mt-8">
-        <h2 class="uppercase text-[28px] tracking-widest mb-6">Sale đồng giá</h2>
+    <div class="sale-product responsive mt-8">
+        <h2 class="sub-title">Sale đồng giá</h2>
 
         <div class="slide-up-effect grid md:grid-rows-1 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
             <div
@@ -525,7 +525,7 @@
     </div>
 
     {{-- Notification Bar --}}
-    <div class="notification-bar lg:w-10/12 md:w-11/12 mx-auto py-5 px-4">
+    <div class="notification-bar responsive">
         <div class="w-full py-5 px-5 rounded bg-redColor flex items-center justify-center text-white text-lg relative">
             <div id="promo-text" class="text-justify transition-opacity duration-500 opacity-100">
                 HOT: Sale 50% cho toàn bộ đơn hàng có giá trị từ 2 triệu, miễn phí ship toàn quốc
@@ -534,8 +534,8 @@
     </div>
 
     {{-- Top bán chạy --}}
-    <div class="slide-up-effect sale-product lg:w-10/12 md:w-11/12 mx-auto py-5 px-4 ">
-        <h2 class="uppercase text-[28px] tracking-widest mb-6">Top bán chạy</h2>
+    <div class="slide-up-effect sale-product responsive ">
+        <h2 class="sub-title">Top bán chạy</h2>
 
         <div class="grid md:grid-rows-1 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
             <div
@@ -767,12 +767,12 @@
     </div>
 
     {{-- Banner phụ --}}
-    <div class="sub-banner lg:w-10/12 md:w-11/12 mx-auto py-5 px-4">
+    <div class="sub-banner responsive">
         <img class="w-full rounded object-cover" src="{{ asset('images/sub-banner-home.png') }}" alt="">
     </div>
 
     {{-- Từ khóa hot --}}
-    <div class="lg:w-10/12 md:w-11/12 mx-auto py-5 px-4">
+    <div class="responsive">
         <div class="flex gap-6 md:flex-row flex-col">
             <h2 class="uppercase text-[28px] tracking-widest text-nowrap">Từ khóa hot</h2>
             <div class="flex flex-wrap gap-3">
@@ -877,7 +877,7 @@
     </div>
 
     {{-- Tin tức mới nhất --}}
-    <div class="lg:w-10/12 md:w-11/12 mx-auto py-5 px-4 mt-6 ">
+    <div class="responsive mt-6 ">
         <h2 class="uppercase text-[28px] tracking-widest text-nowrap text-center">Tin tức mới nhất</h2>
 
         <div class="grid md:grid-cols-2 grid-cols-1 gap-4 mt-6 justify-between md:slide-up-effect">
