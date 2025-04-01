@@ -21,3 +21,7 @@ Route::get('/lien-he', function () {
 Route::get('/tin-tuc', function () {
 	return view('pages.NewsPage');
 });
+
+Route::get('/san-pham', function () {
+	return view('pages.product.ProductListPage');
+});
