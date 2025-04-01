@@ -1,5 +1,5 @@
 <footer class="bg-gray-900 text-gray-300 py-10 ">
-    <div class="sm:w-10/12 lg:w-10/12 md:w-11/12 mx-auto px-6 lg:px-12">
+    <div class=" lg:w-10/12 md:w-11/12 mx-auto px-6 lg:px-12">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <!-- Logo & Giới thiệu -->
             <div>

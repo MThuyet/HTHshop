@@ -25,3 +25,7 @@ Route::get('/tin-tuc', function () {
 Route::get('/san-pham', function () {
 	return view('pages.product.ProductListPage');
 });
+
+Route::get('/ho-tro', function () {
+	return view('pages.HelpPage');
+});

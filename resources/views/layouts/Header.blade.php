@@ -1,5 +1,5 @@
 <div
-    class="header lg:w-10/12 md:w-11/12 sm:w-10/12 mx-auto flex flex-wrap md:flex-nowrap md:gap-6 gap-2 justify-between items-center md:p-0 p-3">
+    class="header lg:w-10/12 md:w-11/12 mx-auto flex flex-wrap md:flex-nowrap md:gap-6 gap-2 justify-between items-center md:p-0 p-3">
     {{-- Logo --}}
     <a href="/">
         <div class="header-logo p-2 flex items-center cursor-pointer">
@@ -57,56 +57,52 @@
     </div>
 </div>
 
-<nav
-    class="category-nav w-full bg-[#f7f8fa] overflow-x-auto scrollbar-hide fixed bottom-0 left-0 right-0 z-50 md:relative">
+<nav class="category-nav w-full bg-[#f7f8fa] scrollbar-hide fixed bottom-0 left-0 right-0 z-50 md:relative">
     <ul
-        class="flex items-center sm:gap-2 text-gray-800 sm:py-2 py-1 mx-auto whitespace-nowrap w-max px-4 md:text-[17px] text-[15px]">
+        class="flex items-center md:gap-5 sm:gap-8 gap-[20px] text-gray-800 md:py-2 mx-auto whitespace-nowrap w-max px-4 md:text-[17px] text-[15px]">
         <li>
             <a href="/"
-                class="hover:text-orange-500 transition text-nowrap px-4 py-2 flex flex-col md:flex-row items-center md:ms:gap-2 gap-1">
-                <span class="md:hidden"><span class="material-symbols-rounded"
-                        style="font-size: 32px;">home</span></span>
-                <span>Trang chủ</span>
+                class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
+                <span class="md:hidden">
+                    <span class="material-symbols-rounded" style="font-size: 32px;">home</span>
+                </span>
+                <span class="md:text-lg">Trang chủ</span>
             </a>
         </li>
         <li>
             <a href="/san-pham"
-                class="hover:text-orange-500 transition text-nowrap px-4 py-2 flex flex-col md:flex-row items-center ms:gap-2 gap-1">
-                <span class="md:hidden"><span class="material-symbols-rounded"
-                        style="font-size: 32px;">shopping_bag</span></span>
-                <span>Sản phẩm</span>
+                class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
+                <span class="md:hidden">
+                    <span class="material-symbols-rounded" style="font-size: 32px;">shopping_bag</span>
+                </span>
+                <span class="md:text-lg">Sản phẩm</span>
             </a>
         </li>
         <li>
             <a href="/tin-tuc"
-                class="hover:text-orange-500 transition text-nowrap px-4 py-2 flex flex-col md:flex-row items-center ms:gap-2 gap-1">
-                <span class="md:hidden"><span class="material-symbols-rounded"
-                        style="font-size: 32px;">article</span></span>
-                <span>Tin tức</span>
+                class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
+                <span class="md:hidden">
+                    <span class="material-symbols-rounded" style="font-size: 32px;">article</span>
+                </span>
+                <span class="md:text-lg">Tin tức</span>
             </a>
         </li>
         <li>
-            <a href="/gioi-thieu"
-                class="hover:text-orange-500 transition text-nowrap px-4 py-2 flex flex-col md:flex-row items-center ms:gap-2 gap-1">
-                <span class="md:hidden"><span class="material-symbols-rounded"
-                        style="font-size: 32px;">info</span></span>
-                <span>Giới thiệu</span>
-            </a>
-        </li>
-        <li>
-            <a href="/cau-hoi"
-                class="hover:text-orange-500 transition text-nowrap px-4 py-2 flex flex-col md:flex-row items-center ms:gap-2 gap-1">
-                <span class="md:hidden"><span class="material-symbols-rounded"
-                        style="font-size: 32px;">help</span></span>
-                <span>Câu hỏi</span>
+            <a href="/ho-tro"
+                class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
+                <span class="md:hidden">
+                    <span class="material-symbols-rounded" style="font-size: 32px;">help</span>
+                </span>
+                <span class="md:text-lg">Hỗ trợ</span>
             </a>
         </li>
         <li>
             <a href="/lien-he"
-                class="hover:text-orange-500 transition text-nowrap px-4 py-2 flex flex-col md:flex-row items-center ms:gap-2 gap-1">
-                <span class="md:hidden"><span class="material-symbols-rounded"
-                        style="font-size: 32px;">phone</span></span>
-                <span>Liên hệ</span>
+                class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
+                <span class="md:hidden">
+                    <span class="material-symbols-rounded" style="font-size: 32px;">phone</span>
+                </span>
+                <span class="md:text-lg">Liên hệ</span>
             </a>
         </li>
     </ul>
