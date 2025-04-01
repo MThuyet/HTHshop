@@ -38,20 +38,17 @@
                 <h3 class="text-lg font-semibold mb-3">Liên hệ</h3>
                 Mọi chi tiết xin vui lòng liên hệ theo thông tin
                 <ul class="space-y-2 mt-2 md:text-md sm:text-sm">
-                    <li><i class="fas fa-map-marker-alt text-orange-400 mr-1"></i> Biên Hòa, Đồng Nai</li>
-                    <li><i class="fas fa-phone text-orange-400 mr-1"></i> 0332 393 031</li>
-                    <li><i class="fas fa-envelope text-orange-400 mr-1"></i> hthsp@gmail.com</li>
+                    <li class="flex items-center"><span class="text-orange-400 mr-1"><span
+                                class="material-symbols-rounded">location_on</span></span> Biên Hòa, Đồng
+                        Nai</li>
+                    <li class="flex items-center"><span class="text-orange-400 mr-1"><span
+                                class="material-symbols-rounded">phone</span></span>
+                        0332 393 031</li>
+                    <li class="flex items-center"><span class="text-orange-400 mr-1"><span
+                                class="material-symbols-rounded">email</span></span>
+                        hthsp@gmail.com</li>
                 </ul>
 
-                <!-- Mạng xã hội -->
-                <div class="mt-4 flex space-x-4 md:text-md sm:text-sm">
-                    <a href="https://www.facebook.com/MThuyet" class="text-xl hover:text-orange-400"><i
-                            class="fab fa-facebook"></i></a>
-                    <a href="https://www.instagram.com/mthuyet294" class="text-xl hover:text-orange-400"><i
-                            class="fab fa-instagram"></i></a>
-                    <a href="https://www.tiktok.com/@mthuyet294" class="text-xl hover:text-orange-400"><i
-                            class="fa-brands fa-tiktok"></i></a>
-                </div>
             </div>
         </div>
 

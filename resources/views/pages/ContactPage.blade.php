@@ -66,7 +66,7 @@
                     <div class="flex-shrink-0">
                         <div
                             class="bg-red-600 rounded-full h-[40px] leading-[40px] w-[40px] flex items-center justify-center">
-                            <i class="fa-solid fa-location-dot text-white text-lg"></i>
+                            <span class="material-symbols-rounded text-white" style="font-size: 36px">location_on</span>
                         </div>
                     </div>
                     <div>
@@ -79,7 +79,7 @@
                     <div class="flex-shrink-0">
                         <div
                             class="bg-red-600 rounded-full h-[40px] leading-[40px] w-[40px] flex items-center justify-center">
-                            <i class="fa-solid fa-envelope text-white text-lg"></i>
+                            <span class="material-symbols-rounded text-white" style="font-size: 36px">email</span>
                         </div>
                     </div>
                     <div>
@@ -94,7 +94,7 @@
                     <div class="flex-shrink-0">
                         <div
                             class="bg-red-600 rounded-full h-[40px] leading-[40px] w-[40px] flex items-center justify-center">
-                            <i class="fa-solid fa-phone text-white text-lg"></i>
+                            <span class="material-symbols-rounded text-white" style="font-size: 36px">phone</span>
                         </div>
                     </div>
                     <div>
@@ -105,6 +105,7 @@
                     </div>
                 </div>
             </div>
+
 
             <div class="flex justify-center">
                 <img src="https://aothunxuxu.com/style/images/shop%20ao%20thun%20xuxu-2-min.jpg" alt="Cơ sở chính"
@@ -119,7 +120,7 @@
                 <div class="flex items-start gap-4 rounded-lg p-4 bg-[#f9f9f9] shadow-md">
                     <div class="flex-shrink-0">
                         <div class="bg-red-600 rounded-full h-12 w-12 flex items-center justify-center">
-                            <i class="fa-solid fa-location-dot text-white text-xl"></i>
+                            <span class="material-symbols-rounded text-white " style="font-size: 36px">location_on</span>
                         </div>
                     </div>
                     <div>
@@ -131,7 +132,7 @@
                 <div class="flex items-start gap-4 rounded-lg p-4 bg-[#f9f9f9] shadow-md">
                     <div class="flex-shrink-0">
                         <div class="bg-red-600 rounded-full h-12 w-12 flex items-center justify-center">
-                            <i class="fa-solid fa-phone text-white text-xl"></i>
+                            <span class="material-symbols-rounded text-white " style="font-size: 36px">phone</span>
                         </div>
                     </div>
                     <div>
@@ -140,6 +141,7 @@
                     </div>
                 </div>
             </div>
+
 
             <div class="lg:col-span-1 md:col-span-1">
                 <div class="h-full">

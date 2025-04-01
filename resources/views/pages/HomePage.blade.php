@@ -70,7 +70,9 @@
                     <button
                         class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
 										rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <span class="material-symbols-rounded" style="font-weight: 600">
+                            add_shopping_cart
+                        </span>
 
                         <!-- Tooltip -->
                         <span
@@ -115,7 +117,9 @@
                     <button
                         class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
 										rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <span class="material-symbols-rounded" style="font-weight: 600">
+                            add_shopping_cart
+                        </span>
 
                         <!-- Tooltip -->
                         <span
@@ -159,7 +163,9 @@
                     <button
                         class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
 										rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <span class="material-symbols-rounded" style="font-weight: 600">
+                            add_shopping_cart
+                        </span>
 
                         <!-- Tooltip -->
                         <span
@@ -203,7 +209,9 @@
                     <button
                         class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
 										rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <span class="material-symbols-rounded" style="font-weight: 600">
+                            add_shopping_cart
+                        </span>
 
                         <!-- Tooltip -->
                         <span
@@ -247,7 +255,9 @@
                     <button
                         class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
 										rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <span class="material-symbols-rounded" style="font-weight: 600">
+                            add_shopping_cart
+                        </span>
 
                         <!-- Tooltip -->
                         <span
@@ -313,7 +323,9 @@
                     <button
                         class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
 									rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <span class="material-symbols-rounded" style="font-weight: 600">
+                            add_shopping_cart
+                        </span>
 
                         <!-- Tooltip -->
                         <span
@@ -359,7 +371,9 @@
                     <button
                         class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
 									rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <span class="material-symbols-rounded" style="font-weight: 600">
+                            add_shopping_cart
+                        </span>
 
                         <!-- Tooltip -->
                         <span
@@ -404,7 +418,9 @@
                     <button
                         class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
 									rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <span class="material-symbols-rounded" style="font-weight: 600">
+                            add_shopping_cart
+                        </span>
 
                         <!-- Tooltip -->
                         <span
@@ -449,7 +465,9 @@
                     <button
                         class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
 									rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <span class="material-symbols-rounded" style="font-weight: 600">
+                            add_shopping_cart
+                        </span>
 
                         <!-- Tooltip -->
                         <span
@@ -494,7 +512,9 @@
                     <button
                         class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
 									rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <span class="material-symbols-rounded" style="font-weight: 600">
+                            add_shopping_cart
+                        </span>
 
                         <!-- Tooltip -->
                         <span
@@ -555,7 +575,9 @@
                     <button
                         class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
 							rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <span class="material-symbols-rounded" style="font-weight: 600">
+                            add_shopping_cart
+                        </span>
 
                         <!-- Tooltip -->
                         <span
@@ -601,7 +623,9 @@
                     <button
                         class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
 							rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <span class="material-symbols-rounded" style="font-weight: 600">
+                            add_shopping_cart
+                        </span>
 
                         <!-- Tooltip -->
                         <span
@@ -646,7 +670,9 @@
                     <button
                         class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
 							rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <span class="material-symbols-rounded" style="font-weight: 600">
+                            add_shopping_cart
+                        </span>
 
                         <!-- Tooltip -->
                         <span
@@ -691,7 +717,9 @@
                     <button
                         class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
 							rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <span class="material-symbols-rounded" style="font-weight: 600">
+                            add_shopping_cart
+                        </span>
 
                         <!-- Tooltip -->
                         <span
@@ -736,7 +764,9 @@
                     <button
                         class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
 							rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <i class="fas fa-shopping-cart text-lg"></i>
+                        <span class="material-symbols-rounded" style="font-weight: 600">
+                            add_shopping_cart
+                        </span>
 
                         <!-- Tooltip -->
                         <span

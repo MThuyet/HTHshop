@@ -8,29 +8,32 @@
     <title>@yield('title')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    {{-- Font Awesome --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    {{-- Gg font --}}
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:wght@200" rel="stylesheet">
+
 </head>
 
 <div class="fixed left-3 top-2/3 transform -translate-y-1/2 flex flex-col gap-3 z-50">
     <!-- Nút Facebook -->
     <a href="https://www.facebook.com/MThuyet" target="_blank"
-        class="animate-phone-ring w-12 h-12 flex items-center justify-center bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-800 transition">
-        <i class="fab fa-facebook-f text-xl"></i>
+        class="animate-phone-ring w-12 h-12 flex items-center justify-center bg-white text-white rounded-full shadow-lg transition overflow-hidden">
+        <img src="{{ asset('images/facebook-icon.png') }}" alt="Facebook" class="w-[90%]">
     </a>
 
     <!-- Nút Zalo -->
     <a href="https://zalo.me/0332393031" target="_blank"
-        class="animate-phone-ring w-12 h-12 flex items-center justify-center bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-700 transition">
-        <i class="fas fa-comment-dots text-xl"></i>
+        class="animate-phone-ring w-12 h-12 flex items-center justify-center bg-white text-white rounded-full shadow-lg transition overflow-hidden">
+        <img src="{{ asset('images/zalo-icon.png') }}" alt="Zalo" class="w-[90%]">
     </a>
 
     <!-- Nút Điện thoại -->
     <a href="tel:0332393031"
-        class="animate-phone-ring w-12 h-12 flex items-center justify-center bg-green-500 text-white rounded-full shadow-lg hover:bg-green-700 transition">
-        <i class="fas fa-phone-alt text-xl"></i>
+        class="animate-phone-ring w-12 h-12 flex items-center justify-center bg-white text-white rounded-full shadow-lg transition overflow-hidden">
+        <img src="{{ asset('images/phone-icon.png') }}" alt="Phone" class="w-[90%]">
     </a>
 </div>
+
+
 
 <body data-simplebar class="h-screen">
     <div id="app">
