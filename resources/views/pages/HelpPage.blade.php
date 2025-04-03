@@ -35,7 +35,7 @@
 
                     </div>
 
-                    <div class="faq__item">
+                    <div id="huong-dan-mua-hang" class="faq__item">
 
                         <div
                             class="faq__question cursor-pointer py-3 px-2 font-semibold shadow-sm rounded hover:text-orangeColor transition-all">
@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <div class="mt-6">
+        <div id="huong-dan-chon-size" class="mt-6">
             <h2 class="uppercase text-[24px] md:text-[28px] tracking-widest">Hướng dẫn chọn size</h2>
 
             <div class="md:w-[60%] w-[90%] mt-3 mx-auto md:mx-0 p-3">

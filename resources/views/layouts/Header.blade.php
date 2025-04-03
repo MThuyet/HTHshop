@@ -29,7 +29,7 @@
             </span>
             <div class="md:text-[1.5vw] lg:text-[1.1vw] sm:text-[2vw] text-sm">
                 <p class="text-nowrap">Tư vấn hỗ trợ</p>
-                <p class="font-bold text-redColor hover:opacity-70">1900 6750</p>
+                <p class="font-bold text-redColor hover:opacity-70">0332 393 031</p>
             </div>
         </a>
     </div>
@@ -59,7 +59,7 @@
 
 <nav class="category-nav w-full bg-[#f7f8fa] scrollbar-hide fixed bottom-0 left-0 right-0 z-50 md:relative">
     <ul
-        class="flex items-center md:gap-5 sm:gap-8 gap-[20px] text-gray-800 md:py-2 mx-auto whitespace-nowrap w-max px-4 md:text-[17px] text-[15px]">
+        class="flex items-center md:gap-5 sm:gap-8 gap-9 text-gray-800 md:py-2 mx-auto whitespace-nowrap w-max px-4 md:text-[17px] text-[15px]">
         <li>
             <a href="/"
                 class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
@@ -96,7 +96,7 @@
                 <span class="md:text-lg">Hỗ trợ</span>
             </a>
         </li>
-        <li>
+        <li class="hidden sm:block">
             <a href="/lien-he"
                 class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
                 <span class="md:hidden">

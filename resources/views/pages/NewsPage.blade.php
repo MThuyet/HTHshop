@@ -4,38 +4,9 @@
 @section('title', 'Tin tức')
 
 @section('content')
-    <div class="responsive flex flex-col lg:flex-row gap-4">
-        <aside class="lg:min-w-[230px] hidden lg:block bg-gray-100 p-4 rounded-lg shadow h-fit min-h-[350px]">
-            <h3 class="uppercase text-[20px] tracking-widest mb-6">Danh mục</h3>
-            <ul class="space-y-2">
-                <li>
-                    <a href="#"
-                        class="sidebar-item block px-3 py-2 bg-white rounded hover:scale-105 hover:shadow-lg transition-all">
-                        Tin nổi bật
-                    </a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="sidebar-item block px-3 py-2 bg-white rounded hover:scale-105 hover:shadow-lg transition-all">
-                        Tin mới
-                    </a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="sidebar-item block px-3 py-2 bg-white rounded hover:scale-105 hover:shadow-lg transition-all">
-                        Khuyến mãi
-                    </a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="sidebar-item block px-3 py-2 bg-white rounded hover:scale-105 hover:shadow-lg transition-all">
-                        Sự kiện
-                    </a>
-                </li>
-            </ul>
-        </aside>
+    <div class="responsive flex flex-col gap-4">
 
-        <nav class="w-full lg:hidden mt-4 overflow-auto">
+        <nav class="w-full mt-4 overflow-auto">
             <ul class="flex gap-2 sm:gap-4 text-textColor relative border-gray-300">
                 <li>
                     <a href="#" class="tab-item block p-2 text-[15px] sm:text-[17px] relative text-nowrap">Tin nổi
@@ -57,7 +28,7 @@
         </nav>
 
         <div class="news__container">
-            <div class="news__hottest">
+            <div class="news__hottest sm:grid-cols-2 grid-cols-1">
                 <div class="news__paragraph">
                     <div class="flex justify-between mb-3">
                         <span class="news__badge news__badge--hot">Tin Tức Hot</span>
@@ -74,7 +45,7 @@
                     src="https://i1-giaitri.vnecdn.net/2025/02/24/Image-ExtractWord-0-Out-4175-1740399713.png?w=500&h=300&q=100&dpr=2&fit=crop&s=r4PWmB1ECKK9UI0FHWb4hw"
                     alt="HUYỀN THOẠI PHƯƠNG ĐÔNG" />
             </div>
-            <div class="news__list">
+            <div class="news__list grid gap-[30px] md:grid-cols-2 lg:grid-cols-3 grid-cols-1">
                 @for ($i = 0; $i <= 8; $i++)
                     <div class="news__item">
                         <div class="news__thumbnail" title="HUYỀN THOẠI PHƯƠNG ĐÔNG">

@@ -14,10 +14,12 @@
             <div>
                 <h3 class="text-lg font-semibold mb-3">Hỗ trợ</h3>
                 <ul class="space-y-2 md:text-md sm:text-sm">
-                    <li><a href="#" class="hover:text-orange-400 transition">Câu hỏi thường gặp</a></li>
-                    <li><a href="#" class="hover:text-orange-400 transition">Hướng dẫn mua hàng</a></li>
-                    <li><a href="#" class="hover:text-orange-400 transition">Hướng dẫn chọn size</a></li>
-                    <li><a href="#" class="hover:text-orange-400 transition">Liên hệ hỗ trợ</a></li>
+                    <li><a href="/ho-tro" class="hover:text-orange-400 transition">Câu hỏi thường gặp</a></li>
+                    <li><a href="/ho-tro" class="hover:text-orange-400 transition">Hướng dẫn mua
+                            hàng</a></li>
+                    <li><a href="/ho-tro#huong-dan-chon-size" class="hover:text-orange-400 transition">Hướng dẫn chọn
+                            size</a></li>
+                    <li><a href="/lien-he" class="hover:text-orange-400 transition">Liên hệ hỗ trợ</a></li>
                 </ul>
             </div>
 
