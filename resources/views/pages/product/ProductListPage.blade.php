@@ -110,7 +110,8 @@
 
         {{-- Product --}}
         <div class="w-full">
-            <div class=" grid md:grid-rows-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-3 grid-cols-2 lg:gap-2 gap-4">
+            <div
+                class=" grid md:grid-rows-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-3 grid-cols-2 md:gap-x-2 md:gap-y-6 sm:gap-4 gap-x-2 gap-y-4">
                 @for ($i = 0; $i < 12; $i++)
                     <div
                         class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
@@ -121,32 +122,36 @@
                         </span>
 
                         <!-- Product image -->
-                        <div class="relative overflow-hidden cursor-pointer">
-                            <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                                class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
+                        <a href="/san-pham/slug">
+                            <div class="relative overflow-hidden cursor-pointer">
+                                <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
+                                    class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
 
-                            <!-- Add to cart button with tooltip -->
-                            <button
-                                class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                                <span class="material-symbols-rounded" style="font-weight: 600">
-                                    add_shopping_cart
-                                </span>
+                                <!-- Add to cart button with tooltip -->
+                                <button
+                                    class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
+                                    <span class="material-symbols-rounded" style="font-weight: 600">
+                                        add_shopping_cart
+                                    </span>
 
-                                <!-- Tooltip -->
-                                <span
-                                    class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
-                                    Thêm vào giỏ hàng
-                                </span>
-                            </button>
-                        </div>
+                                    <!-- Tooltip -->
+                                    <span
+                                        class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
+                                        Thêm vào giỏ hàng
+                                    </span>
+                                </button>
+                            </div>
+                        </a>
 
                         <!-- Product details -->
                         <div class="md:px-4 md:py-2 p-2">
-                            <p
-                                class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1
-												 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em]">
-                                Áo phông Ông già Noel tùy chỉnh dành cho nam – Áo phông Giáng sinh thời trang cho ngày lễ
-                            </p>
+                            <a href="/san-pham/slug">
+                                <p
+                                    class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em] hover:text-orangeColor">
+                                    Áo phông Ông già Noel tùy chỉnh dành cho nam – Áo phông Giáng sinh thời trang cho ngày
+                                    lễ
+                                </p>
+                            </a>
 
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-2">

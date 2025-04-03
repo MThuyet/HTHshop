@@ -28,10 +28,10 @@
             <div>
                 <h3 class="text-lg font-semibold mb-3 ">Chính sách</h3>
                 <ul class="space-y-2 md:text-md sm:text-sm">
-                    <li><a href="#" class="hover:text-orange-400 transition">Chính sách bảo mật</a></li>
-                    <li><a href="#" class="hover:text-orange-400 transition">Chính sách đổi trả</a></li>
-                    <li><a href="#" class="hover:text-orange-400 transition">Chính sách giao hàng</a></li>
-                    <li><a href="#" class="hover:text-orange-400 transition">Chính sách thanh toán</a></li>
+                    <li><a href="/chinh-sach" class="hover:text-orange-400 transition">Chính sách bảo mật</a></li>
+                    <li><a href="/chinh-sach" class="hover:text-orange-400 transition">Chính sách đổi trả</a></li>
+                    <li><a href="/chinh-sach" class="hover:text-orange-400 transition">Chính sách giao hàng</a></li>
+                    <li><a href="/chinh-sach" class="hover:text-orange-400 transition">Chính sách thanh toán</a></li>
                 </ul>
             </div>
 

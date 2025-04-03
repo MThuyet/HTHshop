@@ -29,7 +29,7 @@
             </span>
             <div class="md:text-[1.5vw] lg:text-[1.1vw] sm:text-[2vw] text-sm">
                 <p class="text-nowrap">Tư vấn hỗ trợ</p>
-                <p class="font-bold text-redColor hover:opacity-70">0332 393 031</p>
+                <p class="font-bold text-redColor hover:opacity-70 text-nowrap">0332 393 031</p>
             </div>
         </a>
     </div>
