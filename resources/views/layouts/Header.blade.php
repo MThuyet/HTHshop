@@ -2,7 +2,7 @@
     class="header lg:w-10/12 md:w-11/12 mx-auto flex flex-wrap md:flex-nowrap md:gap-6 gap-2 justify-between items-center md:p-0 p-3">
     {{-- Logo --}}
     <a href="/">
-        <div class="header-logo p-2 flex items-center cursor-pointer">
+        <div class="header-logo py-2 flex items-center cursor-pointer">
             <img class="md:w-20 w-[10vw]" src="{{ asset('images/logo-header-crop.png') }}" alt="Logo">
             <p class="text-nowrap sm:text-[1.5vw] lg:text-[1.1vw] text-[#0576a9] font-semibold">HTH Clothes</p>
         </div>
@@ -58,52 +58,63 @@
 </div>
 
 <nav class="category-nav w-full bg-[#f7f8fa] scrollbar-hide fixed bottom-0 left-0 right-0 z-50 md:relative">
-    <ul
-        class="flex items-center md:gap-5 sm:gap-8 gap-9 text-gray-800 md:py-2 mx-auto whitespace-nowrap w-max px-4 md:text-[17px] text-[15px]">
-        <li>
-            <a href="/"
-                class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
-                <span class="md:hidden">
-                    <span class="material-symbols-rounded" style="font-size: 32px;">home</span>
-                </span>
-                <span class="md:text-lg">Trang chủ</span>
-            </a>
-        </li>
-        <li>
-            <a href="/san-pham"
-                class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
-                <span class="md:hidden">
-                    <span class="material-symbols-rounded" style="font-size: 32px;">shopping_bag</span>
-                </span>
-                <span class="md:text-lg">Sản phẩm</span>
-            </a>
-        </li>
-        <li>
-            <a href="/tin-tuc"
-                class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
-                <span class="md:hidden">
-                    <span class="material-symbols-rounded" style="font-size: 32px;">article</span>
-                </span>
-                <span class="md:text-lg">Tin tức</span>
-            </a>
-        </li>
-        <li>
-            <a href="/ho-tro"
-                class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
-                <span class="md:hidden">
-                    <span class="material-symbols-rounded" style="font-size: 32px;">help</span>
-                </span>
-                <span class="md:text-lg">Hỗ trợ</span>
-            </a>
-        </li>
-        <li class="hidden sm:block">
-            <a href="/lien-he"
-                class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
-                <span class="md:hidden">
-                    <span class="material-symbols-rounded" style="font-size: 32px;">phone</span>
-                </span>
-                <span class="md:text-lg">Liên hệ</span>
-            </a>
-        </li>
-    </ul>
+    <div class="lg:w-10/12 md:w-11/12 mx-auto">
+        <ul
+            class="flex items-center mx-auto md:mx-0 md:gap-5 sm:gap-8 gap-9 text-gray-800 md:py-2 sm:px-0 px-4 whitespace-nowrap w-max text-[15px]">
+            <li>
+                <a href="/"
+                    class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
+                    <span class="md:hidden">
+                        <span class="material-symbols-rounded" style="font-size: 32px;">home</span>
+                    </span>
+                    <span class="">Trang chủ</span>
+                </a>
+            </li>
+            <li>
+                <a href="/san-pham"
+                    class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
+                    <span class="md:hidden">
+                        <span class="material-symbols-rounded" style="font-size: 32px;">shopping_bag</span>
+                    </span>
+                    <span class="">Sản phẩm</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tin-tuc"
+                    class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
+                    <span class="md:hidden">
+                        <span class="material-symbols-rounded" style="font-size: 32px;">article</span>
+                    </span>
+                    <span class="">Tin tức</span>
+                </a>
+            </li>
+            <li>
+                <a href="/ho-tro"
+                    class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
+                    <span class="md:hidden">
+                        <span class="material-symbols-rounded" style="font-size: 32px;">help</span>
+                    </span>
+                    <span class="">Hỗ trợ</span>
+                </a>
+            </li>
+            <li class="hidden sm:block">
+                <a href="/lien-he"
+                    class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
+                    <span class="md:hidden">
+                        <span class="material-symbols-rounded" style="font-size: 32px;">phone</span>
+                    </span>
+                    <span class="">Liên hệ</span>
+                </a>
+            </li>
+            <li class="hidden sm:block">
+                <a href="/chinh-sach"
+                    class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
+                    <span class="md:hidden">
+                        <span class="material-symbols-rounded" style="font-size: 32px;">phone</span>
+                    </span>
+                    <span class="">Chính sách</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </nav>

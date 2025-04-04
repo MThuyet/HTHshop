@@ -4,7 +4,7 @@
             <!-- Logo & Giới thiệu -->
             <div>
                 <h3 class="text-lg font-semibold mb-3">Giới thiệu</h3>
-                <img src="images/logo-header-crop.png" alt="HTH Clothes" class="w-28 mb-4">
+                <img src="{{ asset('images/logo-header-crop.png') }}" alt="HTH Clothes" class="w-28 mb-4">
                 <p class="md:text-md sm:text-sm">HTH Clothes - Thời trang phong cách và chất lượng. Nơi bạn tìm thấy
                     những bộ trang
                     phục đẹp nhất!</p>

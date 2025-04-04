@@ -3,10 +3,26 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".faq__question").forEach((question) => {
         question.addEventListener("click", function () {
             const item = this.parentElement;
+            const icon = this.querySelector(".material-symbols-rounded");
+
             document.querySelectorAll(".faq__item").forEach((faq) => {
-                if (faq !== item) faq.classList.remove("active");
+                const faqIcon = faq.querySelector(".material-symbols-rounded");
+                if (faq !== item) {
+                    faq.classList.remove("active");
+                    faq.querySelector(".faq__answer").classList.add("hidden");
+                    faqIcon.textContent = "expand_more"; // Đổi icon về mũi tên xuống
+                }
             });
+
+            // Toggle trạng thái mở/đóng
             item.classList.toggle("active");
+            const answer = item.querySelector(".faq__answer");
+            answer.classList.toggle("hidden");
+
+            // Đổi icon theo trạng thái
+            icon.textContent = answer.classList.contains("hidden")
+                ? "expand_more"
+                : "expand_less";
         });
     });
 
