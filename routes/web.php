@@ -45,3 +45,8 @@ Route::get('/ho-tro', function () {
 Route::get('/chinh-sach', function () {
 	return view('pages.PolicyPage');
 });
+
+// order
+Route::get('/dat-hang', function () {
+	return view('pages.OrderPage');
+});
