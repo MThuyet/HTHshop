@@ -29,3 +29,7 @@ Route::get('/san-pham', function () {
 Route::get('/ho-tro', function () {
 	return view('pages.HelpPage');
 });
+
+Route::get('/dat-hang', function () {
+	return view('pages.OrderPage');
+});
