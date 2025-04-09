@@ -199,7 +199,7 @@
         <aside class="flex-[2] px-[20px] pb-[20px] lg:py-[20px] bg-[#FAFAFA] border-l-[1px] border-l-[#e1e1e1]">
             <h2 class="hidden lg:block text-xl font-bold border-b pb-2 mb-4">Đơn hàng (<span
                     class="text-[var(--orange-color)]">6</span> sản phẩm)</h2>
-            <div class="hidden lg:block max-h-[500px] overflow-y-auto">
+            <div class="hidden lg:block max-h-[500px] overflow-y-auto" data-simplebar>
                 @for ($i = 0; $i < 6; $i++)
                     <div class="flex items-center border-b mr-[16px] mb-4 py-2">
                         <img src="{{ asset('images/product1.png') }}" alt="Áo phông cộc tay"

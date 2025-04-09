@@ -31,24 +31,40 @@
 
                 <!-- Danh mục -->
                 <fieldset>
-                    <legend class="text-orange-500 text-lg tracking-wide font-semibold mb-3">Danh mục</legend>
-                    <div class="space-y-4">
-                        <label class="flex items-center justify-between cursor-pointer">
-                            <span>Áo nam</span>
-                            <input type="checkbox" id="aoNamModal" class="w-5 h-5 accent-orange-500">
-                        </label>
-                        <label class="flex items-center justify-between cursor-pointer">
-                            <span>Áo nữ</span>
-                            <input type="checkbox" id="aoNuModal" class="w-5 h-5 accent-orange-500">
-                        </label>
-                        <label class="flex items-center justify-between cursor-pointer">
-                            <span>Áo cặp đôi</span>
-                            <input type="checkbox" id="aoCapModal" class="w-5 h-5 accent-orange-500">
-                        </label>
-                        <label class="flex items-center justify-between cursor-pointer">
-                            <span>Áo trẻ em</span>
-                            <input type="checkbox" id="aoTreEmModal" class="w-5 h-5 accent-orange-500">
-                        </label>
+                    <div class="mb-6">
+                        <legend class="text-orange-500 text-lg tracking-wide font-semibold mb-3">Thể loại</legend>
+                        <div class="space-y-4">
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <span>Áo cổ tròn</span>
+                                <input type="checkbox" id="aoNamModal" class="w-5 h-5 accent-orange-500">
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <span>Áo cổ trụ</span>
+                                <input type="checkbox" id="aoNuModal" class="w-5 h-5 accent-orange-500">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <legend class="text-orange-500 text-lg tracking-wide font-semibold mb-3">Danh mục</legend>
+                        <div class="space-y-4">
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <span>Áo nam</span>
+                                <input type="checkbox" id="aoNamModal" class="w-5 h-5 accent-orange-500">
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <span>Áo nữ</span>
+                                <input type="checkbox" id="aoNuModal" class="w-5 h-5 accent-orange-500">
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <span>Áo cặp đôi</span>
+                                <input type="checkbox" id="aoCapModal" class="w-5 h-5 accent-orange-500">
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <span>Áo trẻ em</span>
+                                <input type="checkbox" id="aoTreEmModal" class="w-5 h-5 accent-orange-500">
+                            </label>
+                        </div>
                     </div>
                 </fieldset>
 
@@ -74,27 +90,47 @@
 
             {{-- Danh mục --}}
             <fieldset class="w-[80%]">
-                <legend class="uppercase text-orangeColor text-[18px] tracking-widest mb-2 font-medium">Danh mục</legend>
-                <div class="ml-4 space-y-3">
-                    <div class="flex items-center justify-between">
-                        <label class="cursor-pointer" for="aoNam">Áo nam</label>
-                        <input type="checkbox" name="aoNam" id="aoNam"
-                            class="w-5 h-5 cursor-pointer accent-orangeColor">
+                <div class="mb-6">
+                    <legend class="uppercase text-orangeColor text-[18px] tracking-widest mb-2 font-medium">Thể loại
+                    </legend>
+                    <div class="ml-4 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <label class="cursor-pointer" for="aoNam">Áo cổ tròn</label>
+                            <input type="checkbox" name="aoNam" id="aoNam"
+                                class="w-5 h-5 cursor-pointer accent-orangeColor">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label class="cursor-pointer" for="aoNu">Áo cổ trụ</label>
+                            <input type="checkbox" name="aoNu" id="aoNu"
+                                class="w-5 h-5 cursor-pointer accent-orangeColor">
+                        </div>
                     </div>
-                    <div class="flex items-center justify-between">
-                        <label class="cursor-pointer" for="aoNu">Áo nữ</label>
-                        <input type="checkbox" name="aoNu" id="aoNu"
-                            class="w-5 h-5 cursor-pointer accent-orangeColor">
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <label class="cursor-pointer" for="aoCap">Áo cặp đôi</label>
-                        <input type="checkbox" name="aoCap" id="aoCap"
-                            class="w-5 h-5 cursor-pointer accent-orangeColor">
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <label class="cursor-pointer" for="aoTreEm">Áo trẻ em</label>
-                        <input type="checkbox" name="aoTreEm" id="aoTreEm"
-                            class="w-5 h-5 cursor-pointer accent-orangeColor">
+                </div>
+
+                <div>
+                    <legend class="uppercase text-orangeColor text-[18px] tracking-widest mb-2 font-medium">Danh mục
+                    </legend>
+                    <div class="ml-4 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <label class="cursor-pointer" for="aoNam">Áo nam</label>
+                            <input type="checkbox" name="aoNam" id="aoNam"
+                                class="w-5 h-5 cursor-pointer accent-orangeColor">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label class="cursor-pointer" for="aoNu">Áo nữ</label>
+                            <input type="checkbox" name="aoNu" id="aoNu"
+                                class="w-5 h-5 cursor-pointer accent-orangeColor">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label class="cursor-pointer" for="aoCap">Áo cặp đôi</label>
+                            <input type="checkbox" name="aoCap" id="aoCap"
+                                class="w-5 h-5 cursor-pointer accent-orangeColor">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label class="cursor-pointer" for="aoTreEm">Áo trẻ em</label>
+                            <input type="checkbox" name="aoTreEm" id="aoTreEm"
+                                class="w-5 h-5 cursor-pointer accent-orangeColor">
+                        </div>
                     </div>
                 </div>
             </fieldset>

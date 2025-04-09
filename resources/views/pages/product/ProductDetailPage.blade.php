@@ -143,34 +143,15 @@
                     </div>
                 </div>
 
-                {{-- Tùy chỉnh ảnh --}}
-                <div class=" flex items-center gap-2">
-                    <label for="customImage" class="hover:text-orangeColor cursor-pointer">Tôi muốn tùy chỉnh
-                        ảnh</label>
-                    <input id="customImage" type="checkbox" class="w-5 h-5 rounded border-gray-400 accent-orangeColor">
-                </div>
-
-                {{-- Ô upload ảnh --}}
-                <div id="uploadContainer" class="hidden">
-                    <label for="uploadImage"
-                        class="flex flex-col items-center justify-center w-36 h-36 border-2 border-dashed border-orangeColor rounded-md cursor-pointer hover:bg-orange-50 transition overflow-hidden">
-                        <img id="previewImage" class="hidden w-full h-full object-cover rounded-md" alt="Preview Image">
-                        <div id="uploadPlaceholder" class="flex flex-col items-center">
-                            <span class="material-symbols-rounded text-orangeColor mb-2"
-                                style="font-size: 48px">upload</span>
-                            <span class="text-gray-600 text-sm text-center">Nhấn để tải ảnh lên</span>
-                        </div>
-                        <input id="uploadImage" type="file" class="hidden" accept="image/*">
-                    </label>
-                </div>
-
                 {{-- Button --}}
                 <div class="flex flex-row md:items-center md:gap-4 gap-3 w-full">
-                    <button
-                        class="flex justify-center items-center w-fit md:w-auto lg:px-6 lg:py-3 px-4 py-3 border-2 border-orangeColor text-white bg-orangeColor rounded-lg hover:bg-white hover:text-orangeColor transition-all duration-300 relative overflow-hidden">
-                        <span class="material-symbols-rounded">add_shopping_cart</span>
-                        <span class="text-nowrap">Thêm vào giỏ hàng</span>
-                    </button>
+                    <a href="{{ route('cart.index') }}">
+                        <button
+                            class="flex justify-center items-center w-fit md:w-auto lg:px-6 lg:py-3 px-4 py-3 border-2 border-orangeColor text-white bg-orangeColor rounded-lg hover:bg-white hover:text-orangeColor transition-all duration-300 relative overflow-hidden">
+                            <span class="material-symbols-rounded">add_shopping_cart</span>
+                            <span class="text-nowrap">Thêm vào giỏ hàng</span>
+                        </button>
+                    </a>
 
                     <button
                         class="flex justify-center items-center w-fit md:w-auto lg:px-6 lg:py-3 px-4 py-3 border-2 border-green-500 text-white bg-green-500 rounded-lg hover:bg-white hover:text-green-500 transition-all duration-300 relative overflow-hidden">
