@@ -225,7 +225,8 @@
             </div>
 
             <div class="mt-6 flex flex-col-reverse md:flex-row text-center gap-3 justify-between">
-                <a href="#" class="text-[var(--orange-color)] hover:text-[var(--red-color)]">◀ Quay về giỏ
+                <a href="{{ route('cart') }}" class="text-[var(--orange-color)] hover:text-[var(--red-color)]">◀ Quay
+                    về giỏ
                     hàng</a>
                 <button type="submit" name="SubmitOrder"
                     class="bg-[var(--orange-color)] font-bold text-white px-6 py-2 rounded-lg hover:bg-[var(--red-color)]">

@@ -1,5 +1,5 @@
-@extends('layouts.master')
-@section('title', 'Chính sách')
+@extends('layouts.client.master')
+@section('title', 'Slug')
 
 @section('content')
     <div class="responsive">

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.client.Master')
 @vite(['resources/css/Login.css', 'resources/js/Login.js'])
 
 @section('title', 'Đăng Nhập')
@@ -7,8 +7,15 @@
     <div class="login__container mt-6">
         <div class="login__wrapper-left">
             <form action="" method="POST">
-                <h2>Đăng nhập tài khoản</h2>
-                <div class="errors__container"></div>
+                <h2 class="sub-title">Đăng nhập tài khoản</h2>
+                <div class="errors__container">
+                    {{-- Hiển thị lỗi từ session --}}
+                    @if (session('error'))
+                        <div class="alert alert-danger" style="color: red; font-weight: bold; margin-bottom: 1rem;">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                </div>
 
                 <div class="mb-3">
                     <label for="email">Email <span style="color: var(--red-color)">*</span></label>
@@ -24,20 +31,9 @@
                     <small class="error-message"></small>
                 </div>
 
-                <input class="mt-4" type="submit" value="ĐĂNG NHẬP" name="btnSubmitLogin">
+                <input class="mt-8 cursor-pointer" type="submit" value="ĐĂNG NHẬP" name="btnSubmitLogin">
                 @csrf
             </form>
-            <p class="login-with-others"><span>Hoặc đăng nhập bằng</span></p>
-            <div class="login__wrapper-socials">
-                <a href=""><img src="https://bizweb.dktcdn.net/assets/admin/images/login/fb-btn.svg"
-                        alt="Facebook"></a>
-                <a href=""><img src="https://bizweb.dktcdn.net/assets/admin/images/login/gp-btn.svg"
-                        alt="Google"></a>
-            </div>
-            <p class="text-center mb-2">
-                Bạn quên mật khẩu bấm
-                <a href="" style="color: #007bff; text-decoration: underline;">vào đây</a>
-            </p>
         </div>
         <div class="login__wrapper-right">
             <h2>Quyền lợi thành viên</h2>
@@ -48,7 +44,6 @@
                 <li>Tích điểm đổi quà</li>
                 <li>Được giảm giá cho lần mua tiếp theo lên đến 10%</li>
             </ul>
-            <a href="{{ route('RegisterRoute') }}" class="btn-register">Đăng ký</a>
         </div>
     </div>
 @endsection

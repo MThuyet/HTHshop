@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.client.master')
 @section('title', 'Danh sách sản phẩm')
 
 @section('content')
@@ -158,7 +158,7 @@
                         </span>
 
                         <!-- Product image -->
-                        <a href="/san-pham/slug">
+                        <a href="{{ route('product.detail') }}">
                             <div class="relative overflow-hidden cursor-pointer">
                                 <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
                                     class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
@@ -181,7 +181,7 @@
 
                         <!-- Product details -->
                         <div class="md:px-4 md:py-2 p-2">
-                            <a href="/san-pham/slug">
+                            <a href="{{ route('product.detail') }}">
                                 <p
                                     class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em] hover:text-orangeColor">
                                     Áo phông Ông già Noel tùy chỉnh dành cho nam – Áo phông Giáng sinh thời trang cho ngày

@@ -36,28 +36,84 @@
 
     {{-- Action --}}
     <div
-        class="action flex items-center lg:gap-4 md:gap-3 gap-4 ml-auto lg:text-[1.1vw] md:text-[1.5vw] sm:text-[2vw] text-[14px]">
-        <div class="relative flex flex-col justify-between items-center cursor-pointer">
-            <span class="material-symbols-rounded" style="font-size: 28px">
-                shopping_bag
-            </span>
-            <span>Giỏ hàng</span>
-            <span
-                class="absolute -top-2 -right-0 bg-redColor text-white w-5 h-5 flex items-center justify-center rounded-full">0</span>
-        </div>
+        class="action flex items-center lg:gap-4 md:gap-3 gap-4 ml-auto lg:text-[1.1vw] md:text-[1.5vw] sm:text-[2vw] text-[14px] relative z-50">
+        {{-- Giỏ hàng --}}
+        <a href="{{ route('cart') }}">
+            <div class="relative flex flex-col justify-between items-center cursor-pointer">
+                <span class="material-symbols-rounded" style="font-size: 28px">
+                    shopping_bag
+                </span>
+                <span>Giỏ hàng</span>
+                <span
+                    class="absolute -top-2 -right-0 bg-redColor text-white w-5 h-5 flex items-center justify-center rounded-full">0</span>
+            </div>
+        </a>
 
-        <a href="{{ route('LoginRoute') }}">
-            <div class="flex flex-col items-center justify-between cursor-pointer">
+        {{-- Yêu thích --}}
+        <a href="{{ route('favorite') }}">
+            <div class="relative flex flex-col justify-between items-center cursor-pointer">
+                <span class="material-symbols-rounded" style="font-size: 28px">
+                    favorite
+                </span>
+                <span>Yêu thích</span>
+                <span
+                    class="absolute -top-2 -right-0 bg-redColor text-white w-5 h-5 flex items-center justify-center rounded-full">0</span>
+            </div>
+        </a>
+
+        {{-- Tài khoản --}}
+        {{-- <div class="relative">
+            <button id="account-btn"
+                class="flex flex-col items-center justify-between cursor-pointer focus:outline-none">
                 <span class="material-symbols-rounded" style="font-size: 28px">
                     account_circle
                 </span>
-                <span">Đăng nhập</span>
-            </div>
-        </a>
+
+                @if (Auth::check())
+                    <span>Tài khoản</span>
+                @else
+                    <a href="{{ route('login') }}">Đăng nhập</a>
+                @endif
+
+
+            </button>
+
+            {{-- Nếu đã đăng nhập, hiển thị dropdown --}}
+        {{-- @if (Auth::check())
+                <div id="account-dropdown"
+                    class="absolute z-[999] right-0 mt-2 w-44 bg-white border border-gray-200 rounded-xl shadow-lg hidden overflow-hidden">
+
+                    {{-- Thông tin --}}
+        {{-- <a href="#"
+                        class="flex items-center gap-2 text-nowrap px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150">
+                        <span class="material-symbols-rounded text-textColor">person</span>
+                        Thông tin
+                    </a> --}}
+
+        {{-- Đơn hàng --}}
+        {{-- <a href="#"
+                        class="flex items-center gap-2 text-nowrap px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-all duration-150">
+                        <span class="material-symbols-rounded text-textColor">receipt_long</span>
+                        Đơn hàng
+                    </a> --}}
+
+        {{-- Divider --}}
+        {{-- <div class="h-px bg-gray-200"></div> --}}
+
+        {{-- Đăng xuất --}}
+        {{-- <a href="{{ route('logout') }}"
+                        class="flex items-center gap-2 text-nowrap px-3 py-2 text-sm text-red-600 hover:bg-red-50 transition-all duration-150">
+                        <span class="material-symbols-rounded text-red-500">logout</span>
+                        Đăng xuất
+                    </a>
+                </div> --}}
+        {{-- @endif  --}}
+        {{-- </div>  --}}
     </div>
+
 </div>
 
-<nav class="category-nav w-full bg-[#f7f8fa] scrollbar-hide fixed bottom-0 left-0 right-0 z-50 md:relative">
+<nav class="category-nav w-full bg-[#f7f8fa] scrollbar-hide fixed bottom-0 left-0 right-0 z-50 md:static">
     <div class="lg:w-10/12 md:w-11/12 mx-auto">
         <ul
             class="flex items-center mx-auto md:mx-0 md:gap-5 sm:gap-8 gap-9 text-gray-800 md:py-2 sm:px-0 px-4 whitespace-nowrap w-max text-[15px]">

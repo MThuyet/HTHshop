@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.client.master')
 @section('title', 'Câu hỏi thường gặp')
 @vite(['resources/css/HelpPage.css', 'resources/js/Help.js'])
 

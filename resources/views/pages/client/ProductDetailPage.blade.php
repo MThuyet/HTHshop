@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.client.master')
 @section('title', 'Slug của sản phẩm')
 
 @vite('resources/js/ProductDetail.js')
@@ -145,7 +145,7 @@
 
                 {{-- Button --}}
                 <div class="flex flex-row md:items-center md:gap-4 gap-3 w-full">
-                    <a href="{{ route('cart.index') }}">
+                    <a href="{{ route('cart') }}">
                         <button
                             class="flex justify-center items-center w-fit md:w-auto lg:px-6 lg:py-3 px-4 py-3 border-2 border-orangeColor text-white bg-orangeColor rounded-lg hover:bg-white hover:text-orangeColor transition-all duration-300 relative overflow-hidden">
                             <span class="material-symbols-rounded">add_shopping_cart</span>
@@ -153,11 +153,13 @@
                         </button>
                     </a>
 
-                    <button
-                        class="flex justify-center items-center w-fit md:w-auto lg:px-6 lg:py-3 px-4 py-3 border-2 border-green-500 text-white bg-green-500 rounded-lg hover:bg-white hover:text-green-500 transition-all duration-300 relative overflow-hidden">
-                        <span class="material-symbols-rounded">shopping_cart_checkout</span>
-                        <span class="text-nowrap">Mua ngay</span>
-                    </button>
+                    <a href="{{ route('order') }}">
+                        <button
+                            class="flex justify-center items-center w-fit md:w-auto lg:px-6 lg:py-3 px-4 py-3 border-2 border-green-500 text-white bg-green-500 rounded-lg hover:bg-white hover:text-green-500 transition-all duration-300 relative overflow-hidden">
+                            <span class="material-symbols-rounded">shopping_cart_checkout</span>
+                            <span class="text-nowrap">Mua ngay</span>
+                        </button>
+                    </a>
                 </div>
 
             </div>

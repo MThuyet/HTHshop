@@ -1,4 +1,4 @@
-@extends('layouts.Master')
+@extends('layouts.client.Master')
 @section('title')
     Trang chủ
 @endsection
@@ -6,6 +6,9 @@
 @vite(['resources/js/Home.js'])
 
 @section('content')
+    @if (session('success'))
+        <div>{{ session('success') }}</div>
+    @endif
     {{-- Banner --}}
     <div class="banner">
         <img class="w-full object-cover" src="{{ asset('images/banner-home.webp') }}" alt="">

@@ -33,18 +33,16 @@
     </a>
 </div>
 
-
-
 <body data-simplebar class="h-screen">
     <div id="app">
         <header>
-            @include('layouts.Header')
+            @include('layouts.client.Header')
         </header>
         <main>
             @yield('content')
         </main>
         <footer>
-            @include('layouts.Footer')
+            @include('layouts.client.Footer')
         </footer>
     </div>
 </body>

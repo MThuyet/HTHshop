@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.client.master')
 @section('title', 'Liên Hệ')
 @vite(['resources/js/Contact.js'])
 
