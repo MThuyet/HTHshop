@@ -13,20 +13,21 @@ return new class extends Migration
 	{
 		Schema::create('news', function (Blueprint $table) {
 			$table->id();
-			$table->unsignedBigInteger('news_category_id')->nullable();
-			$table->unsignedBigInteger('user_id')->nullable();
-			$table->string('title');
+			$table->string('title')->unique();
 			$table->string('slug')->unique();
-			$table->string('excerpt');
 			$table->longText('content');
 			$table->string('thumbnail')->nullable();
 			$table->boolean('active')->default(1);
 			$table->timestamps();
 			$table->softDeletes();
 
-			// foreign key
-			$table->foreign('news_category_id')->references('id')->on('news_category')->onDelete('set null');
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+			$table->unsignedBigInteger('news_category_id');
+			$table->unsignedBigInteger('user_id_created')->nullable();
+			$table->unsignedBigInteger('user_id_updated')->nullable();
+
+			$table->foreign('news_category_id')->references('id')->on('news_categories')->onDelete('cascade');
+			$table->foreign('user_id_created')->references('id')->on('users')->onDelete('set null');
+			$table->foreign('user_id_updated')->references('id')->on('users')->onDelete('set null');
 		});
 	}
 
@@ -35,6 +36,6 @@ return new class extends Migration
 	 */
 	public function down(): void
 	{
-		Schema::dropIfExists('news');
+		Schema::dropIfExists('news_');
 	}
 };

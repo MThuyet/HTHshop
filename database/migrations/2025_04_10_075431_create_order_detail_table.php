@@ -14,16 +14,13 @@ return new class extends Migration
 		Schema::create('order_detail', function (Blueprint $table) {
 			$table->id();
 			$table->unsignedBigInteger('order_id');
-			$table->unsignedBigInteger('product_id');
+			$table->unsignedBigInteger('product_variant_id')->nullable();
 			$table->integer('quantity');
-			$table->enum('color', ['BLACK', 'GRAY', 'WHITE']);
-			$table->enum('size', ['1', '2', '3', '4', '5', '6', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']);
 			$table->timestamps();
 			$table->softDeletes();
 
-			// foreign key
-			$table->foreign('order_id')->references('id')->on('orders');
-			$table->foreign('product_id')->references('id')->on('products');
+			$table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+			$table->foreign('product_variant_id')->references('id')->on('product_variants')->onDelete('set null');
 		});
 	}
 

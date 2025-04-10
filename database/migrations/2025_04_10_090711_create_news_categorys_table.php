@@ -11,10 +11,11 @@ return new class extends Migration
 	 */
 	public function up(): void
 	{
-		Schema::create('news_category', function (Blueprint $table) {
+		Schema::create('news_categories', function (Blueprint $table) {
 			$table->id();
-			$table->string('name')->unique();
-			$table->string('slug')->unique();
+			$table->string('name', 100)->unique();
+			$table->string('slug', 120)->unique();
+			$table->boolean('active')->default(1);
 			$table->string('description')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
@@ -26,6 +27,6 @@ return new class extends Migration
 	 */
 	public function down(): void
 	{
-		Schema::dropIfExists('news_category');
+		Schema::dropIfExists('news_categorys');
 	}
 };

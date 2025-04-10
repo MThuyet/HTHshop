@@ -11,19 +11,14 @@ return new class extends Migration
 	 */
 	public function up(): void
 	{
-		Schema::create('products', function (Blueprint $table) {
+		Schema::create('product_categories', function (Blueprint $table) {
 			$table->id();
-			$table->unsignedBigInteger('product_category_id')->nullable();
-			$table->string('name')->unique();
-			$table->string('slug')->unique();
-			$table->enum('type', ['CREW_NECK', 'PLACKET_COLLAR']);
+			$table->string('name', 100)->unique();
+			$table->string('slug', 120)->unique();
 			$table->string('description')->nullable();
 			$table->boolean('active')->default(1);
 			$table->timestamps();
 			$table->softDeletes();
-
-			// Foreign keys
-			$table->foreign('product_category_id')->references('id')->on('product_category')->onDelete('set null');
 		});
 	}
 
@@ -32,6 +27,6 @@ return new class extends Migration
 	 */
 	public function down(): void
 	{
-		Schema::dropIfExists('products');
+		Schema::dropIfExists('product_categories');
 	}
 };
