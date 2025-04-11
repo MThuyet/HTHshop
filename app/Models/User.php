@@ -24,4 +24,15 @@ class User extends Authenticatable
 	protected $hidden = [
 		'password',
 	];
+
+	// Quan hệ với bảng news
+	public function newsCreated()
+	{
+		return $this->hasMany(News::class, 'user_id_created');
+	}
+
+	public function newsUpdated()
+	{
+		return $this->hasMany(News::class, 'user_id_updated');
+	}
 }

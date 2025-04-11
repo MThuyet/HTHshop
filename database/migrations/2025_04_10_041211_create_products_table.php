@@ -14,6 +14,7 @@ return new class extends Migration
 		Schema::create('products', function (Blueprint $table) {
 			$table->id();
 			$table->unsignedBigInteger('product_category_id')->nullable();
+			$table->enum('type', ['ROUND_NECK', 'COLLAR_NECK']);
 			$table->string('name', 100)->unique();
 			$table->string('slug', 120)->unique();
 			$table->text('description')->nullable();
@@ -22,6 +23,7 @@ return new class extends Migration
 			$table->integer('bought')->default(0);
 			$table->integer('view')->default(0);
 			$table->integer('favorite')->default(0);
+			$table->boolean('has_customization')->default(0);
 			$table->timestamps();
 			$table->softDeletes();
 
