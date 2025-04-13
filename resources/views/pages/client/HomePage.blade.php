@@ -3,8 +3,6 @@
     Trang chủ
 @endsection
 
-@vite(['resources/js/Home.js'])
-
 @section('content')
     @if (session('success'))
         <div>{{ session('success') }}</div>
@@ -55,238 +53,71 @@
     <div class="new-product responsive">
         <h2 class="sub-title">Mẫu mới về</h2>
 
-        <div class="slide-up-effect grid md:grid-rows-1 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
-            <div
-                class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
-                <!-- Discount badge -->
-                <span
-                    class="absolute top-2 left-2 bg-orangeColor text-white text-xs font-semibold px-3 py-1.5 rounded-full z-10">
-                    Giảm 35%
-                </span>
+        <div
+            class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-2 gap-y-4 sm:gap-4 md:gap-x-3 lg:gap-x-5">
+            @for ($i = 0; $i < 12; $i++)
+                <div
+                    class="slide-up-effect relative bg-white shadow-md rounded-md overflow-hidden transition-all duration-300 group hover:scale-[1.02] hover:-translate-y-1 hover:shadow-lg">
+                    <!-- Discount badge -->
+                    <span
+                        class="absolute top-2 left-2 bg-redColor text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md z-10 animate-pulse">
+                        -35%
+                    </span>
 
-                <!-- Product image -->
-                <div class="relative overflow-hidden cursor-pointer">
-                    <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                        class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
+                    <!-- Product image -->
+                    <a href="{{ route('product.detail') }}">
+                        <div class="relative overflow-hidden cursor-pointer">
+                            <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
+                                class="w-full h-60 object-cover rounded-t-md">
 
-                    <!-- Add to cart button with tooltip -->
-                    <button
-                        class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
-										rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <span class="material-symbols-rounded" style="font-weight: 600">
-                            add_shopping_cart
-                        </span>
+                            <!-- Wishlist button with tooltip -->
+                            <button
+                                class="wishlist-btn absolute top-1 right-1 w-10 h-10 bg-white text-orangeColor flex items-center justify-center rounded-full shadow-md group/button">
+                                <span class="material-symbols-rounded icon-heart">
+                                    favorite
+                                </span>
 
-                        <!-- Tooltip -->
-                        <span
-                            class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap
-												opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
-                            Thêm vào giỏ hàng
-                        </span>
-                    </button>
-                </div>
+                                <!-- Tooltip -->
+                                <span
+                                    class="tooltip-text absolute right-full mr-1 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 delay-100 md:group-hover/button:opacity-100 md:group-hover/button:translate-x-0">
+                                    Yêu thích
+                                </span>
+                            </button>
 
-                <!-- Product details -->
-                <div class="md:px-4 md:py-2 p-2">
-                    <p
-                        class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1
-       												line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em]">
-                        Áo thun in hình
-                    </p>
+                            <!-- Add to cart button with tooltip -->
+                            <button
+                                class="absolute bottom-1 right-1 w-10 h-10 bg-white text-orangeColor flex items-center justify-center rounded-full transition-all shadow-md group/button">
+                                <span class="material-symbols-rounded">
+                                    add_shopping_cart
+                                </span>
 
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <p class="text-orangeColor lg:text-lg md:text-md sm:text-sm text-[14px] font-[550]">149.000đ</p>
-                            <p class="text-[#888888] line-through text-[10px] sm:text-[12px]">220.000đ</p>
+                                <!-- Tooltip -->
+                                <span
+                                    class="absolute right-full mr-1 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 md:group-hover/button:opacity-100 md:group-hover/button:translate-x-0">
+                                    Thêm vào giỏ hàng
+                                </span>
+                            </button>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </a>
 
-            <div
-                class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
-                <!-- Discount badge -->
-                <span
-                    class="absolute top-2 left-2 bg-orangeColor text-white text-xs font-semibold px-3 py-1.5 rounded-full z-10">
-                    Giảm 35%
-                </span>
-
-                <!-- Product image -->
-                <div class="relative overflow-hidden cursor-pointer">
-                    <img src="{{ asset('images/product2.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                        class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
-
-                    <!-- Add to cart button with tooltip -->
-                    <button
-                        class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
-										rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <span class="material-symbols-rounded" style="font-weight: 600">
-                            add_shopping_cart
-                        </span>
-
-                        <!-- Tooltip -->
-                        <span
-                            class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap
-												opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
-                            Thêm vào giỏ hàng
-                        </span>
-                    </button>
-                </div>
-
-                <!-- Product details -->
-                <div class="md:px-4 md:py-2 p-2">
-                    <p
-                        class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1
-       								line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em]">
-                        Áo Polo nam khóa cổ phối sọc caro
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <p class="text-orangeColor lg:text-lg md:text-md sm:text-sm text-[14px] font-[550]">149.000đ</p>
-                            <p class="text-[#888888] line-through text-[10px] sm:text-[12px]">220.000đ</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div
-                class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
-                <!-- Discount badge -->
-                <span
-                    class="absolute top-2 left-2 bg-orangeColor text-white text-xs font-semibold px-3 py-1.5 rounded-full z-10">
-                    Giảm 35%
-                </span>
-
-                <!-- Product image -->
-                <div class="relative overflow-hidden cursor-pointer">
-                    <img src="{{ asset('images/product3.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                        class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
-
-                    <!-- Add to cart button with tooltip -->
-                    <button
-                        class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
-										rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <span class="material-symbols-rounded" style="font-weight: 600">
-                            add_shopping_cart
-                        </span>
-
-                        <!-- Tooltip -->
-                        <span
-                            class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap
-												opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
-                            Thêm vào giỏ hàng
-                        </span>
-                    </button>
-                </div>
-
-                <!-- Product details -->
-                <div class="md:px-4 md:py-2 p-2">
-                    <p
-                        class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1
-       													line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em]">
-                        Áo Polo nam phối khóa cổ basic
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <p class="text-orangeColor lg:text-lg md:text-md sm:text-sm text-[14px] font-[550]">149.000đ</p>
-                            <p class="text-[#888888] line-through text-[10px] sm:text-[12px]">220.000đ</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div
-                class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
-                <!-- Discount badge -->
-                <span
-                    class="absolute top-2 left-2 bg-orangeColor text-white text-xs font-semibold px-3 py-1.5 rounded-full z-10">
-                    Giảm 35%
-                </span>
-
-                <!-- Product image -->
-                <div class="relative overflow-hidden cursor-pointer">
-                    <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                        class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
-
-                    <!-- Add to cart button with tooltip -->
-                    <button
-                        class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
-										rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <span class="material-symbols-rounded" style="font-weight: 600">
-                            add_shopping_cart
-                        </span>
-
-                        <!-- Tooltip -->
-                        <span
-                            class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap
-												opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
-                            Thêm vào giỏ hàng
-                        </span>
-                    </button>
-                </div>
-
-                <!-- Product details -->
-                <div class="md:px-4 md:py-2 p-2">
-                    <p
-                        class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1
-       						line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em]">
-                        Áo thun in hình
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <p class="text-orangeColor lg:text-lg md:text-md sm:text-sm text-[14px] font-[550]">149.000đ</p>
-                            <p class="text-[#888888] line-through text-[10px] sm:text-[12px]">220.000đ</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div
-                class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
-                <!-- Discount badge -->
-                <span
-                    class="absolute top-2 left-2 bg-orangeColor text-white text-xs font-semibold px-3 py-1.5 rounded-full z-10">
-                    Giảm 35%
-                </span>
-
-                <!-- Product image -->
-                <div class="relative overflow-hidden cursor-pointer">
-                    <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                        class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
-
-                    <!-- Add to cart button with tooltip -->
-                    <button
-                        class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
-										rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <span class="material-symbols-rounded" style="font-weight: 600">
-                            add_shopping_cart
-                        </span>
-
-                        <!-- Tooltip -->
-                        <span
-                            class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap
-												opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
-                            Thêm vào giỏ hàng
-                        </span>
-                    </button>
-                </div>
-
-                <!-- Product details -->
-                <div class="md:px-4 md:py-2 p-2">
-                    <p
-                        class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1
-      								 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em]">
-                        Áo thun in hình
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <p class="text-orangeColor lg:text-lg md:text-md sm:text-sm text-[14px] font-[550]">149.000đ
+                    <!-- Product details -->
+                    <div class="md:px-4 md:py-2 p-2">
+                        <a href="{{ route('product.detail') }}">
+                            <p
+                                class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em] hover:text-orangeColor">
+                                Áo phông Ông già Noel tùy chỉnh dành cho nam – Áo phông Giáng sinh thời trang cho ngày lễ
                             </p>
-                            <p class="text-[#888888] line-through text-[10px] sm:text-[12px]">220.000đ</p>
+                        </a>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <p class="text-orangeColor font-semibold text-[14px]">149.000đ</p>
+                                <p class="text-gray-400 line-through text-[12px]">220.000đ</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endfor
         </div>
     </div>
 
@@ -308,242 +139,71 @@
     <div class="sale-product responsive mt-8">
         <h2 class="sub-title">Sale đồng giá</h2>
 
-        <div class="slide-up-effect grid md:grid-rows-1 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
-            <div
-                class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
-                <!-- Discount badge -->
-                <span
-                    class="absolute top-2 left-2 bg-orangeColor text-white text-xs font-semibold px-3 py-1.5 rounded-full z-10">
-                    Giảm 35%
-                </span>
+        <div
+            class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-2 gap-y-4 sm:gap-4 md:gap-x-3 lg:gap-x-5">
+            @for ($i = 0; $i < 12; $i++)
+                <div
+                    class="slide-up-effect relative bg-white shadow-md rounded-md overflow-hidden transition-all duration-300 group hover:scale-[1.02] hover:-translate-y-1 hover:shadow-lg">
+                    <!-- Discount badge -->
+                    <span
+                        class="absolute top-2 left-2 bg-redColor text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md z-10 animate-pulse">
+                        -35%
+                    </span>
 
-                <!-- Product image -->
-                <div class="relative overflow-hidden cursor-pointer">
-                    <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                        class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
+                    <!-- Product image -->
+                    <a href="{{ route('product.detail') }}">
+                        <div class="relative overflow-hidden cursor-pointer">
+                            <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
+                                class="w-full h-60 object-cover rounded-t-md">
 
-                    <!-- Add to cart button with tooltip -->
-                    <button
-                        class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
-									rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <span class="material-symbols-rounded" style="font-weight: 600">
-                            add_shopping_cart
-                        </span>
+                            <!-- Wishlist button with tooltip -->
+                            <button
+                                class="wishlist-btn absolute top-1 right-1 w-10 h-10 bg-white text-orangeColor flex items-center justify-center rounded-full shadow-md group/button">
+                                <span class="material-symbols-rounded icon-heart">
+                                    favorite
+                                </span>
 
-                        <!-- Tooltip -->
-                        <span
-                            class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap
-											opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
-                            Thêm vào giỏ hàng
-                        </span>
-                    </button>
-                </div>
+                                <!-- Tooltip -->
+                                <span
+                                    class="tooltip-text absolute right-full mr-1 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 delay-100 md:group-hover/button:opacity-100 md:group-hover/button:translate-x-0">
+                                    Yêu thích
+                                </span>
+                            </button>
 
-                <!-- Product details -->
-                <div class="md:px-4 md:py-2 p-2">
-                    <p
-                        class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1
-														 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em]">
-                        Áo thun in hình
-                    </p>
+                            <!-- Add to cart button with tooltip -->
+                            <button
+                                class="absolute bottom-1 right-1 w-10 h-10 bg-white text-orangeColor flex items-center justify-center rounded-full transition-all shadow-md group/button">
+                                <span class="material-symbols-rounded">
+                                    add_shopping_cart
+                                </span>
 
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <p class="text-orangeColor lg:text-lg md:text-md sm:text-sm text-[14px] font-[550]">149.000đ
+                                <!-- Tooltip -->
+                                <span
+                                    class="absolute right-full mr-1 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 md:group-hover/button:opacity-100 md:group-hover/button:translate-x-0">
+                                    Thêm vào giỏ hàng
+                                </span>
+                            </button>
+                        </div>
+                    </a>
+
+                    <!-- Product details -->
+                    <div class="md:px-4 md:py-2 p-2">
+                        <a href="{{ route('product.detail') }}">
+                            <p
+                                class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em] hover:text-orangeColor">
+                                Áo phông Ông già Noel tùy chỉnh dành cho nam – Áo phông Giáng sinh thời trang cho ngày lễ
                             </p>
-                            <p class="text-[#888888] line-through text-[10px] sm:text-[12px]">220.000đ</p>
+                        </a>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <p class="text-orangeColor font-semibold text-[14px]">149.000đ</p>
+                                <p class="text-gray-400 line-through text-[12px]">220.000đ</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div
-                class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
-                <!-- Discount badge -->
-                <span
-                    class="absolute top-2 left-2 bg-orangeColor text-white text-xs font-semibold px-3 py-1.5 rounded-full z-10">
-                    Giảm 35%
-                </span>
-
-                <!-- Product image -->
-                <div class="relative overflow-hidden cursor-pointer">
-                    <img src="{{ asset('images/product2.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                        class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
-
-                    <!-- Add to cart button with tooltip -->
-                    <button
-                        class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
-									rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <span class="material-symbols-rounded" style="font-weight: 600">
-                            add_shopping_cart
-                        </span>
-
-                        <!-- Tooltip -->
-                        <span
-                            class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap
-											opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
-                            Thêm vào giỏ hàng
-                        </span>
-                    </button>
-                </div>
-
-                <!-- Product details -->
-                <div class="md:px-4 md:py-2 p-2">
-                    <p
-                        class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1
-										 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em]">
-                        Áo Polo nam khóa cổ phối sọc caro
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <p class="text-orangeColor lg:text-lg md:text-md sm:text-sm text-[14px] font-[550]">149.000đ
-                            </p>
-                            <p class="text-[#888888] line-through text-[10px] sm:text-[12px]">220.000đ</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div
-                class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
-                <!-- Discount badge -->
-                <span
-                    class="absolute top-2 left-2 bg-orangeColor text-white text-xs font-semibold px-3 py-1.5 rounded-full z-10">
-                    Giảm 35%
-                </span>
-
-                <!-- Product image -->
-                <div class="relative overflow-hidden cursor-pointer">
-                    <img src="{{ asset('images/product3.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                        class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
-
-                    <!-- Add to cart button with tooltip -->
-                    <button
-                        class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
-									rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <span class="material-symbols-rounded" style="font-weight: 600">
-                            add_shopping_cart
-                        </span>
-
-                        <!-- Tooltip -->
-                        <span
-                            class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap
-											opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
-                            Thêm vào giỏ hàng
-                        </span>
-                    </button>
-                </div>
-
-                <!-- Product details -->
-                <div class="md:px-4 md:py-2 p-2">
-                    <p
-                        class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1
-															 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em]">
-                        Áo Polo nam phối khóa cổ basic
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <p class="text-orangeColor lg:text-lg md:text-md sm:text-sm text-[14px] font-[550]">149.000đ
-                            </p>
-                            <p class="text-[#888888] line-through text-[10px] sm:text-[12px]">220.000đ</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div
-                class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
-                <!-- Discount badge -->
-                <span
-                    class="absolute top-2 left-2 bg-orangeColor text-white text-xs font-semibold px-3 py-1.5 rounded-full z-10">
-                    Giảm 35%
-                </span>
-
-                <!-- Product image -->
-                <div class="relative overflow-hidden cursor-pointer">
-                    <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                        class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
-
-                    <!-- Add to cart button with tooltip -->
-                    <button
-                        class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
-									rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <span class="material-symbols-rounded" style="font-weight: 600">
-                            add_shopping_cart
-                        </span>
-
-                        <!-- Tooltip -->
-                        <span
-                            class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap
-											opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
-                            Thêm vào giỏ hàng
-                        </span>
-                    </button>
-                </div>
-
-                <!-- Product details -->
-                <div class="md:px-4 md:py-2 p-2">
-                    <p
-                        class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1
-								 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em]">
-                        Áo thun in hình
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <p class="text-orangeColor lg:text-lg md:text-md sm:text-sm text-[14px] font-[550]">149.000đ
-                            </p>
-                            <p class="text-[#888888] line-through text-[10px] sm:text-[12px]">220.000đ</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div
-                class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
-                <!-- Discount badge -->
-                <span
-                    class="absolute top-2 left-2 bg-orangeColor text-white text-xs font-semibold px-3 py-1.5 rounded-full z-10">
-                    Giảm 35%
-                </span>
-
-                <!-- Product image -->
-                <div class="relative overflow-hidden cursor-pointer">
-                    <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                        class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
-
-                    <!-- Add to cart button with tooltip -->
-                    <button
-                        class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
-									rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <span class="material-symbols-rounded" style="font-weight: 600">
-                            add_shopping_cart
-                        </span>
-
-                        <!-- Tooltip -->
-                        <span
-                            class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap
-											opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
-                            Thêm vào giỏ hàng
-                        </span>
-                    </button>
-                </div>
-
-                <!-- Product details -->
-                <div class="md:px-4 md:py-2 p-2">
-                    <p
-                        class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1
-										 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em]">
-                        Áo thun in hình
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <p class="text-orangeColor lg:text-lg md:text-md sm:text-sm text-[14px] font-[550]">149.000đ
-                            </p>
-                            <p class="text-[#888888] line-through text-[10px] sm:text-[12px]">220.000đ</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endfor
         </div>
     </div>
 
@@ -557,245 +217,74 @@
     </div>
 
     {{-- Top bán chạy --}}
-    <div class="slide-up-effect sale-product responsive ">
+    <div class="sale-product responsive ">
         <h2 class="sub-title">Top bán chạy</h2>
 
-        <div class="grid md:grid-rows-1 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
-            <div
-                class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
-                <!-- Discount badge -->
-                <span
-                    class="absolute top-2 left-2 bg-orangeColor text-white text-xs font-semibold px-3 py-1.5 rounded-full z-10">
-                    Giảm 35%
-                </span>
+        <div
+            class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-2 gap-y-4 sm:gap-4 md:gap-x-3 lg:gap-x-5">
+            @for ($i = 0; $i < 12; $i++)
+                <div
+                    class="slide-up-effect relative bg-white shadow-md rounded-md overflow-hidden transition-all duration-300 group hover:scale-[1.02] hover:-translate-y-1 hover:shadow-lg">
+                    <!-- Discount badge -->
+                    <span
+                        class="absolute top-2 left-2 bg-redColor text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md z-10 animate-pulse">
+                        -35%
+                    </span>
 
-                <!-- Product image -->
-                <div class="relative overflow-hidden cursor-pointer">
-                    <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                        class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
+                    <!-- Product image -->
+                    <a href="{{ route('product.detail') }}">
+                        <div class="relative overflow-hidden cursor-pointer">
+                            <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
+                                class="w-full h-60 object-cover rounded-t-md">
 
-                    <!-- Add to cart button with tooltip -->
-                    <button
-                        class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
-							rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <span class="material-symbols-rounded" style="font-weight: 600">
-                            add_shopping_cart
-                        </span>
+                            <!-- Wishlist button with tooltip -->
+                            <button
+                                class="wishlist-btn absolute top-1 right-1 w-10 h-10 bg-white text-orangeColor flex items-center justify-center rounded-full shadow-md group/button">
+                                <span class="material-symbols-rounded icon-heart">
+                                    favorite
+                                </span>
 
-                        <!-- Tooltip -->
-                        <span
-                            class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap
-									opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
-                            Thêm vào giỏ hàng
-                        </span>
-                    </button>
-                </div>
+                                <!-- Tooltip -->
+                                <span
+                                    class="tooltip-text absolute right-full mr-1 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 delay-100 md:group-hover/button:opacity-100 md:group-hover/button:translate-x-0">
+                                    Yêu thích
+                                </span>
+                            </button>
 
-                <!-- Product details -->
-                <div class="md:px-4 md:py-2 p-2">
-                    <p
-                        class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1
-												 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em]">
-                        Áo thun in hình
-                    </p>
+                            <!-- Add to cart button with tooltip -->
+                            <button
+                                class="absolute bottom-1 right-1 w-10 h-10 bg-white text-orangeColor flex items-center justify-center rounded-full transition-all shadow-md group/button">
+                                <span class="material-symbols-rounded">
+                                    add_shopping_cart
+                                </span>
 
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <p class="text-orangeColor lg:text-lg md:text-md sm:text-sm text-[14px] font-[550]">149.000đ
+                                <!-- Tooltip -->
+                                <span
+                                    class="absolute right-full mr-1 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 md:group-hover/button:opacity-100 md:group-hover/button:translate-x-0">
+                                    Thêm vào giỏ hàng
+                                </span>
+                            </button>
+                        </div>
+                    </a>
+
+                    <!-- Product details -->
+                    <div class="md:px-4 md:py-2 p-2">
+                        <a href="{{ route('product.detail') }}">
+                            <p
+                                class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em] hover:text-orangeColor">
+                                Áo phông Ông già Noel tùy chỉnh dành cho nam – Áo phông Giáng sinh thời trang cho ngày lễ
                             </p>
-                            <p class="text-[#888888] line-through text-[10px] sm:text-[12px]">220.000đ</p>
+                        </a>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <p class="text-orangeColor font-semibold text-[14px]">149.000đ</p>
+                                <p class="text-gray-400 line-through text-[12px]">220.000đ</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div
-                class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
-                <!-- Discount badge -->
-                <span
-                    class="absolute top-2 left-2 bg-orangeColor text-white text-xs font-semibold px-3 py-1.5 rounded-full z-10">
-                    Giảm 35%
-                </span>
-
-                <!-- Product image -->
-                <div class="relative overflow-hidden cursor-pointer">
-                    <img src="{{ asset('images/product2.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                        class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
-
-                    <!-- Add to cart button with tooltip -->
-                    <button
-                        class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
-							rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <span class="material-symbols-rounded" style="font-weight: 600">
-                            add_shopping_cart
-                        </span>
-
-                        <!-- Tooltip -->
-                        <span
-                            class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap
-									opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
-                            Thêm vào giỏ hàng
-                        </span>
-                    </button>
-                </div>
-
-                <!-- Product details -->
-                <div class="md:px-4 md:py-2 p-2">
-                    <p
-                        class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1
-								 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em]">
-                        Áo Polo nam khóa cổ phối sọc caro
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <p class="text-orangeColor lg:text-lg md:text-md sm:text-sm text-[14px] font-[550]">149.000đ
-                            </p>
-                            <p class="text-[#888888] line-through text-[10px] sm:text-[12px]">220.000đ</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div
-                class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
-                <!-- Discount badge -->
-                <span
-                    class="absolute top-2 left-2 bg-orangeColor text-white text-xs font-semibold px-3 py-1.5 rounded-full z-10">
-                    Giảm 35%
-                </span>
-
-                <!-- Product image -->
-                <div class="relative overflow-hidden cursor-pointer">
-                    <img src="{{ asset('images/product3.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                        class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
-
-                    <!-- Add to cart button with tooltip -->
-                    <button
-                        class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
-							rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <span class="material-symbols-rounded" style="font-weight: 600">
-                            add_shopping_cart
-                        </span>
-
-                        <!-- Tooltip -->
-                        <span
-                            class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap
-									opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
-                            Thêm vào giỏ hàng
-                        </span>
-                    </button>
-                </div>
-
-                <!-- Product details -->
-                <div class="md:px-4 md:py-2 p-2">
-                    <p
-                        class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1
-													 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em]">
-                        Áo Polo nam phối khóa cổ basic
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <p class="text-orangeColor lg:text-lg md:text-md sm:text-sm text-[14px] font-[550]">149.000đ
-                            </p>
-                            <p class="text-[#888888] line-through text-[10px] sm:text-[12px]">220.000đ</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div
-                class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
-                <!-- Discount badge -->
-                <span
-                    class="absolute top-2 left-2 bg-orangeColor text-white text-xs font-semibold px-3 py-1.5 rounded-full z-10">
-                    Giảm 35%
-                </span>
-
-                <!-- Product image -->
-                <div class="relative overflow-hidden cursor-pointer">
-                    <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                        class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
-
-                    <!-- Add to cart button with tooltip -->
-                    <button
-                        class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
-							rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <span class="material-symbols-rounded" style="font-weight: 600">
-                            add_shopping_cart
-                        </span>
-
-                        <!-- Tooltip -->
-                        <span
-                            class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap
-									opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
-                            Thêm vào giỏ hàng
-                        </span>
-                    </button>
-                </div>
-
-                <!-- Product details -->
-                <div class="md:px-4 md:py-2 p-2">
-                    <p
-                        class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1
-						 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em]">
-                        Áo thun in hình
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <p class="text-orangeColor lg:text-lg md:text-md sm:text-sm text-[14px] font-[550]">149.000đ
-                            </p>
-                            <p class="text-[#888888] line-through text-[10px] sm:text-[12px]">220.000đ</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div
-                class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
-                <!-- Discount badge -->
-                <span
-                    class="absolute top-2 left-2 bg-orangeColor text-white text-xs font-semibold px-3 py-1.5 rounded-full z-10">
-                    Giảm 35%
-                </span>
-
-                <!-- Product image -->
-                <div class="relative overflow-hidden cursor-pointer">
-                    <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                        class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
-
-                    <!-- Add to cart button with tooltip -->
-                    <button
-                        class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center
-							rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                        <span class="material-symbols-rounded" style="font-weight: 600">
-                            add_shopping_cart
-                        </span>
-
-                        <!-- Tooltip -->
-                        <span
-                            class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap
-									opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
-                            Thêm vào giỏ hàng
-                        </span>
-                    </button>
-                </div>
-
-                <!-- Product details -->
-                <div class="md:px-4 md:py-2 p-2">
-                    <p
-                        class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1
-								 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em]">
-                        Áo thun in hình
-                    </p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <p class="text-orangeColor lg:text-lg md:text-md sm:text-sm text-[14px] font-[550]">149.000đ
-                            </p>
-                            <p class="text-[#888888] line-through text-[10px] sm:text-[12px]">220.000đ</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endfor
         </div>
     </div>
 
@@ -1004,4 +493,30 @@
             <span class="text-white text-2xl font-bold mx-8">🎉 Freeship toàn quốc!</span>
         </div>
     </div>
+
+    <script>
+        // Promo banner
+        const messages = [
+            "🔥Mua 1 tặng 1 cho tất cả sản phẩm mới!",
+            "🚀Free ship toàn quốc cho đơn hàng từ 500K!",
+            "🎉Giảm ngay 100K cho đơn hàng đầu tiên!",
+        ];
+
+        let index = 0;
+        const promoText = document.getElementById("promo-text");
+
+        function changeText() {
+            promoText.style.opacity = 0; // Ẩn chữ cũ
+            setTimeout(() => {
+                index++;
+                if (index >= messages.length) {
+                    index = 0;
+                }
+                promoText.innerText = messages[index];
+                promoText.style.opacity = 1;
+            }, 500);
+        }
+
+        setInterval(changeText, 3000);
+    </script>
 @endsection

@@ -147,32 +147,46 @@
         {{-- Product --}}
         <div class="w-full">
             <div
-                class=" grid md:grid-rows-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-3 grid-cols-2 md:gap-x-2 md:gap-y-6 sm:gap-4 gap-x-2 gap-y-4">
+                class=" grid md:grid-rows-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-3 grid-cols-2 gap-x-2 gap-y-4 sm:gap-4 md:gap-x-2 lg:gap-x-4">
                 @for ($i = 0; $i < 12; $i++)
                     <div
-                        class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
+                        class="slide-up-effect relative bg-white shadow-md rounded-md overflow-hidden transition-all duration-300 group hover:scale-[1.02] hover:-translate-y-1 hover:shadow-lg">
                         <!-- Discount badge -->
                         <span
-                            class="absolute top-2 left-2 bg-orangeColor text-white text-xs font-semibold px-3 py-1.5 rounded-full z-10">
-                            Giảm 35%
+                            class="absolute top-2 left-2 bg-redColor text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md z-10 animate-pulse">
+                            -35%
                         </span>
 
                         <!-- Product image -->
                         <a href="{{ route('product.detail') }}">
                             <div class="relative overflow-hidden cursor-pointer">
                                 <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                                    class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
+                                    class="w-full h-60 object-cover rounded-t-md">
+
+                                <!-- Wishlist button with tooltip -->
+                                <button
+                                    class="wishlist-btn absolute top-1 right-1 w-10 h-10 bg-white text-orangeColor flex items-center justify-center rounded-full shadow-md group/button">
+                                    <span class="material-symbols-rounded icon-heart">
+                                        favorite
+                                    </span>
+
+                                    <!-- Tooltip -->
+                                    <span
+                                        class="tooltip-text absolute right-full mr-1 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 delay-100 md:group-hover/button:opacity-100 md:group-hover/button:translate-x-0">
+                                        Yêu thích
+                                    </span>
+                                </button>
 
                                 <!-- Add to cart button with tooltip -->
                                 <button
-                                    class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                                    <span class="material-symbols-rounded" style="font-weight: 600">
+                                    class="absolute bottom-1 right-1 w-10 h-10 bg-white text-orangeColor flex items-center justify-center rounded-full transition-all shadow-md group/button">
+                                    <span class="material-symbols-rounded">
                                         add_shopping_cart
                                     </span>
 
                                     <!-- Tooltip -->
                                     <span
-                                        class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
+                                        class="absolute right-full mr-1 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 md:group-hover/button:opacity-100 md:group-hover/button:translate-x-0">
                                         Thêm vào giỏ hàng
                                     </span>
                                 </button>
@@ -191,9 +205,8 @@
 
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-2">
-                                    <p class="text-orangeColor md:text-md sm:text-sm text-[14px] font-[550]">149.000đ
-                                    </p>
-                                    <p class="text-[#888888] line-through text-[10px] sm:text-[12px]">220.000đ</p>
+                                    <p class="text-orangeColor font-semibold text-[14px]">149.000đ</p>
+                                    <p class="text-gray-400 line-through text-[12px]">220.000đ</p>
                                 </div>
                             </div>
                         </div>

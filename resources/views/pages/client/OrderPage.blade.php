@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @section('title', 'Đặt Hàng')
-    @vite(['resources/css/app.css', 'resources/js/Order.js', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/client/Order.js', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:wght@200" rel="stylesheet">
 </head>
 

@@ -1,7 +1,7 @@
 @extends('layouts.client.master')
 @section('title', 'Slug của sản phẩm')
 
-@vite('resources/js/ProductDetail.js')
+@vite('resources/js/client/ProductDetail.js')
 
 @section('content')
     <div class="responsive">

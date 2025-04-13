@@ -1,6 +1,6 @@
 @extends('layouts.client.master')
 @section('title', 'Liên Hệ')
-@vite(['resources/js/Contact.js'])
+@vite(['resources/js/client/Contact.js'])
 
 @section('content')
     <div class="responsive">

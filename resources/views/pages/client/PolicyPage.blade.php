@@ -1,11 +1,11 @@
 @extends('layouts.client.master')
 @section('title', 'Chính sách')
-@vite(['resources/css/PolicyPage.css'])
+@vite(['resources/css/client/PolicyPage.css'])
 
 @section('content')
     <div class="responsive">
         <div class="policy">
-            <h1 class="policy__title">Chính Sách Bảo Mật</h1>
+            <h1 class="sub-title">Chính Sách</h1>
             <p class="policy__date">Cập nhật lần cuối: 13/04/2025</p>
 
             <div class="policy__section">

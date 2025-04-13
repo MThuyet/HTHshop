@@ -1,5 +1,5 @@
 @extends('layouts.client.Master')
-@vite(['resources/css/Login.css', 'resources/js/Login.js'])
+@vite(['resources/css/admin/Login.css', 'resources/js/admin/Login.js'])
 
 @section('title', 'Đăng Nhập')
 

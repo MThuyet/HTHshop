@@ -1,5 +1,5 @@
 @extends('layouts.client.master')
-@vite(['resources/css/NewsPage.css', 'resources/js/News.js'])
+@vite(['resources/css/client/NewsPage.css', 'resources/js/client/News.js'])
 
 @section('title', 'Tin tức')
 

@@ -1,6 +1,6 @@
 @extends('layouts.client.master')
 @section('title', 'Câu hỏi thường gặp')
-@vite(['resources/css/HelpPage.css', 'resources/js/Help.js'])
+@vite(['resources/css/client/HelpPage.css', 'resources/js/client/Help.js'])
 
 @section('content')
     <div class="responsive p-6">

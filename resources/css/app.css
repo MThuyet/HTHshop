@@ -93,7 +93,7 @@ body {
 .slide-up-effect {
     opacity: 0;
     transform: translateY(50px);
-    transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+    transition: opacity 1s ease-out, transform 0.7s ease-out;
 }
 
 .visible-slide-up {

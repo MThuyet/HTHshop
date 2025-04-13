@@ -10,7 +10,7 @@ class LoginController extends Controller
 {
 	public function showForm()
 	{
-		return view('pages.client.LoginPage');
+		return view('pages.admin.LoginPage');
 	}
 
 	public function handleLogin(Request $request)
