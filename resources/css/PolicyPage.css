@@ -1,0 +1,62 @@
+.policy {
+    max-width: 90em;
+    background-color: #fff;
+    border-radius: 0.75em;
+    padding: 1.875em;
+    box-shadow: 0 0 0.625em rgba(0,0,0,0.05);
+    font-family: "Be Vietnam Pro", sans-serif;
+  }
+
+  .policy__title {
+    font-size: 2em;
+    color: #2c3e50;
+    margin-bottom: 0.625em;
+    text-align: left;
+  }
+
+  .policy__date {
+    text-align: right;
+    font-size: 0.95em;
+    color: #888;
+    margin-bottom: 1.875em;
+    font-style: italic;
+  }
+
+  .policy__section {
+    margin-bottom: 1.875em;
+  }
+
+  .policy__section-title {
+    font-size: 1.3em;
+    color: #1e88e5;
+    margin-bottom: 0.9375em;
+    border-left: 0.25em solid #1e88e5;
+    padding-left: 0.625em;
+  }
+
+  .policy__text {
+    margin-bottom: 0.75em;
+    line-height: 1.7;
+    font-size: 1em;
+  }
+
+  .policy__list {
+    list-style-type: disc;
+    margin-left: 1.25em;
+    margin-top: 0.625em;
+  }
+
+  .policy__list-item {
+    margin-bottom: 0.5em;
+    font-size: 1em;
+  }
+
+  .policy__contact-list {
+    list-style-type: none;
+    margin-top: 0.625em;
+  }
+
+  .policy__contact-item {
+    margin-bottom: 0.375em;
+    font-weight: bold;
+  }
