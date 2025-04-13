@@ -92,5 +92,27 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/admin/dashboard', function () {
 			return view('pages.admin.dashboard');
 		})->name('admin.dashboard');
+
+		// ========================== PRODUCT ========================== //
+		Route::get('/admin/product', function () {
+			return view('pages.admin.product.index');
+		})->name('admin.product');
+
+		Route::get('/admin/product/create', function () {
+			return view('pages.admin.product.create');
+		})->name('admin.product.create');
+
+		Route::get('/admin/product/update/{id}', function ($id) {
+			return view('pages.admin.product.update', ['id' => $id]);
+		})->name('admin.product.update'); 
+
+		// ========================== PRODUCT CATEGORY ========================== //
+		Route::get('/admin/product-category', function () {
+			return view('pages.admin.product-category.index');
+		})->name('admin.product-category');
+
+		Route::get('/admin/product-category/create', function () {
+			return view('pages.admin.product-category.create');
+		})->name('admin.product-category.create');
 	});
 });
