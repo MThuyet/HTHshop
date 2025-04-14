@@ -8,68 +8,60 @@
 
         <nav class="w-full mt-4 overflow-auto">
             <ul class="flex gap-2 sm:gap-4 text-textColor relative border-gray-300">
-                <li>
-                    <a href="#" class="tab-item block p-2 text-[15px] sm:text-[17px] relative text-nowrap">Tin nổi
-                        bật</a>
-                </li>
-                <li>
-                    <a href="#" class="tab-item block p-2 text-[15px] sm:text-[17px] relative text-nowrap">Tin mới</a>
-                </li>
-                <li>
-                    <a href="#" class="tab-item block p-2 text-[15px] sm:text-[17px] relative text-nowrap">Khuyến
-                        mãi</a>
-                </li>
-                <li>
-                    <a href="#" class="tab-item block p-2 text-[15px] sm:text-[17px] relative text-nowrap">Sự kiện</a>
-                </li>
+                @foreach ($newsCategories as $item)
+                    <li>
+                        <a href="{{ route('news.category', $item->slug) }}"
+                            class="tab-item block p-2 text-[15px] sm:text-[17px] relative text-nowrap"
+                            data-slug="{{ $item->slug }}">
+                            {{ $item->name }}
+                        </a>
+                    </li>
+                @endforeach
                 <!-- Thanh gạch dưới -->
-                <div id="tab-underline" class="absolute bottom-0 h-[3px] bg-orangeColor transition-all duration-300"></div>
+                <div id="tab-underline" class="absolute bottom-0 h-[3px] bg-orangeColor"></div>
             </ul>
         </nav>
 
+
         <div class="news__container">
-            <a href="{{ route('news.detail') }}">
+            {{-- Tin tức hot --}}
+            <a href="{{ route('news.detail', $hotNews->slug) }}">
                 <div class="news__hottest sm:grid-cols-2 grid-cols-1">
                     <div class="news__paragraph">
                         <div class="flex justify-between mb-3">
                             <span class="news__badge news__badge--hot">Tin Tức Hot</span>
-                            <p class="news__date">Ngày 11/11/2024</p>
+                            <p class="news__date">Ngày {{ $hotNews->created_at->format('d/m/Y') }}</p>
                         </div>
-                        <h2 class="news__title">HUYỀN THOẠI PHƯƠNG ĐÔNG</h2>
-                        <p class="news__excerpt">
-                            Ra mắt Bộ Sưu Tập Thu Đông mới 2024, Aristino dành tặng khách hàng chương trình quà tặng đặc
-                            biệt
-                            "Nhân
-                            ba điểm tích lũy" với đơn hàng có sản...
+                        <h2 class="news__title">{{ $hotNews->title }}</h2>
+                        <p class="news__excerpt line-clamp-2 text-ellipsis overflow-clip">
+                            {!! $hotNews->excerpt !!}
                         </p>
                     </div>
-                    <img title="HUYỀN THOẠI PHƯƠNG ĐÔNG"
-                        src="https://i1-giaitri.vnecdn.net/2025/02/24/Image-ExtractWord-0-Out-4175-1740399713.png?w=500&h=300&q=100&dpr=2&fit=crop&s=r4PWmB1ECKK9UI0FHWb4hw"
-                        alt="HUYỀN THOẠI PHƯƠNG ĐÔNG" />
+                    <img title="{{ $hotNews->title }}" src="{{ asset('storage/' . $hotNews->thumbnail) }}"
+                        alt="{{ $hotNews->title }}" class="w-full h-auto aspect-[5/3] object-cover object-center" />
                 </div>
             </a>
 
+            {{-- Danh sách tin tức --}}
             <div class="news__list grid gap-[30px] md:grid-cols-2 lg:grid-cols-3 grid-cols-1">
-                @for ($i = 0; $i <= 8; $i++)
-                    <a href="{{ route('news.detail') }}">
+                @foreach ($newsList as $news)
+                    <a href="{{ route('news.detail', $news->slug) }}">
                         <div class="news__item">
-                            <div class="news__thumbnail" title="HUYỀN THOẠI PHƯƠNG ĐÔNG">
-                                <img src="https://file.hstatic.net/200000887901/article/1_89229ba8660b4e319f342ca1f643bccc_grande.jpg"
-                                    class="news__image">
+                            <div class="news__thumbnail" title="{{ $news->title }}">
+                                <img src="{{ asset('storage/' . $news->thumbnail) }}" alt="{{ $news->title }}"
+                                    class="news__image w-full h-auto aspect-[5/3] object-cover object-center">
                             </div>
                             <div class="news__info">
                                 <span class="news__badge news__badge--new">Tin Tức Mới</span>
-                                <h3 class="news__title">HUYỀN THOẠI PHƯƠNG ĐÔNG</h3>
+                                <h3 class="news__title">{{ $news->title }}</h3>
                                 <p class="news__excerpt">
-                                    Ra mắt Bộ Sưu Tập Thu Đông mới 2024, Aristino dành tặng khách hàng chương trình quà tặng
-                                    đặc
-                                    biệt "Nhân ba điểm tích lũy" với đơn hàng có sản...
+                                    {!! $news->excerpt !!}
                                 </p>
-                                <p class="news__date">Ngày 11/11/2024</p>
+                                <p class="news__date">Ngày {{ $news->created_at->format('d/m/Y') }}</p>
                             </div>
                         </div>
                     </a>
-                @endfor
+                @endforeach
             </div>
         </div>
     </div>

@@ -9,23 +9,26 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Active category header
-document.addEventListener("DOMContentLoaded", () => {
+// Active nav category
+document.addEventListener("DOMContentLoaded", function () {
     const navLinks = document.querySelectorAll(".category-nav ul li a");
     const currentPath = window.location.pathname;
 
+    // Thêm hoặc bỏ lớp active dựa trên đường dẫn
     navLinks.forEach((link) => {
-        link.classList.toggle(
-            "active",
-            link.getAttribute("href") === currentPath
-        );
+        const linkPath = link.getAttribute("href");
+        const isActive =
+            currentPath === linkPath ||
+            (linkPath.startsWith("/tin-tuc") &&
+                currentPath.startsWith("/tin-tuc"));
+        link.classList.toggle("active", isActive);
     });
 
+    // Lưu trạng thái active khi click vào tab
     navLinks.forEach((link) => {
         link.addEventListener("click", () => {
             navLinks.forEach((item) => item.classList.remove("active"));
             link.classList.add("active");
-            localStorage.setItem("activeNavLink", link.getAttribute("href"));
         });
     });
 });

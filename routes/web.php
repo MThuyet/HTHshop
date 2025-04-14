@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers;
+
 use App\Http\Controllers\Admin;
+use App\Http\Controllers\Client;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,15 +52,13 @@ Route::get('/dat-hang', function () {
 })->name('order');
 
 // ========================== TIN TỨC ========================== //
-// Danh sách tin tức
-Route::get('/tin-tuc', function () {
-	return view('pages.client.NewsPage');
-})->name('news');
+Route::prefix('tin-tuc')->group(function () {
+	// Danh sách theo danh mục
+	Route::get('/danh-muc/{category_slug}', [Client\NewsController::class, 'index'])->name('news.category');
 
-// Chi tiết tin tức
-Route::get('/tin-tuc/slug', function () {
-	return view('pages.client.NewsDetailPage');
-})->name('news.detail');
+	// Chi tiết tin tức
+	Route::get('/{news_slug}', [Client\NewsController::class, 'detail'])->name('news.detail');
+});
 
 // ========================== HỖ TRỢ ========================== //
 Route::get('/ho-tro', function () {
@@ -105,7 +105,7 @@ Route::middleware(['auth'])->group(function () {
 
 		Route::get('/admin/product/update/{id}', function ($id) {
 			return view('pages.admin.product.update', ['id' => $id]);
-		})->name('admin.product.update'); 
+		})->name('admin.product.update');
 
 		// ========================== PRODUCT CATEGORY ========================== //
 		Route::get('/admin/product-category', function () {
