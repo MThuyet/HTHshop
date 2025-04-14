@@ -11,6 +11,8 @@
     {{-- Gg font --}}
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:wght@200" rel="stylesheet">
 
+    {{-- Toast --}}
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 
 <div class="fixed left-3 top-2/3 transform -translate-y-1/2 flex flex-col gap-3 z-50">
@@ -40,6 +42,21 @@
         </header>
         <main>
             @yield('content')
+
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.js"></script>
+
+            @if (session('toast'))
+                <script>
+                    Swal.fire({
+                        icon: '{{ session('toast.icon') ?? 'success' }}',
+                        title: `{!! session('toast.title') ?? '' !!}`,
+                        text: `{!! session('toast.text') ?? '' !!}`,
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                </script>
+            @endif
+
         </main>
         <footer>
             @include('layouts.client.Footer')

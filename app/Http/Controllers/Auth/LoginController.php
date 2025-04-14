@@ -27,7 +27,11 @@ class LoginController extends Controller
 		}
 
 		// Nếu đăng nhập thất bại
-		return back()->with('error', 'Tài khoản hoặc mật khẩu không chính xác.');
+		return redirect()->back()->with('toast', [
+			'title' => 'Đăng nhập thất bại!',
+			'text' => 'Tài khoản hoặc mật khẩu không chính xác.',
+			'icon' => 'error',
+		])->withInput($request->only('email'));
 	}
 
 	public function logout()

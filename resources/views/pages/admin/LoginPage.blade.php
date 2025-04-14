@@ -8,18 +8,10 @@
         <div class="login__wrapper-left">
             <form action="" method="POST">
                 <h2 class="sub-title">Đăng nhập tài khoản</h2>
-                <div class="errors__container">
-                    {{-- Hiển thị lỗi từ session --}}
-                    @if (session('error'))
-                        <div class="alert alert-danger" style="color: red; font-weight: bold; margin-bottom: 1rem;">
-                            {{ session('error') }}
-                        </div>
-                    @endif
-                </div>
 
                 <div class="mb-3">
                     <label for="email">Email <span style="color: var(--red-color)">*</span></label>
-                    <input id="email" placeholder="Email" type="email" name="email"
+                    <input id="email" placeholder="Email" value="{{ old('email') }}" type="email" name="email"
                         pattern="^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" required>
                     <small class="error-message"></small>
                 </div>
