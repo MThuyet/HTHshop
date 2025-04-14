@@ -32,6 +32,9 @@ return new class extends Migration
 			]);
 			$table->string('image')->nullable();
 			$table->unsignedBigInteger('product_id');
+			$table->integer('view')->default(0);
+			$table->integer('favorite')->default(0);
+			$table->integer('bought')->default(0);
 			$table->timestamps();
 			$table->softDeletes();
 

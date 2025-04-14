@@ -28,6 +28,9 @@ class ProductVariantSeeder extends Seeder
 							'print_position' => $position,
 							'image' => 'images/products/sample.jpg',
 							'product_id' => $productId,
+							'view' => 0,
+							'favorite' => 0,
+							'bought' => 0,
 							'created_at' => $now,
 							'updated_at' => $now,
 						]);

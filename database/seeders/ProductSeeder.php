@@ -47,9 +47,6 @@ class ProductSeeder extends Seeder
 			DB::table('products')->insert(array_merge($product, [
 				'active' => 1,
 				'discount' => 0,
-				'bought' => 0,
-				'view' => 0,
-				'favorite' => 0,
 				'has_customization' => false,
 				'created_at' => $now,
 				'updated_at' => $now,

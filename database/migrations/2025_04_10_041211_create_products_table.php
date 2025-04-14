@@ -20,9 +20,6 @@ return new class extends Migration
 			$table->text('description')->nullable();
 			$table->boolean('active')->default(1);
 			$table->tinyInteger('discount')->default(0);
-			$table->integer('bought')->default(0);
-			$table->integer('view')->default(0);
-			$table->integer('favorite')->default(0);
 			$table->boolean('has_customization')->default(0);
 			$table->timestamps();
 			$table->softDeletes();
