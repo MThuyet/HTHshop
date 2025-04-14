@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers;
+use App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -114,5 +115,17 @@ Route::middleware(['auth'])->group(function () {
 		Route::get('/admin/product-category/create', function () {
 			return view('pages.admin.product-category.create');
 		})->name('admin.product-category.create');
+
+		// ========================== USERS ========================== //
+		Route::resource('/admin/users', Admin\UserController::class)->names([
+			'index' => 'admin.user',
+			'create' => 'admin.user.create',
+			'store' => 'admin.user.store',
+			'edit' => 'admin.user.edit',
+			'update' => 'admin.user.update',
+			'destroy' => 'admin.user.delete'
+		]);
+
+		Route::put('/admin/users/{user}/toggle', [Admin\UserController::class, 'toggleActive'])->name('admin.user.toggle');
 	});
 });

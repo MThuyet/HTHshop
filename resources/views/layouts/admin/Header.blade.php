@@ -10,7 +10,7 @@
             ['navName' => 'dashBoard', 'navIcon' => 'bar_chart_4_bars', 'route' => 'admin.dashboard'],
             ['navName' => 'product', 'navIcon' => 'apparel', 'route' => 'admin.product'],
             ['navName' => 'order', 'navIcon' => 'shopping_bag', 'route' => 'admin.dashboard'],
-            ['navName' => 'user', 'navIcon' => 'manage_accounts', 'route' => 'admin.dashboard'],
+            ['navName' => 'user', 'navIcon' => 'manage_accounts', 'route' => 'admin.user'],
             ['navName' => 'news', 'navIcon' => 'news', 'route' => 'admin.dashboard'],
         ];
 
