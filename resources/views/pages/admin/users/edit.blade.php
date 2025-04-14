@@ -15,39 +15,35 @@
         @csrf
         @method('PUT')
 
-        {{-- Fullname + Username --}}
+        {{-- Fullname + Phone --}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
                 <label class="block">Họ tên</label>
                 <input type="text" name="fullname" value="{{ old('fullname', $user->fullname) }}" class="w-full border rounded px-3 py-2">
             </div>
-            <div>
-                <label class="block">Tên đăng nhập</label>
-                <input type="text" name="username" value="{{ old('username', $user->username) }}" class="w-full border rounded px-3 py-2">
-            </div>
-        </div>
 
-        {{-- Email + Phone --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-                <label class="block">Email</label>
-                <input type="email" name="email" value="{{ old('email', $user->email) }}" class="w-full border rounded px-3 py-2">
-            </div>
             <div>
                 <label class="block">Số điện thoại</label>
                 <input type="text" name="phone" value="{{ old('phone', $user->phone) }}" class="w-full border rounded px-3 py-2">
             </div>
         </div>
-    
-        {{-- Role --}}
-        <div>
-            <label class="block">Vai trò</label>
-            <select name="role" class="w-full border rounded px-3 py-2">
-                <option value="ADMIN" {{ $user->role === 'ADMIN' ? 'selected' : '' }}>ADMIN</option>
-                <option value="STAFF" {{ $user->role === 'STAFF' ? 'selected' : '' }}>STAFF</option>
-            </select>
-        </div>
 
+        {{-- Email + Role --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block">Email</label>
+                <input type="email" name="email" value="{{ old('email', $user->email) }}" class="w-full border rounded px-3 py-2">
+            </div>
+            
+            <div>
+                <label class="block">Vai trò</label>
+                <select name="role" class="w-full border rounded px-3 py-2">
+                    <option value="ADMIN" {{ $user->role === 'ADMIN' ? 'selected' : '' }}>ADMIN</option>
+                    <option value="STAFF" {{ $user->role === 'STAFF' ? 'selected' : '' }}>STAFF</option>
+                </select>
+            </div>
+        </div>
+    
         {{-- Description --}}
         <div>
             <label class="block">Mô tả</label>

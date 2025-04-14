@@ -10,7 +10,7 @@
     <div class="flex flex-col md:flex-row items-center justify-between mb-4 gap-3">
         <div class="w-full md:w-1/2">
             <div class="relative z-40">
-                <form id="searchForm" method="GET" action="{{ route('admin.user') }}" class="mb-0">
+                <form id="searchForm" method="GET" action="{{ route('admin.user') }}" class="mb-0 text-md">
                     <input
                         type="text"
                         name="search"
@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <div class="flex gap-4">
+        <div class="flex flex-wrap gap-4">
             <form method="GET" action="{{ route('admin.user') }}" class="flex gap-2 mb-0 items-center">
                 <label for="table-row-length" class="text-sm font-medium text-gray-700 mr-2">Hiển thị:</label>
                 <select name="limit-row-length" id="table-row-length" onchange="this.form.submit()"
@@ -45,49 +45,61 @@
         </div>
     </div>
     
-    <div class="overflow-x-auto h-full">
+    <div class="overflow-x-auto h-full border-t-2 border-gray-200">
         {{-- Table --}}
         <table class="min-w-full text-sm text-left text-gray-500">
             <thead class="text-xs uppercase bg-gray-100 text-gray-700">
                 <tr>
-                    <th class="px-6 py-3">Họ tên</th>
-                    <th class="px-6 py-3">Tên đăng nhập</th>
+                    <th class="px-6 py-3">Chi tiết</th>
+                    <th class="px-6 py-3 hidden md:table-cell">Họ tên</th>
                     <th class="px-6 py-3">Email</th>
-                    <th class="px-6 py-3">Số điện thoại</th>
-                    <th class="px-6 py-3">Vai trò</th>
-                    <th class="px-6 py-3">Ngày tạo</th>
-                    <th class="px-6 py-3">Trạng thái</th>
-                    <th class="px-6 py-3">Hành động</th>
+                    <th class="px-6 py-3 hidden lg:table-cell">Số điện thoại</th>
+                    <th class="px-6 py-3 hidden sm:table-cell">Vai trò</th>
+                    <th class="px-6 py-3 hidden lg:table-cell">Ngày tạo</th>
+                    <th class="px-6 py-3 hidden lg:table-cell">Trạng thái</th>
+                    <th class="px-6 py-3 hidden sm:table-cell">Hành động</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($users as $user)
-                <tr class="bg-white border-b hover:bg-gray-50">
-                    <td class="px-6 py-2 font-medium text-gray-900">{{ $user['fullname'] }}</td>
-                    <td class="px-6 py-2">{{ $user['username'] }}</td>
+                <tr class="bg-white border-b hover:bg-gray-50 md:table-row py-2 md:py-0">
+                    <td class="px-2 md:px-6 py-1 md:py-2 font-medium text-gray-900">
+                        <a href="{{ route('admin.user.show', $user->id) }}" class="material-symbols-rounded inline-flex rounded-md font-medium text-blue-500 border p-1 hover:underline">
+                            info
+                        </a>
+                    </td>
+                    
+                    <td class="px-6 py-2 hidden md:table-cell">
+                        <span>{{ $user['fullname'] }}</span>
+                    </td>
+                    
                     <td class="px-6 py-2">{{ $user['email'] }}</td>
-                    <td class="px-6 py-2">{{ $user['phone'] }}</td>
-                    <td class="px-6 py-2">{{ $user['role'] }}</td>
-                    <td class="px-6 py-2">{{ $user['created_at']->format('d/m/Y H:i:s') }}</td>
-                    <td class="px-6 py-2 text-center">
-                        <form action="{{ route('admin.user.toggle', $user->id) }}" method="POST">
+                    <td class="px-6 py-2 hidden lg:table-cell">{{ $user['phone'] }}</td>
+                    <td class="px-6 py-2 hidden sm:table-cell">{{ $user['role'] }}</td>
+                    <td class="px-6 py-2 hidden lg:table-cell">{{ $user['created_at']->format('d/m/Y H:i:s') }}</td>
+                    
+                    <!-- Cột trạng thái - ẩn trên mobile -->
+                    <td class="px-6 py-2 hidden lg:table-cell">
+                        <form action="{{ route('admin.user.toggle', $user->id) }}" method="POST" class="mb-0">
                             @csrf
                             @method('PUT')
                             <button type="submit">
-                                <span style="font-size: 32px;"
-                                    class="material-symbols-rounded {{ $user->active ? 'text-green-600' : 'text-gray-600' }}">
+                                <span style="font-size: 32px;" class="material-symbols-rounded {{ $user->active ? 'text-green-600' : 'text-gray-600' }}">
                                     {{ $user->active ? 'toggle_on' : 'toggle_off' }}
                                 </span>
                             </button>
                         </form>
                     </td>
-                    <td class="px-6 py-2">
-                        <a href="{{ route('admin.user.edit', $user->id) }}" class="inline-flex rounded-md font-medium text-yellow-500 border p-1 hover:underline mx-2">
-                            <span class="material-symbols-rounded">edit_square</span>
-                        </a>
-                        <button class="inline-flex rounded-md font-medium text-red-500 border p-1 hover:underline mx-2 btn-open-modal-confirm-delete" data-id="{{ $user->id }}">
-                            <span class="material-symbols-rounded">delete</span>
-                        </button>
+                    
+                    <td class="px-6 py-2 hidden sm:table-cell">
+                        <div class="flex justify-start">
+                            <a href="{{ route('admin.user.edit', $user->id) }}" class="inline-flex rounded-md font-medium text-yellow-500 border p-1 hover:underline mr-2">
+                                <span class="material-symbols-rounded">edit_square</span>
+                            </a>    
+                            <button class="inline-flex rounded-md font-medium text-red-500 border p-1 hover:underline btn-open-modal-confirm-delete" data-id="{{ $user->id }}">
+                                <span class="material-symbols-rounded">delete</span>
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 @endforeach
@@ -160,7 +172,7 @@
                 class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded">
                 Hủy
             </button>
-            <form id="delete-user-form" method="POST">
+            <form id="delete-user-form" method="POST" class="mb-0">
                 @csrf
                 @method('DELETE')
                 <button id="btn-confirm-delete" type="submit" 
@@ -184,9 +196,9 @@
             const userId = e.dataset.id;
             
             const currentRow = e.closest('tr');
-            const username = currentRow.querySelector('td:first-child').textContent;
+            const fullname = currentRow.querySelector('td:first-child').textContent;
             
-            document.getElementById('delete-user').textContent = username;
+            document.getElementById('delete-user').textContent = fullname;
 
             // Set form action
             form.action = `/admin/users/${userId}`;

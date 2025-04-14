@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -21,7 +22,6 @@ class UserController extends Controller
 
         if($search) {
             $query->where('fullname', 'like', "%{$search}%")
-                ->orWhere('username', 'like', "%{$search}%")
                 ->orWhere('email', 'like', "%{$search}%");
         }
         $users = $query->paginate($perPage);
@@ -42,30 +42,48 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
-        $validated = $request->validate([
-            'fullname' => 'required|max:50',
-            'username' => 'required|max:20|unique:users',
-            'email' => 'required|email|max:100|unique:users',
-            'phone' => 'nullable|max:11',
-            'password' => 'required|min:6',
-            'description' => 'nullable',
-            'role' => 'required|in:ADMIN,STAFF',
-        ]);
-
-        $validated['password'] = Hash::make($validated['password']);
-
-        User::create($validated);
-
-        return redirect()->route('admin.user')->with('success', 'User Created');
+        try {
+            $validated = $request->validate([
+                'fullname' => 'required|max:50',
+                'email' => 'required|email|max:100|unique:users',
+                'phone' => 'nullable|max:11',
+                'password' => 'required|min:6',
+                'description' => 'nullable',
+                'role' => 'required|in:ADMIN,STAFF',
+            ]);
+    
+            $validated['password'] = Hash::make($validated['password']);
+            User::create($validated);
+    
+            return redirect()->route('admin.user')->with('toast', [
+                'title' => 'Tạo mới thành công',
+                'text' => 'Tạo thông tin người dùng mới thành công',
+                'icon' => 'success'
+            ]);
+        } catch (ValidationException $e) {
+            $firstField = array_key_first($e->errors()); 
+            $firstError = $e->errors()[$firstField][0];  
+    
+            return redirect()->route('admin.user.create')->with('toast', [
+                'title' => 'Lỗi tạo người dùng',
+                'text' => $firstError,
+                'icon' => 'error'
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->route('admin.user.create')->with('toast', [
+                'title' => 'Tạo mới thất bại',
+                'text' => 'Lỗi: ' . $e->getMessage(),
+                'icon' => 'error'
+            ]);
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
-        //
+        return view('pages.admin.users.show', compact('user'));
     }
 
     /**
@@ -81,39 +99,69 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $request->merge([
-            'active' => $request->has('active')
-        ]);
-        
-        $validated = $request->validate([
-            'fullname' => 'required|max:50',
-            'username' => 'required|max:20|unique:users,username,' . $user->id,
-            'email' => 'required|email|max:100|unique:users,email,' . $user->id,
-            'phone' => 'nullable|max:11',
-            'description' => 'nullable',
-            'role' => 'required|in:ADMIN,STAFF',
-            'active' => 'boolean',
-            'password' => 'nullable|min:6'
-        ]);
-
-        if ($request->password) {
-            $validated['password'] = Hash::make($request->password);
-        } else {
-            unset($validated['password']);
+        try {
+            $request->merge([
+                'active' => $request->has('active')
+            ]);
+            
+            $validated = $request->validate([
+                'fullname' => 'required|max:50',
+                'email' => 'required|email|max:100|unique:users,email,' . $user->id,
+                'phone' => 'nullable|max:11',
+                'description' => 'nullable',
+                'role' => 'required|in:ADMIN,STAFF',
+                'active' => 'boolean',
+                'password' => 'nullable|min:6'
+            ]);
+    
+            if ($request->password) {
+                $validated['password'] = Hash::make($request->password);
+            } else {
+                unset($validated['password']);
+            }
+    
+            $user->update($validated);
+            
+            return redirect()->back()->with('toast', [
+                'title' => 'Cập nhật thành công',
+                'text' => 'Cập nhật thông tin người dùng thành công',
+                'icon' => 'success'
+            ]);
+        } catch(ValidationException $e) {
+            $firstField = array_key_first($e->errors()); 
+            $firstError = $e->errors()[$firstField][0];  
+    
+            return redirect()->back()->with('toast', [
+                'title' => 'Lỗi cập nhật thông tin người dùng',
+                'text' => $firstError,
+                'icon' => 'error'
+            ]);
+        } catch(\Exception $e) {
+            return redirect()->back()->with('toast', [
+                'title' => 'Lỗi cập nhật thông tin người dùng',
+                'text' => $e->getMessage(),
+                'icon' => 'error'
+            ]);
         }
-
-        $user->update($validated);
-        
-        return redirect()->route('admin.user')->with('success', 'User updated!');
     }
 
     public function toggleActive(User $user)
     {
-        $user->active = !$user->active;
-
-        $user->save();
-    
-        return redirect()->route('admin.user')->with('success', 'User active status updated!');
+        try {
+            $user->active = !$user->active;
+            $user->save();
+            return redirect()->route('admin.user')->with('toast', [
+                'title' => 'Cập nhật trạng thái',
+                'text' => 'Cập nhật trạng thái người dùng '. $user->fullname .' thành công',
+                'icon' => 'success'
+            ]);
+        } catch(\Exception $e) {
+            return redirect()->route('admin.user')->with('toast', [
+                'title' => 'Lỗi cập nhật trạng thái',
+                'text' => $e->getMessage(),
+                'icon' => 'error'
+            ]);
+        }
     }
 
     /**

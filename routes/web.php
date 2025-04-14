@@ -119,6 +119,7 @@ Route::middleware(['auth'])->group(function () {
 		// ========================== USERS ========================== //
 		Route::resource('/admin/users', Admin\UserController::class)->names([
 			'index' => 'admin.user',
+			'show' => 'admin.user.show',
 			'create' => 'admin.user.create',
 			'store' => 'admin.user.store',
 			'edit' => 'admin.user.edit',

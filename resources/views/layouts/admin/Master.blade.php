@@ -10,6 +10,9 @@
 
     {{-- Gg font --}}
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:wght@200" rel="stylesheet" />
+
+    {{-- Toast --}}
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 
 <body class="h-screen">
@@ -33,6 +36,20 @@
                 </div>
             @endif
             @yield('content')
+            
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.js"></script>
+
+            @if (session('toast'))
+                <script>
+                    Swal.fire({
+                        icon: '{{ session('toast.icon') ?? 'success' }}',
+                        title: `{!! session('toast.title') ?? '' !!}`,
+                        text: `{!! session('toast.text') ?? '' !!}`,
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                </script>
+            @endif
         </main>
     </div>
 </body>
