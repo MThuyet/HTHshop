@@ -16,7 +16,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-@keyframes drifting {
+/* @keyframes drifting {
     0% {
         opacity: 0;
         transform: translateX(-100px);
@@ -36,7 +36,7 @@
         opacity: 1;
         transform: translateY(0);
     }
-}
+} */
 
 .news__item {
     transition: all 0.3s ease-in-out;

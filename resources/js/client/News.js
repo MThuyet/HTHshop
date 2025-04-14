@@ -1,49 +1,47 @@
-// Active tab
-
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
+    // Lấy tất cả các tab và phần underline
     const tabs = document.querySelectorAll(".tab-item");
     const underline = document.getElementById("tab-underline");
 
-    function setUnderline(tab) {
+    // Lấy đường dẫn hiện tại
+    const currentPath = window.location.pathname;
+
+    // Lấy slug đã lưu trong localStorage (nếu có)
+    const savedSlug = localStorage.getItem("activeTabSlug");
+
+    // Tách slug từ URL (phần sau cùng)
+    const pathSlug = currentPath.split("/").pop();
+
+    // Cập nhật vị trí và độ rộng của underline theo tab được chọn
+    const setUnderline = (tab) => {
         underline.style.width = `${tab.offsetWidth}px`;
         underline.style.left = `${tab.offsetLeft}px`;
-    }
+    };
 
+    // Đặt trạng thái "active" cho tab dựa vào slug
+    const setActiveTab = (slug) => {
+        tabs.forEach((tab) => {
+            const isActive = tab.getAttribute("data-slug") === slug;
+            tab.classList.toggle("text-orangeColor", isActive); // Thêm hoặc gỡ lớp active
+            if (isActive) setUnderline(tab); // Nếu tab này đang active thì đặt underline
+        });
+    };
+
+    // Gán sự kiện click cho mỗi tab
     tabs.forEach((tab) => {
-        tab.addEventListener("click", function (e) {
-            e.preventDefault();
-            tabs.forEach((t) => t.classList.remove("text-orangeColor"));
-            this.classList.add("text-orangeColor");
-            setUnderline(this);
+        tab.addEventListener("click", () => {
+            const slug = tab.getAttribute("data-slug"); // Lấy slug từ data attribute
+            localStorage.setItem("activeTabSlug", slug); // Lưu slug vào localStorage
+            setActiveTab(slug); // Cập nhật giao diện
         });
     });
 
-    // Set vị trí ban đầu
-    setUnderline(tabs[0]);
-    tabs[0].classList.add("text-orangeColor");
-});
-
-// Active sidebar
-document.addEventListener("DOMContentLoaded", function () {
-    const sidebarItems = document.querySelectorAll(".sidebar-item");
-
-    sidebarItems.forEach((item) => {
-        item.addEventListener("click", function (e) {
-            e.preventDefault();
-
-            // Xóa active ở tất cả các tab
-            sidebarItems.forEach((el) => {
-                el.classList.remove("bg-orangeColor", "text-white");
-                el.classList.add("bg-white", "text-gray-800"); // Giữ màu mặc định khi không active
-            });
-
-            // Active tab được chọn
-            this.classList.add("bg-orangeColor", "text-white");
-            this.classList.remove("bg-white", "text-gray-800");
-        });
-    });
-
-    // Set mặc định active cho mục đầu tiên
-    sidebarItems[0].classList.add("bg-orangeColor", "text-white");
-    sidebarItems[0].classList.remove("bg-white", "text-gray-800");
+    // Nếu là trang tin tức
+    if (currentPath.startsWith("/tin-tuc")) {
+        // Ưu tiên slug từ URL, sau đó đến slug đã lưu, nếu không có thì mặc định "tin-noi-bat"
+        setActiveTab(pathSlug || savedSlug || "tin-noi-bat");
+    } else {
+        // Nếu không phải trang tin tức, luôn đặt tab mặc định là "tin-noi-bat"
+        setActiveTab("tin-noi-bat");
+    }
 });

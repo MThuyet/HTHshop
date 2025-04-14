@@ -24,8 +24,9 @@ class NewsSeeder extends Seeder
 			DB::table('news')->insert([
 				'title' => $title,
 				'slug' => Str::slug($title),
+				'excerpt' => 'Mô tả ngắn bài viết: ' . $title,
 				'content' => '<p>Nội dung bài viết: ' . $title . '</p>',
-				'thumbnail' => 'images/news/sample.jpg',
+				'thumbnail' => 'images/news/sample.png',
 				'active' => 1,
 				'news_category_id' => ($index % 4) + 1, // vì có 4 category
 				'user_id_created' => 1, // giả sử có user id 1
