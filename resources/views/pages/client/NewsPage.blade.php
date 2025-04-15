@@ -37,7 +37,7 @@
                             {!! $hotNews->excerpt !!}
                         </p>
                     </div>
-                    <img title="{{ $hotNews->title }}" src="{{ asset('storage/' . $hotNews->thumbnail) }}"
+                    <img title="{{ $hotNews->title }}" src="{{ asset('storage/images/news/' . $hotNews->thumbnail) }}"
                         alt="{{ $hotNews->title }}" class="w-full h-auto aspect-[5/3] object-cover object-center" />
                 </div>
             </a>
@@ -48,7 +48,8 @@
                     <a href="{{ route('news.detail', $news->slug) }}">
                         <div class="news__item">
                             <div class="news__thumbnail" title="{{ $news->title }}">
-                                <img src="{{ asset('storage/' . $news->thumbnail) }}" alt="{{ $news->title }}"
+                                <img src="{{ asset('storage/images/news/' . $news->thumbnail) }}"
+                                    alt="{{ $news->title }}"
                                     class="news__image w-full h-auto aspect-[5/3] object-cover object-center">
                             </div>
                             <div class="news__info">
