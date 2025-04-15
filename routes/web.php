@@ -21,9 +21,7 @@ Route::post('/dang-nhap', [Controllers\Auth\LoginController::class, 'handleLogin
 Route::get('/dang-xuat', [Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
 // ========================== TRANG CHỦ ========================== //
-Route::get('/', function () {
-	return view('pages.client.HomePage');
-})->name('home');
+Route::get('/', [Client\HomeController::class, 'index'])->name('home');
 
 // ========================== SẢN PHẨM ========================== //
 // Danh sách sản phẩm & filter

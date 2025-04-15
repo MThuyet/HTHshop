@@ -55,20 +55,20 @@
 
         <div
             class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-2 gap-y-4 sm:gap-4 md:gap-x-3 lg:gap-x-5">
-            @for ($i = 0; $i < 12; $i++)
+            @foreach ($latestProducts as $product)
                 <div
                     class="slide-up-effect relative bg-white shadow-md rounded-md overflow-hidden transition-all duration-300 group hover:scale-[1.02] hover:-translate-y-1 hover:shadow-lg">
                     <!-- Discount badge -->
                     <span
                         class="absolute top-2 left-2 bg-redColor text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md z-10 animate-pulse">
-                        -35%
+                        -{{ $product->discount }}%
                     </span>
 
                     <!-- Product image -->
                     <a href="{{ route('product.detail') }}">
                         <div class="relative overflow-hidden cursor-pointer">
-                            <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                                class="w-full h-60 object-cover rounded-t-md">
+                            <img src="{{ asset('storage/images/products/' . $product->product_image->image) }}"
+                                alt="{{ $product->name }}" class="w-full h-60 object-cover rounded-t-md">
 
                             <!-- Wishlist button with tooltip -->
                             <button
@@ -105,19 +105,23 @@
                         <a href="{{ route('product.detail') }}">
                             <p
                                 class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em] hover:text-orangeColor">
-                                Áo phông Ông già Noel tùy chỉnh dành cho nam – Áo phông Giáng sinh thời trang cho ngày lễ
+                                {{ $product->name }}
                             </p>
                         </a>
 
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
-                                <p class="text-orangeColor font-semibold text-[14px]">149.000đ</p>
-                                <p class="text-gray-400 line-through text-[12px]">220.000đ</p>
+                                <p class="text-orangeColor font-semibold text-[14px]">
+                                    {{ number_format($product->default_price - ($product->default_price * $product->discount) / 100, 0, ',', '.') }}đ
+                                </p>
+                                <p class="text-gray-400 line-through text-[12px]">
+                                    {{ number_format($product->default_price, 0, ',', '.') }}đ
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
-            @endfor
+            @endforeach
         </div>
     </div>
 
@@ -135,26 +139,26 @@
         </div>
     </div>
 
-    {{-- Sale đồng giá --}}
+    {{-- Được ưa chuộng --}}
     <div class="sale-product responsive mt-8">
-        <h2 class="sub-title">Sale đồng giá</h2>
+        <h2 class="sub-title">Được ưa chuộng</h2>
 
         <div
             class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-2 gap-y-4 sm:gap-4 md:gap-x-3 lg:gap-x-5">
-            @for ($i = 0; $i < 12; $i++)
+            @foreach ($mostFavoritedProducts as $product)
                 <div
                     class="slide-up-effect relative bg-white shadow-md rounded-md overflow-hidden transition-all duration-300 group hover:scale-[1.02] hover:-translate-y-1 hover:shadow-lg">
                     <!-- Discount badge -->
                     <span
                         class="absolute top-2 left-2 bg-redColor text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md z-10 animate-pulse">
-                        -35%
+                        -{{ $product->discount }}%
                     </span>
 
                     <!-- Product image -->
                     <a href="{{ route('product.detail') }}">
                         <div class="relative overflow-hidden cursor-pointer">
-                            <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                                class="w-full h-60 object-cover rounded-t-md">
+                            <img src="{{ asset('storage/images/products/' . $product->product_image->image) }}"
+                                alt="{{ $product->name }}" class="w-full h-60 object-cover rounded-t-md">
 
                             <!-- Wishlist button with tooltip -->
                             <button
@@ -191,19 +195,23 @@
                         <a href="{{ route('product.detail') }}">
                             <p
                                 class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em] hover:text-orangeColor">
-                                Áo phông Ông già Noel tùy chỉnh dành cho nam – Áo phông Giáng sinh thời trang cho ngày lễ
+                                {{ $product->name }}
                             </p>
                         </a>
 
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
-                                <p class="text-orangeColor font-semibold text-[14px]">149.000đ</p>
-                                <p class="text-gray-400 line-through text-[12px]">220.000đ</p>
+                                <p class="text-orangeColor font-semibold text-[14px]">
+                                    {{ number_format($product->default_price - ($product->default_price * $product->discount) / 100, 0, ',', '.') }}đ
+                                </p>
+                                <p class="text-gray-400 line-through text-[12px]">
+                                    {{ number_format($product->default_price, 0, ',', '.') }}đ
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
-            @endfor
+            @endforeach
         </div>
     </div>
 
@@ -222,20 +230,20 @@
 
         <div
             class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-2 gap-y-4 sm:gap-4 md:gap-x-3 lg:gap-x-5">
-            @for ($i = 0; $i < 12; $i++)
+            @foreach ($bestSellingProducts as $product)
                 <div
                     class="slide-up-effect relative bg-white shadow-md rounded-md overflow-hidden transition-all duration-300 group hover:scale-[1.02] hover:-translate-y-1 hover:shadow-lg">
                     <!-- Discount badge -->
                     <span
                         class="absolute top-2 left-2 bg-redColor text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md z-10 animate-pulse">
-                        -35%
+                        -{{ $product->discount }}%
                     </span>
 
                     <!-- Product image -->
                     <a href="{{ route('product.detail') }}">
                         <div class="relative overflow-hidden cursor-pointer">
-                            <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                                class="w-full h-60 object-cover rounded-t-md">
+                            <img src="{{ asset('storage/images/products/' . $product->product_image->image) }}"
+                                alt="{{ $product->name }}" class="w-full h-60 object-cover rounded-t-md">
 
                             <!-- Wishlist button with tooltip -->
                             <button
@@ -272,19 +280,23 @@
                         <a href="{{ route('product.detail') }}">
                             <p
                                 class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em] hover:text-orangeColor">
-                                Áo phông Ông già Noel tùy chỉnh dành cho nam – Áo phông Giáng sinh thời trang cho ngày lễ
+                                {{ $product->name }}
                             </p>
                         </a>
 
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
-                                <p class="text-orangeColor font-semibold text-[14px]">149.000đ</p>
-                                <p class="text-gray-400 line-through text-[12px]">220.000đ</p>
+                                <p class="text-orangeColor font-semibold text-[14px]">
+                                    {{ number_format($product->default_price - ($product->default_price * $product->discount) / 100, 0, ',', '.') }}đ
+                                </p>
+                                <p class="text-gray-400 line-through text-[12px]">
+                                    {{ number_format($product->default_price, 0, ',', '.') }}đ
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
-            @endfor
+            @endforeach
         </div>
     </div>
 
@@ -403,83 +415,45 @@
         <h2 class="uppercase text-[28px] tracking-widest text-nowrap text-center">Tin tức mới nhất</h2>
 
         <div class="grid md:grid-cols-2 grid-cols-1 gap-4 mt-6 justify-between md:slide-up-effect">
-            <div class="slide-up-effect">
-                <div class="overflow-hidden">
-                    <img class="aspect-[4/3] object-cover hover:scale-110 duration-500 cursor-pointer"
-                        src="{{ asset('images/new1-home.webp') }}" alt="">
+            {{-- Tin đầu tiên - nổi bật --}}
+            @if ($latestNews->isNotEmpty())
+                @php $firstNews = $latestNews->first(); @endphp
+                <div class="slide-up-effect">
+                    <div class="overflow-hidden">
+                        <img class="aspect-[4/3] object-cover hover:scale-110 duration-500 cursor-pointer"
+                            src="{{ asset('storage/images/news/' . $firstNews->thumbnail) }}"
+                            alt="{{ $firstNews->title }}">
+                    </div>
+                    <p class="my-2 text-[#888888] text-sm">{{ $firstNews->created_at->format('d/m/Y') }}</p>
+                    <h3
+                        class="md:text-[16px] lg:text-lg md:line-clamp-2 hover:text-orangeColor cursor-pointer mb-2 font-semibold text-[18px]">
+                        {{ $firstNews->title }}
+                    </h3>
+                    <p class="text-[#888888] text-sm line-clamp-2">
+                        {{ $firstNews->excerpt }}
+                    </p>
                 </div>
-                <p class="my-2 text-[#888888] text-sm">15/08/2021</p>
-                <h3
-                    class="md:text-[16px] lg:text-lg md:line-clamp-2 hover:text-orangeColor cursor-pointer mb-2 font-semibold text-[18px]">
-                    Những phong cách thời
-                    trang tối giản đáng chọn nhất cho mùa hè
-                </h3>
-                <p class="text-[#888888] text-sm line-clamp-2">
-                    Áo thun là một trong những món thời trang biểu tượng của mùa hè. Không chỉ mang đến sự trẻ trung và năng
-                    động, áo thun còn có thể giúp chị em ghi điểm thanh lịch. "Bí kíp" ở đây chính là lựa chọn áo thun trơn
-                    màu trung tính.
-                </p>
-            </div>
+            @endif
 
             <div class="md:flex flex-col gap-4 block">
-                <div class="md:flex gap-2 md:mt-0 mt-8 slide-up-effect">
-                    <div class="overflow-hidden min-w-[200px]">
-                        <img class="aspect-[4/3] md:w-[200px] object-cover hover:scale-110 duration-500 cursor-pointer"
-                            src="{{ asset('images/new2-home.webp') }}" alt="">
+                @foreach ($latestNews->skip(1) as $news)
+                    <div class="md:flex gap-2 md:mt-0 mt-8 slide-up-effect">
+                        <div class="overflow-hidden min-w-[200px]">
+                            <img class="aspect-[4/3] md:w-[200px] object-cover hover:scale-110 duration-500 cursor-pointer"
+                                src="{{ asset('storage/images/news/' . $news->thumbnail) }}" alt="">
+                        </div>
+                        <div>
+                            <p class="mb-2 text-[#888888] text-sm">{{ $news->created_at->format('d/m/Y') }}</p>
+                            <h3
+                                class="md:text-[16px] lg:text-lg md:line-clamp-2 hover:text-orangeColor cursor-pointer mb-2 font-semibold text-[18px]">
+                                {{ $news->title }}
+                            </h3>
+                            <p class="text-[#888888] text-sm line-clamp-2">
+                                {{ $news->excerpt }}
+                            </p>
+                        </div>
                     </div>
-                    <div>
-                        <p class="mb-2 text-[#888888] text-sm">15/08/2021</p>
-                        <h3
-                            class="md:text-[16px] lg:text-lg md:line-clamp-2 hover:text-orangeColor cursor-pointer mb-2 font-semibold text-[18px]">
-                            DGC Selection đạt top 1 hàng Việt Nam được người dùng yêu thích 2023
-                        </h3>
-                        <p class="text-[#888888] text-sm line-clamp-2">
-                            Theo đơn vị, để nhận được đánh giá cao từ người dùng trong nhiều năm, thương hiệu thời trang nam
-                            DGC Selection phải liên tục cải tiến, áp dụng quy trình sản xuất, công nghệ hiện đại và sử dụng
-                            nguồn nguyên liệu "xanh", thân thiện với môi trường trong từng sản phẩm. Thiết kế áo phao của
-                            nhãn hàng mang phong cách tối giản, hướng đến sự lịch lãm và nam tính. Sản phẩm được đánh giá
-                            cao bởi ưu điểm dễ mặc, dễ phối đồ và thuận tiện sử dụng.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="md:flex gap-2 md:mt-0 mt-8 slide-up-effect">
-                    <div class="overflow-hidden min-w-[200px]">
-                        <img class="aspect-[4/3] md:w-[200px] object-cover hover:scale-110 duration-500 cursor-pointer"
-                            src="{{ asset('images/new3-home.webp') }}" alt="">
-                    </div>
-                    <div>
-                        <p class="mb-2 text-[#888888] text-sm">15/08/2021</p>
-                        <h3
-                            class="md:text-[16px] lg:text-lg md:line-clamp-2 hover:text-orangeColor cursor-pointer mb-2 font-semibold text-[18px]">
-                            SIR Tailor ra mắt bộ sưu tập 'The Blazy Revolution'
-                        </h3>
-                        <p class="text-[#888888] text-sm line-clamp-2">
-                            Tới năm 2023, Owen đã đưa gần 15 chất liệu xanh vào các thiết kế thời trang và nhận phản hồi
-                            tích cực từ khách hàng. Trong đó, sơ mi sợi bạc hà, bã cà phê có nhiều đặc tính nổi trội, mang
-                            tới trải nghiệm mặc thoải mái cho người dùng, đồng thời, thân thiện với môi trường.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="md:flex gap-2 md:mt-0 mt-8 slide-up-effect">
-                    <div class="overflow-hidden min-w-[200px]">
-                        <img class="aspect-[4/3] md:w-[200px] object-cover hover:scale-110 duration-500 cursor-pointer"
-                            src="{{ asset('images/new4-home.webp') }}" alt="">
-                    </div>
-                    <div>
-                        <p class="mb-2 text-[#888888] text-sm">15/08/2021</p>
-                        <h3
-                            class="md:text-[16px] lg:text-lg md:line-clamp-2 hover:text-orangeColor cursor-pointer mb-2 font-semibold text-[18px]">
-                            Những món đồ giúp đàn ông ghi điểm phong cách
-                        </h3>
-                        <p class="text-[#888888] text-sm line-clamp-2">
-                            Theo cuộc khảo sát "Phụ nữ thích đàn ông mặc gì" của tạp chí Esquire, khi đưa ra bảng màu trang
-                            phục mà phụ nữ cho rằng lý tưởng với đàn ông, đa số họ chọn xanh dương (chiếm 42%), màu hồng
-                            chiếm 12,9%, số còn lại chia đều cho các màu khác.
-                        </p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
