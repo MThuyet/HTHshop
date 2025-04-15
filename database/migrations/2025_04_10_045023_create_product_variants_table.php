@@ -13,9 +13,7 @@ return new class extends Migration
 	{
 		Schema::create('product_variants', function (Blueprint $table) {
 			$table->id();
-			$table->string('color_code', 7);
-			$table->decimal('price', 10, 2);
-			$table->enum('size', ['1', '2', '3', '4', '5', '6', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']);
+			$table->decimal('price', 12, 2);
 			$table->enum('print_position', [
 				'LEFT_CHEST',         // Ngực trái
 				'RIGHT_CHEST',        // Ngực phải
@@ -29,12 +27,9 @@ return new class extends Migration
 				'BACK_NECK_CENTER',   // Sau giữa cổ
 				'CENTER_BACK_A4',     // Giữa lưng A4
 				'CENTER_BACK_A3',     // Giữa lưng A3
+				'BOTH_SIDES',         // Cả 2 mặt trước sau
 			]);
-			$table->string('image')->nullable();
 			$table->unsignedBigInteger('product_id');
-			$table->integer('view')->default(0);
-			$table->integer('favorite')->default(0);
-			$table->integer('bought')->default(0);
 			$table->timestamps();
 			$table->softDeletes();
 

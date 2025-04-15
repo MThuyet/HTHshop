@@ -26,10 +26,8 @@ Route::get('/', function () {
 })->name('home');
 
 // ========================== SẢN PHẨM ========================== //
-// Danh sách sản phẩm
-Route::get('/san-pham', function () {
-	return view('pages.client.ProductListPage');
-})->name('product');
+// Danh sách sản phẩm & filter
+Route::match(['get', 'post'], '/san-pham', [Client\ProductCategoryController::class, 'index'])->name('product');
 
 // Chi tiết sản phẩm
 Route::get('/san-pham/slug', function () {

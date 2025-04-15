@@ -19,6 +19,10 @@ class ProductSeeder extends Seeder
 				'name' => 'Áo thun trơn nam basic',
 				'slug' => Str::slug('Áo thun trơn nam basic'),
 				'description' => 'Áo thun trơn cổ tròn dành cho nam, chất liệu cotton 100%.',
+				'view' => 0,
+				'favorite' => 0,
+				'bought' => 0,
+				'default_price' => 350000
 			],
 			[
 				'product_category_id' => 2,
@@ -26,6 +30,10 @@ class ProductSeeder extends Seeder
 				'name' => 'Áo polo nữ năng động',
 				'slug' => Str::slug('Áo polo nữ năng động'),
 				'description' => 'Áo polo nữ form đẹp, thoáng mát, thích hợp cho hoạt động ngoài trời.',
+				'view' => rand(0, 100),
+				'favorite' => rand(0, 100),
+				'bought' => rand(0, 100),
+				'default_price' => 350000
 			],
 			[
 				'product_category_id' => 3,
@@ -33,6 +41,10 @@ class ProductSeeder extends Seeder
 				'name' => 'Áo cặp đôi dễ thương',
 				'slug' => Str::slug('Áo cặp đôi dễ thương'),
 				'description' => 'Áo đôi cổ tròn với thiết kế hình in đáng yêu.',
+				'view' => rand(0, 100),
+				'favorite' => rand(0, 100),
+				'bought' => rand(0, 100),
+				'default_price' => 350000
 			],
 			[
 				'product_category_id' => 4,
@@ -40,13 +52,17 @@ class ProductSeeder extends Seeder
 				'name' => 'Áo sơ mi bé trai',
 				'slug' => Str::slug('Áo sơ mi bé trai'),
 				'description' => 'Áo sơ mi cổ bẻ dành cho bé trai từ 4-10 tuổi.',
+				'view' => rand(0, 100),
+				'favorite' => rand(0, 100),
+				'bought' => rand(0, 100),
+				'default_price' => 350000
 			],
 		];
 
 		foreach ($products as $product) {
 			DB::table('products')->insert(array_merge($product, [
 				'active' => 1,
-				'discount' => 0,
+				'discount' => 30,
 				'has_customization' => false,
 				'created_at' => $now,
 				'updated_at' => $now,

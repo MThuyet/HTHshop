@@ -16,18 +16,25 @@ class Product extends Model
 		'name',
 		'slug',
 		'description',
+		'default_price',
 		'active',
 		'discount',
-		'bought',
+		'has_customization',
 		'view',
 		'favorite',
-		'has_customization',
+		'bought',
 	];
 
 	// Quan hệ: Một product thuộc về một category
 	public function category()
 	{
 		return $this->belongsTo(ProductCategory::class, 'product_category_id');
+	}
+
+	// Một product có nhiều hình ảnh
+	public function images(): HasMany
+	{
+		return $this->hasMany(ProductImage::class);
 	}
 
 	// Một product có nhiều variant

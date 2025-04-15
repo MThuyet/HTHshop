@@ -18,9 +18,13 @@ return new class extends Migration
 			$table->string('name', 100)->unique();
 			$table->string('slug', 120)->unique();
 			$table->text('description')->nullable();
+			$table->decimal('default_price', 12, 2);
 			$table->boolean('active')->default(1);
 			$table->tinyInteger('discount')->default(0);
 			$table->boolean('has_customization')->default(0);
+			$table->integer('view')->default(0);
+			$table->integer('favorite')->default(0);
+			$table->integer('bought')->default(0);
 			$table->timestamps();
 			$table->softDeletes();
 

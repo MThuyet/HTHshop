@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Http\Controllers\Client;
+
+use App\Http\Controllers\Controller;
+use App\Models\Product;
+use App\Models\ProductCategory;
+use Illuminate\Http\Request;
+
+class ProductCategoryController extends Controller
+{
+	public function index(Request $request)
+	{
+		// Lấy toàn bộ danh mục sản phẩm để hiển thị checkbox filter
+		$categories = ProductCategory::all();
+
+		// Khởi tạo query builder cho model Product
+		$query = Product::query();
+
+		// Biến lưu giá trị filter đã chọn để truyền lại view (phục vụ checked lại checkbox)
+		$selectedCategories = [];
+		$selectedNeckTypes = [];
+
+		// Nếu là phương thức POST (khi người dùng bấm "Áp dụng bộ lọc")
+		if ($request->isMethod('post')) {
+			// Lấy danh sách category được chọn từ form
+			$selectedCategories = $request->input('categories', []);
+
+			// Lấy danh sách cổ áo được chọn từ form
+			$selectedNeckTypes = $request->input('neckTypes', []);
+
+			// Nếu có chọn danh mục thì lọc theo danh mục
+			if (!empty($selectedCategories)) {
+				$query->whereIn('product_category_id', $selectedCategories);
+			}
+
+			// Nếu có chọn loại cổ áo thì lọc theo cổ áo
+			if (!empty($selectedNeckTypes)) {
+				$query->whereIn('type', $selectedNeckTypes);
+			}
+		}
+
+		// Thực hiện truy vấn, lấy danh sách sản phẩm đã lọc (hoặc tất cả nếu không có filter)
+		$products = $query->get();
+
+		// Lấy image cho mỗi sản phẩm
+		foreach ($products as $product) {
+			// Lấy ảnh sản phẩm đầu tiên (hoặc có thể thay đổi nếu cần nhiều ảnh)
+			$product->product_image = $product->images()->first();
+		}
+
+		// Trả về view cùng với các dữ liệu cần thiết
+		return view('pages.client.ProductListPage', compact(
+			'categories',            // Danh sách danh mục để render filter
+			'products',              // Danh sách sản phẩm đã lọc
+			'selectedCategories',    // Các danh mục đã được chọn
+			'selectedNeckTypes'      // Các loại cổ áo đã được chọn
+		));
+	}
+}

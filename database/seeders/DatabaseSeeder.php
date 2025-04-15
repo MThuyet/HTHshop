@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
 			ReviewSeeder::class,
 			NewsCategorySeeder::class,
 			NewsSeeder::class,
+			ProductImageSeeder::class,
 		]);
 	}
 }

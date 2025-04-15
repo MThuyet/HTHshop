@@ -12,14 +12,16 @@
         </div>
 
         {{-- Filter Modal --}}
-        <div id="filterModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
+        <form id="filterModal" action="{{ url()->current() }}" method="POST"
+            class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
             <div class="bg-white p-6 rounded-2xl shadow-2xl w-[90%] max-w-[420px] relative">
-
+                @csrf
                 <!-- Reset Button -->
-                <button class="absolute top-3 left-4 text-gray-600 hover:text-orange-500 transition">
+                <a href="{{ url()->current() }}"
+                    class="absolute top-3 left-4 text-gray-600 hover:text-orange-500 transition">
                     <span class="material-symbols-rounded"
                         style="font-size: 30px; line-height: 36px; font-weight: 600">restart_alt</span>
-                </button>
+                </a>
 
                 <!-- Close Button -->
                 <button id="closeFilter"
@@ -36,11 +38,13 @@
                         <div class="space-y-4">
                             <label class="flex items-center justify-between cursor-pointer">
                                 <span>Áo cổ tròn</span>
-                                <input type="checkbox" id="aoNamModal" class="w-5 h-5 accent-orange-500">
+                                <input type="checkbox" name="neckTypes[]" id="modal-round-neck" value="ROUND_NECK"
+                                    class="w-5 h-5 accent-orange-500" @if (in_array('ROUND_NECK', $selectedNeckTypes ?? [])) checked @endif>
                             </label>
                             <label class="flex items-center justify-between cursor-pointer">
                                 <span>Áo cổ trụ</span>
-                                <input type="checkbox" id="aoNuModal" class="w-5 h-5 accent-orange-500">
+                                <input type="checkbox" name="neckTypes[]" id="modal-collar-neck" value="COLLAR_NECK"
+                                    class="w-5 h-5 accent-orange-500" @if (in_array('COLLAR_NECK', $selectedNeckTypes ?? [])) checked @endif>
                             </label>
                         </div>
                     </div>
@@ -48,44 +52,40 @@
                     <div>
                         <legend class="text-orange-500 text-lg tracking-wide font-semibold mb-3">Danh mục</legend>
                         <div class="space-y-4">
-                            <label class="flex items-center justify-between cursor-pointer">
-                                <span>Áo nam</span>
-                                <input type="checkbox" id="aoNamModal" class="w-5 h-5 accent-orange-500">
-                            </label>
-                            <label class="flex items-center justify-between cursor-pointer">
-                                <span>Áo nữ</span>
-                                <input type="checkbox" id="aoNuModal" class="w-5 h-5 accent-orange-500">
-                            </label>
-                            <label class="flex items-center justify-between cursor-pointer">
-                                <span>Áo cặp đôi</span>
-                                <input type="checkbox" id="aoCapModal" class="w-5 h-5 accent-orange-500">
-                            </label>
-                            <label class="flex items-center justify-between cursor-pointer">
-                                <span>Áo trẻ em</span>
-                                <input type="checkbox" id="aoTreEmModal" class="w-5 h-5 accent-orange-500">
-                            </label>
+                            @foreach ($categories as $category)
+                                <label class="flex items-center justify-between cursor-pointer">
+                                    <span>{{ $category->name }}</span>
+                                    <input type="checkbox" name="categories[]" id="moal-cate-{{ $category->id }}"
+                                        value="{{ $category->id }}" class="w-5 h-5 accent-orange-500"
+                                        @if (in_array($category->id, $selectedCategories ?? [])) checked @endif>
+                                </label>
+                            @endforeach
                         </div>
                     </div>
                 </fieldset>
 
                 <!-- Apply Button -->
                 <div class="mt-6 text-center">
-                    <button
+                    <button type="submit"
                         class="bg-orange-500 text-white px-6 py-2 rounded-lg text-lg font-semibold shadow-md hover:bg-orange-600 transition">
                         Áp dụng bộ lọc
                     </button>
                 </div>
             </div>
-        </div>
+        </form>
 
         {{-- Sidebar --}}
-        <div class="shadow p-3 md:min-w-[200px] bg-gray rounded-lg h-fit md:block hidden">
+        <form class="shadow p-3 md:min-w-[200px] bg-gray rounded-lg h-fit md:block hidden" action="{{ url()->current() }}"
+            method="POST">
+            @csrf
             <div class="flex items-end justify-between mb-8">
                 <h2 class="uppercase text-[16px] tracking-widest ">Lọc sản phẩm</h2>
-                <span class="material-symbols-rounded cursor-pointer hover:text-orangeColor"
-                    style="font-size: 26px; font-weight: 600">
-                    restart_alt
-                </span>
+                <a href="{{ url()->current() }}" class="flex items-center justify-center">
+                    <span class="material-symbols-rounded cursor-pointer hover:text-orangeColor"
+                        style="font-size: 26px; font-weight: 600">
+                        restart_alt
+                    </span>
+                </a>
             </div>
 
             {{-- Danh mục --}}
@@ -95,14 +95,16 @@
                     </legend>
                     <div class="ml-4 space-y-3">
                         <div class="flex items-center justify-between">
-                            <label class="cursor-pointer" for="aoNam">Áo cổ tròn</label>
-                            <input type="checkbox" name="aoNam" id="aoNam"
-                                class="w-5 h-5 cursor-pointer accent-orangeColor">
+                            <label class="cursor-pointer" for="round-neck">Áo cổ tròn</label>
+                            <input type="checkbox" name="neckTypes[]" id="round-neck" value="ROUND_NECK"
+                                class="w-5 h-5 cursor-pointer accent-orangeColor"
+                                @if (in_array('ROUND_NECK', $selectedNeckTypes ?? [])) checked @endif>
                         </div>
                         <div class="flex items-center justify-between">
-                            <label class="cursor-pointer" for="aoNu">Áo cổ trụ</label>
-                            <input type="checkbox" name="aoNu" id="aoNu"
-                                class="w-5 h-5 cursor-pointer accent-orangeColor">
+                            <label class="cursor-pointer" for="collar-neck">Áo cổ trụ</label>
+                            <input type="checkbox" name="neckTypes[]" id="collar-neck" value="COLLAR_NECK"
+                                class="w-5 h-5 cursor-pointer accent-orangeColor"
+                                @if (in_array('COLLAR_NECK', $selectedNeckTypes ?? [])) checked @endif>
                         </div>
                     </div>
                 </div>
@@ -111,26 +113,16 @@
                     <legend class="uppercase text-orangeColor text-[18px] tracking-widest mb-2 font-medium">Danh mục
                     </legend>
                     <div class="ml-4 space-y-3">
-                        <div class="flex items-center justify-between">
-                            <label class="cursor-pointer" for="aoNam">Áo nam</label>
-                            <input type="checkbox" name="aoNam" id="aoNam"
-                                class="w-5 h-5 cursor-pointer accent-orangeColor">
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <label class="cursor-pointer" for="aoNu">Áo nữ</label>
-                            <input type="checkbox" name="aoNu" id="aoNu"
-                                class="w-5 h-5 cursor-pointer accent-orangeColor">
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <label class="cursor-pointer" for="aoCap">Áo cặp đôi</label>
-                            <input type="checkbox" name="aoCap" id="aoCap"
-                                class="w-5 h-5 cursor-pointer accent-orangeColor">
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <label class="cursor-pointer" for="aoTreEm">Áo trẻ em</label>
-                            <input type="checkbox" name="aoTreEm" id="aoTreEm"
-                                class="w-5 h-5 cursor-pointer accent-orangeColor">
-                        </div>
+                        @foreach ($categories as $category)
+                            <div class="flex items-center justify-between">
+                                <label for="cate-{{ $category->id }}" class="cursor-pointer">
+                                    {{ $category->name }}
+                                </label>
+                                <input type="checkbox" name="categories[]" id="cate-{{ $category->id }}"
+                                    value="{{ $category->id }}" class="w-5 h-5 cursor-pointer accent-orangeColor"
+                                    @if (in_array($category->id, $selectedCategories ?? [])) checked @endif>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </fieldset>
@@ -138,30 +130,31 @@
             {{-- Apply Button --}}
             <div class="mt-6 text-center">
                 <button
-                    class="bg-orange-500 text-white px-4 py-2 rounded-lg text-md font-semibold shadow-md hover:bg-orange-600 transition">
+                    class="bg-orange-500 text-white px-4 py-2 rounded-lg text-md font-semibold shadow-md hover:bg-orange-600 transition"
+                    type="submit">
                     Áp dụng bộ lọc
                 </button>
             </div>
-        </div>
+        </form>
 
         {{-- Product --}}
         <div class="w-full">
             <div
                 class=" grid md:grid-rows-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-3 grid-cols-2 gap-x-2 gap-y-4 sm:gap-4 md:gap-x-2 lg:gap-x-4">
-                @for ($i = 0; $i < 12; $i++)
+                @foreach ($products as $product)
                     <div
                         class="slide-up-effect relative bg-white shadow-md rounded-md overflow-hidden transition-all duration-300 group hover:scale-[1.02] hover:-translate-y-1 hover:shadow-lg">
                         <!-- Discount badge -->
                         <span
                             class="absolute top-2 left-2 bg-redColor text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md z-10 animate-pulse">
-                            -35%
+                            -{{ $product->discount }}%
                         </span>
 
                         <!-- Product image -->
                         <a href="{{ route('product.detail') }}">
                             <div class="relative overflow-hidden cursor-pointer">
-                                <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                                    class="w-full h-60 object-cover rounded-t-md">
+                                <img src="{{ asset('storage/images/products/' . $product->product_image->image) }}"
+                                    alt="{{ $product->name }}" class="w-full h-60 object-cover object-center rounded-t-md">
 
                                 <!-- Wishlist button with tooltip -->
                                 <button
@@ -198,20 +191,23 @@
                             <a href="{{ route('product.detail') }}">
                                 <p
                                     class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em] hover:text-orangeColor">
-                                    Áo phông Ông già Noel tùy chỉnh dành cho nam – Áo phông Giáng sinh thời trang cho ngày
-                                    lễ
+                                    {{ $product->name }}
                                 </p>
                             </a>
 
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-2">
-                                    <p class="text-orangeColor font-semibold text-[14px]">149.000đ</p>
-                                    <p class="text-gray-400 line-through text-[12px]">220.000đ</p>
+                                    <p class="text-orangeColor font-semibold text-[14px]">
+                                        {{ number_format($product->default_price - ($product->default_price * $product->discount) / 100, 0, ',', '.') }}đ
+                                    </p>
+                                    <p class="text-gray-400 line-through text-[12px]">
+                                        {{ number_format($product->default_price, 0, ',', '.') }}đ
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endfor
+                @endforeach
             </div>
         </div>
     </div>
