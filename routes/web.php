@@ -29,46 +29,46 @@ Route::match(['get', 'post'], '/san-pham', [Client\ProductCategoryController::cl
 
 // Chi tiết sản phẩm
 Route::get('/san-pham/slug', function () {
-	return view('pages.client.ProductDetailPage');
+    return view('pages.client.ProductDetailPage');
 })->name('product.detail');
 
 // ========================== YÊU THÍCH ========================== //
 Route::get('/yeu-thich', function () {
-	return view('pages.client.FavoritePage');
+    return view('pages.client.FavoritePage');
 })->name('favorite');
 
 // ========================== GIỎ HÀNG ========================== //
 Route::get('/gio-hang', function () {
-	return view('pages.client.CartPage');
+    return view('pages.client.CartPage');
 })->name('cart');
 
 // ========================== ĐẶT HÀNG ========================== //
 Route::get('/dat-hang', function () {
-	return view('pages.client.OrderPage');
+    return view('pages.client.OrderPage');
 })->name('order');
 
 // ========================== TIN TỨC ========================== //
 Route::prefix('tin-tuc')->group(function () {
-	// Danh sách theo danh mục
-	Route::get('/danh-muc/{category_slug}', [Client\NewsController::class, 'index'])->name('news.category');
+    // Danh sách theo danh mục
+    Route::get('/danh-muc/{category_slug}', [Client\NewsController::class, 'index'])->name('news.category');
 
-	// Chi tiết tin tức
-	Route::get('/{news_slug}', [Client\NewsController::class, 'detail'])->name('news.detail');
+    // Chi tiết tin tức
+    Route::get('/{news_slug}', [Client\NewsController::class, 'detail'])->name('news.detail');
 });
 
 // ========================== HỖ TRỢ ========================== //
 Route::get('/ho-tro', function () {
-	return view('pages.client.HelpPage');
+    return view('pages.client.HelpPage');
 })->name('help');
 
 // ========================== LIÊN HỆ ========================== //
 Route::get('/lien-he', function () {
-	return view('pages.client.ContactPage');
+    return view('pages.client.ContactPage');
 })->name('contact');
 
 // ========================== CHÍNH SÁCH ========================== //
 Route::get('/chinh-sach', function () {
-	return view('pages.client.PolicyPage');
+    return view('pages.client.PolicyPage');
 });
 
 
@@ -82,47 +82,51 @@ Route::get('/chinh-sach', function () {
 // Middleware `auth` => đã đăng nhập
 Route::middleware(['auth'])->group(function () {
 
-	// Middleware `auth.admin` => là admin
-	Route::middleware(['auth.admin'])->group(function () {
+    // Middleware `auth.admin` => là admin
+    Route::middleware(['auth.admin'])->group(function () {
 
-		// ========================== DASHBOARD ========================== //
-		Route::get('/admin/dashboard', function () {
-			return view('pages.admin.dashboard');
-		})->name('admin.dashboard');
+        // ========================== DASHBOARD ========================== //
+        Route::get('/admin/dashboard', function () {
+            return view('pages.admin.dashboard');
+        })->name('admin.dashboard');
 
-		// ========================== PRODUCT ========================== //
-		Route::get('/admin/product', function () {
-			return view('pages.admin.product.index');
-		})->name('admin.product');
+        // ========================== PRODUCT ========================== //
+        Route::get('/admin/product', function () {
+            return view('pages.admin.product.index');
+        })->name('admin.product');
 
-		Route::get('/admin/product/create', function () {
-			return view('pages.admin.product.create');
-		})->name('admin.product.create');
+        Route::get('/admin/product/create', function () {
+            return view('pages.admin.product.create');
+        })->name('admin.product.create');
 
-		Route::get('/admin/product/update/{id}', function ($id) {
-			return view('pages.admin.product.update', ['id' => $id]);
-		})->name('admin.product.update');
+        Route::get('/admin/product/update/{id}', function ($id) {
+            return view('pages.admin.product.update', ['id' => $id]);
+        })->name('admin.product.update');
 
-		// ========================== PRODUCT CATEGORY ========================== //
-		Route::get('/admin/product-category', function () {
-			return view('pages.admin.product-category.index');
-		})->name('admin.product-category');
+        // ========================== PRODUCT CATEGORY ========================== //
+        Route::resource('/admin/product-category', Admin\ProductCategoryController::class)->names([
+            'index' => 'admin.product-category',
+            'show' => 'admin.product-category.show',
+            'create' => 'admin.product-category.create',
+            'store' => 'admin.product-category.store',
+            'edit' => 'admin.product-category.edit',
+            'update' => 'admin.product-category.update',
+            'destroy' => 'admin.product-category.delete'
+        ]);
 
-		Route::get('/admin/product-category/create', function () {
-			return view('pages.admin.product-category.create');
-		})->name('admin.product-category.create');
+        Route::put('/admin/product-category/{productCategory}/toggle', [Admin\ProductCategoryController::class, 'toggleActive'])->name('admin.product-category.toggle');
 
-		// ========================== USERS ========================== //
-		Route::resource('/admin/users', Admin\UserController::class)->names([
-			'index' => 'admin.user',
-			'show' => 'admin.user.show',
-			'create' => 'admin.user.create',
-			'store' => 'admin.user.store',
-			'edit' => 'admin.user.edit',
-			'update' => 'admin.user.update',
-			'destroy' => 'admin.user.delete'
-		]);
+        // ========================== USERS ========================== //
+        Route::resource('/admin/users', Admin\UserController::class)->names([
+            'index' => 'admin.user',
+            'show' => 'admin.user.show',
+            'create' => 'admin.user.create',
+            'store' => 'admin.user.store',
+            'edit' => 'admin.user.edit',
+            'update' => 'admin.user.update',
+            'destroy' => 'admin.user.delete'
+        ]);
 
-		Route::put('/admin/users/{user}/toggle', [Admin\UserController::class, 'toggleActive'])->name('admin.user.toggle');
-	});
+        Route::put('/admin/users/{user}/toggle', [Admin\UserController::class, 'toggleActive'])->name('admin.user.toggle');
+    });
 });
