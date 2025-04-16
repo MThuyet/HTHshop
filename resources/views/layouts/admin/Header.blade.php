@@ -11,7 +11,7 @@
             ['navName' => 'product', 'navIcon' => 'apparel', 'route' => 'admin.product'],
             ['navName' => 'order', 'navIcon' => 'shopping_bag', 'route' => 'admin.dashboard'],
             ['navName' => 'user', 'navIcon' => 'manage_accounts', 'route' => 'admin.user'],
-            ['navName' => 'news', 'navIcon' => 'news', 'route' => 'admin.dashboard'],
+            ['navName' => 'news', 'navIcon' => 'news', 'route' => 'admin.news'],
         ];
 
         $navItemActive = trim($__env->yieldContent('nav-active'));

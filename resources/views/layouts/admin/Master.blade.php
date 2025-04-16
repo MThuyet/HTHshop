@@ -50,6 +50,7 @@
                     });
                 </script>
             @endif
+            @stack('scripts')
         </main>
     </div>
 </body>

@@ -45,12 +45,12 @@
         </div>
     </div>
     
-    <div class="overflow-x-auto h-full border-t-2 border-gray-200">
+    <div class="overflow-auto h-full border-t-2 border-gray-200">
         {{-- Table --}}
         <table class="min-w-full text-sm text-left text-gray-500">
             <thead class="text-xs uppercase bg-gray-100 text-gray-700">
                 <tr>
-                    <th class="px-6 py-3">Chi tiết</th>
+                    <th class="px-6 py-3"></th>
                     <th class="px-6 py-3 hidden md:table-cell">Họ tên</th>
                     <th class="px-6 py-3">Email</th>
                     <th class="px-6 py-3 hidden lg:table-cell">Số điện thoại</th>
@@ -192,7 +192,6 @@
         const form = document.getElementById('delete-user-form');
 
         const openModal = (e) => {
-            console.log(e);
             const userId = e.dataset.id;
             
             const currentRow = e.closest('tr');
