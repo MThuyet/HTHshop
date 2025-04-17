@@ -65,7 +65,7 @@
                     </span>
 
                     <!-- Product image -->
-                    <a href="{{ route('product.detail') }}">
+                    <a href="{{ route('product.detail', $product->slug) }}">
                         <div class="relative overflow-hidden cursor-pointer">
                             <img src="{{ asset('storage/images/products/' . $product->product_image->image) }}"
                                 alt="{{ $product->name }}" class="w-full h-60 object-cover rounded-t-md">
@@ -102,7 +102,7 @@
 
                     <!-- Product details -->
                     <div class="md:px-4 md:py-2 p-2">
-                        <a href="{{ route('product.detail') }}">
+                        <a href="{{ route('product.detail', $product->slug) }}">
                             <p
                                 class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em] hover:text-orangeColor">
                                 {{ $product->name }}
@@ -155,7 +155,7 @@
                     </span>
 
                     <!-- Product image -->
-                    <a href="{{ route('product.detail') }}">
+                    <a href="{{ route('product.detail', $product->slug) }}">
                         <div class="relative overflow-hidden cursor-pointer">
                             <img src="{{ asset('storage/images/products/' . $product->product_image->image) }}"
                                 alt="{{ $product->name }}" class="w-full h-60 object-cover rounded-t-md">
@@ -192,7 +192,7 @@
 
                     <!-- Product details -->
                     <div class="md:px-4 md:py-2 p-2">
-                        <a href="{{ route('product.detail') }}">
+                        <a href="{{ route('product.detail', $product->slug) }}">
                             <p
                                 class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em] hover:text-orangeColor">
                                 {{ $product->name }}
@@ -240,7 +240,7 @@
                     </span>
 
                     <!-- Product image -->
-                    <a href="{{ route('product.detail') }}">
+                    <a href="{{ route('product.detail', $product->slug) }}">
                         <div class="relative overflow-hidden cursor-pointer">
                             <img src="{{ asset('storage/images/products/' . $product->product_image->image) }}"
                                 alt="{{ $product->name }}" class="w-full h-60 object-cover rounded-t-md">
@@ -277,7 +277,7 @@
 
                     <!-- Product details -->
                     <div class="md:px-4 md:py-2 p-2">
-                        <a href="{{ route('product.detail') }}">
+                        <a href="{{ route('product.detail', $product->slug) }}">
                             <p
                                 class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em] hover:text-orangeColor">
                                 {{ $product->name }}

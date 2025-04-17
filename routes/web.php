@@ -28,9 +28,8 @@ Route::get('/', [Client\HomeController::class, 'index'])->name('home');
 Route::match(['get', 'post'], '/san-pham', [Client\ProductCategoryController::class, 'index'])->name('product');
 
 // Chi tiết sản phẩm
-Route::get('/san-pham/slug', function () {
-	return view('pages.client.ProductDetailPage');
-})->name('product.detail');
+Route::get('/san-pham/{product_slug}', [Client\ProductDetailController::class, 'index'])->name('product.detail');
+Route::post('/upload-image', [Client\ProductDetailController::class, 'uploadImage'])->name('upload.image');
 
 // ========================== YÊU THÍCH ========================== //
 Route::get('/yeu-thich', function () {
