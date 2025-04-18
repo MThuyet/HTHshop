@@ -55,7 +55,7 @@ Route::get('/dat-hang', function () {
 // ========================== TIN TỨC ========================== //
 Route::prefix('tin-tuc')->group(function () {
 	// Danh sách theo danh mục
-	Route::get('/danh-muc/{category_slug}', [Client\NewsController::class, 'index'])->name('news.category');
+	Route::get('/danh-muc/{category_slug?}', [Client\NewsController::class, 'index'])->name('news.category');
 
 	// Chi tiết tin tức
 	Route::get('/{news_slug}', [Client\NewsController::class, 'detail'])->name('news.detail');

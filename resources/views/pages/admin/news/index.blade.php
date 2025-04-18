@@ -7,14 +7,14 @@
 @section('content')
 <div class="bg-white p-2 border border-1 rounded-md">
     {{-- Anchor ProCat & Search & Btn Create --}}
-    <div class="flex flex-col md:flex-row items-center justify-between mb-4 gap-3">
+    <form method="GET" action="{{ route('admin.news') }}" class="flex flex-col md:flex-row items-center justify-between mb-4 gap-3">
         <a href="{{ route('admin.news-category') }}"
             class="inline-block px-4 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow">
             Danh mục tin tức
         </a>
         <div class="w-full md:w-1/2">
             <div class="relative z-40">
-                <form id="searchForm" method="GET" action="{{ route('admin.news') }}" class="mb-0 text-md">
+                <div class="mb-0 text-md">
                     <input
                         type="text"
                         name="search"
@@ -26,12 +26,12 @@
                         search
                     </span>
                     <button type="submit" class="text-white absolute end-2.5 top-1/2 -translate-y-1/2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tìm kiếm</button>
-                </form>
+                </div>
             </div>
         </div>
 
         <div class="flex gap-4">
-            <form method="GET" action="{{ route('admin.news') }}" class="flex gap-2 mb-0 items-center">
+            <div class="flex gap-2 mb-0 items-center">
                 <label for="table-row-length" class="text-sm font-medium text-gray-700 mr-2">Hiển thị:</label>
                 <select name="limit-row-length" id="table-row-length" onchange="this.form.submit()"
                     class="bg-gray-50 border border-gray-300 text-gray-900 rounded-md text-sm focus:ring-blue-500 focus:border-blue-500 block p-2">
@@ -40,14 +40,14 @@
                     <option value="20" {{ $perPage == 20 ? 'selected' : '' }}>20 Dòng</option>
                     <option value="25" {{ $perPage == 25 ? 'selected' : '' }}>25 Dòng</option>
                 </select>
-            </form>
+            </div>
     
             <a href="{{ route('admin.news.create') }}"
                class="inline-block px-4 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow">
                 + Thêm tin tức mới
             </a>
         </div>
-    </div>
+    </form>
     
     <div class="overflow-auto h-full border-t-2 border-gray-200">
         {{-- Table --}}
@@ -115,38 +115,14 @@
                 Hiển thị {{ $news->firstItem() }}-{{ $news->lastItem() }}/{{ $news->total() }} dòng
             </span>
             <div class="flex items-center gap-1">
-
-                {{-- First Page --}}
-                <a href="{{ $news->currentPage() > 1 ? $news->url(1) . '&limit-row-length=' . $perPage . '&search=' . request('search') : '#' }}"
-                    class="flex items-center justify-center border px-1 py-1 rounded-md hover:border-[#333] {{ $news->onFirstPage() ? 'opacity-50 pointer-events-none' : '' }}">
-                    <span class="material-symbols-rounded">first_page</span>
-                </a>
-            
-                {{-- Previous Page --}}
-                <a href="{{ $news->previousPageUrl() ? $news->previousPageUrl() . '&limit-row-length=' . $perPage . '&search=' . request('search') : '#' }}"
-                    class="flex items-center justify-center border px-1 spy-1 rounded-md hover:border-[#333] {{ !$news->previousPageUrl() ? 'opacity-50 pointer-events-none' : '' }}">
-                    <span class="material-symbols-rounded">chevron_left</span>
-                </a>
-            
-                {{-- Page Numbers --}}
                 @if ($news->lastPage() > 1)
-                    {{ $news->appends(['limit-row-length' => $perPage, 'search' => request('search')])->links() }}
+                    {{ 
+                        $news->appends(['limit-row-length' => $perPage, 'search' => request('search')])
+                        ->links('vendor.pagination.tailwind') 
+                    }}
                 @else
                     <span class="text-gray-400 text-sm">Chỉ có 1 trang</span>
                 @endif
-            
-                {{-- Next Page --}}
-                <a href="{{ $news->nextPageUrl() ? $news->nextPageUrl() . '&limit-row-length=' . $perPage . '&search=' . request('search') : '#' }}"
-                    class="flex items-center justify-center border px-1 py-1 rounded-md hover:border-[#333] {{ !$news->nextPageUrl() ? 'opacity-50 pointer-events-none' : '' }}">
-                    <span class="material-symbols-rounded">chevron_right</span>
-                </a>
-            
-                {{-- Last Page --}}
-                <a href="{{ $news->currentPage() < $news->lastPage() ? $news->url($news->lastPage()) . '&limit-row-length=' . $perPage . '&search=' . request('search') : '#' }}"
-                    class="flex items-center justify-center border px-1 py-1 rounded-md hover:border-[#333] 
-                    {{ $news->currentPage() == $news->lastPage() ? 'opacity-50 pointer-events-none' : '' }}">
-                    <span class="material-symbols-rounded">last_page</span>
-                </a>
             </div>
         </div>
     </div>

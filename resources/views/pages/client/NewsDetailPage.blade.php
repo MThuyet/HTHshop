@@ -15,7 +15,7 @@
 
             <div class="news-content">
                 <div class="news-excerpt mb-4 italic">
-                    <p>{!! $news->excerpt !!}</p>
+                    <p>{{ $news->excerpt }}</p>
                 </div>
 
                 <div class="news-full-content">

@@ -136,7 +136,7 @@
                 </a>
             </li>
             <li>
-                <a href="/tin-tuc/danh-muc/tin-noi-bat"
+                <a href="{{ route('news.category', 'tin-tong-hop') }}"
                     class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
                     <span class="md:hidden">
                         <span class="material-symbols-rounded" style="font-size: 32px;">article</span>
