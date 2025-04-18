@@ -18,10 +18,10 @@
                 <span class="material-symbols-rounded mr-2">edit_square</span>
                 Chỉnh sửa
             </a>
-            <button class="inline-flex items-center px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 btn-open-modal-confirm-delete" data-id="{{ $productCategory->id }}">
-                <span class="material-symbols-rounded mr-2">delete</span>
-                Xóa
-            </button>
+                <button class="inline-flex items-center px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 btn-open-modal-confirm-delete" data-id="{{ route('admin.product-category.delete', $productCategory->id) }}">
+                    <span class="material-symbols-rounded mr-2">delete</span>
+                    Xóa
+                </button>
         </div>
     </div>
 
@@ -92,3 +92,60 @@
     </div>
 </div>
 @endsection
+<!-- Modal xác nhận xóa -->
+<div id="modal-confirm-delete" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white p-6 rounded-lg max-w-sm w-full">
+        <h2 class="text-lg font-semibold mb-4 text-gray-800">Xác nhận xóa</h2>
+        <p class="text-gray-700 mb-6">Bạn có chắc chắn muốn xóa danh mục sản phẩm này không?</p>
+        <form id="delete-category-form" method="POST" action="">
+            @csrf
+            @method('DELETE')
+            <div class="flex justify-end gap-2">
+                <button type="button" id="btn-cancel-modal-confirm-delete"
+                        class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300">
+                    Hủy
+                </button>
+                <button type="submit"
+                        class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-500">
+                    Xác nhận
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('modal-confirm-delete');
+        const openBtn = document.querySelector('.btn-open-modal-confirm-delete');
+        const cancelBtn = document.getElementById('btn-cancel-modal-confirm-delete');
+        const form = document.getElementById('delete-category-form');
+
+        openBtn.addEventListener('click', () => {
+            const action = openBtn.getAttribute('data-id');
+            form.setAttribute('action', action);
+            modal.classList.remove('hidden');
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            form.setAttribute('action', '');
+        });
+
+        // Optional: Click ra ngoài để đóng
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+                form.setAttribute('action', '');
+            }
+        });
+
+        // Optional: ESC để đóng
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                modal.classList.add('hidden');
+                form.setAttribute('action', '');
+            }
+        });
+    });
+</script>

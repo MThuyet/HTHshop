@@ -124,8 +124,19 @@ class ProductCategoryController extends Controller
                 'description' => 'nullable|string|max:255',
                 'active' => 'boolean'
             ]);
+            $hasChanges =
+                $validated['name'] !== $category->name ||
+                $validated['slug'] !== $category->slug ||
+                $validated['description'] !== $category->description ||
+                $validated['active'] != $category->active; // != để tránh lỗi kiểu dữ liệu
 
-            $category = ProductCategory::findOrFail($id);
+            if (!$hasChanges) {
+                return redirect()->back()->with('toast', [
+                    'title' => 'Không có thay đổi',
+                    'text' => 'Bạn chưa thay đổi thông tin nào.',
+                    'icon' => 'info'
+                ]);
+            }
             $category->update($validated);
 
             return redirect()->back()->with('toast', [

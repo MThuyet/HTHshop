@@ -101,10 +101,12 @@
                                       method="POST" class="inline-block" onsubmit="return confirm('Bạn có chắc chắn muốn xóa?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="inline-flex rounded-md font-medium text-red-500 border p-1 hover:underline btn-open-modal-confirm-delete">
-
+                                         <button type="button"                                    class="inline-flex rounded-md font-medium text-red-500 border p-1 hover:underline btn-open-modal-confirm-delete"
+                                        data-id="{{ $category->id }}"
+                                        data-name="{{ $category->name }}">
                                         <span class="material-symbols-rounded">delete</span>
-                                    </button>
+</button>
+
 
                                 </form>
                             </td>
@@ -155,5 +157,80 @@
         </div>
 
     </div>
-</p>
+
 @endsection
+
+<div id="modal-confirm-delete" class="fixed inset-0 z-[1000] hidden items-center justify-center bg-black/50">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md mx-auto p-6 absolute top-1/4 left-1/2
+    -translate-x-1/2" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+
+      <div class="flex items-center">
+        <div class="flex items-center justify-center w-12 h-12 bg-red-100 rounded-full">
+            <svg class="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75M12 15.75h.007v.008H12v-.008zm-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126Z" />
+            </svg>
+        </div>
+        <div class="ml-4">
+            <h3 class="text-lg font-semibold text-gray-900" id="modal-title">Xóa Người Dùng</h3>
+            <p class="text-sm text-gray-500 mt-1">Bạn có chắc muốn xóa thông tin người dùng
+                <span class="font-bold" id="delete-category"></span>
+                này không?
+            </p>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="mt-6 flex justify-end gap-3">
+            <button id="btn-cancel-modal-confirm-delete"
+                class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded">
+                Hủy
+            </button>
+            <form id="delete-category-form" method="POST" class="mb-0">
+                @csrf
+                @method('DELETE')
+                <button id="btn-confirm-delete" type="submit"
+                    class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded">Xác nhận</button>
+            </form>
+      </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('modal-confirm-delete');
+        const btnOpenList = document.querySelectorAll('.btn-open-modal-confirm-delete');
+        const btnCancel = document.getElementById('btn-cancel-modal-confirm-delete');
+        const form = document.getElementById('delete-category-form');
+        const deleteName = document.getElementById('delete-category');
+
+        const openModal = (button) => {
+            const id = button.dataset.id;
+            const name = button.dataset.name;
+
+            deleteName.textContent = name;
+            form.action = `/admin/product-category/${id}`;
+
+            modal.classList.remove('hidden');
+        };
+
+        const closeModal = () => {
+            deleteName.textContent = '';
+            form.action = '';
+            modal.classList.add('hidden');
+        };
+
+        btnOpenList.forEach(button => {
+            button.addEventListener('click', () => openModal(button));
+        });
+
+        btnCancel.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    });
+</script>
+

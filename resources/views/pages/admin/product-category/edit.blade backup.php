@@ -45,59 +45,9 @@ $breadCrump = [
             </div>
 
             {{-- Nút submit --}}
-            {{-- <div>
-                <button type="submit" class="px-4 py-2 w-full bg-blue-600 text-white rounded-md hover:bg-blue-700">Cập nhật</button>
-            </div> --}}
-                {{-- Nút Cập nhật không gửi form ngay, mà mở modal --}}
             <div>
-                <button
-                    type="button"
-                    onclick="openConfirmModal()"
-                    class="px-4 py-2 w-full bg-blue-600 text-white rounded-md hover:bg-blue-700"
-                >
-                    Cập nhật
-                </button>
+                <button type="submit" class="px-4 py-2 w-full bg-blue-600 text-white rounded-md hover:bg-blue-700">Cập nhật</button>
             </div>
-
         </form>
     </div>
 @endsection
-{{-- Modal xác nhận --}}
-{{-- Modal xác nhận --}}
-<div id="confirmModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
-    <div class="bg-white rounded-lg shadow-md w-full max-w-md p-6">
-        <h2 class="text-lg font-semibold text-gray-800 mb-2">Xác nhận cập nhật</h2>
-        <p class="text-gray-700 mb-4">Bạn có chắc chắn muốn cập nhật danh mục này?</p>
-        <div class="flex justify-end gap-2">
-            <button
-                type="button"
-                onclick="closeConfirmModal()"
-                class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-            >
-                Hủy
-            </button>
-            <button
-                type="button"
-                onclick="submitUpdateForm()"
-                class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-            >
-                Cập nhật
-            </button>
-        </div>
-    </div>
-</div>
-
-<script>
-    function openConfirmModal() {
-        document.getElementById('confirmModal').classList.remove('hidden');
-    }
-
-    function closeConfirmModal() {
-        document.getElementById('confirmModal').classList.add('hidden');
-    }
-
-    function submitUpdateForm() {
-        // Tìm form và submit
-        document.querySelector('form').submit();
-    }
-</script>
