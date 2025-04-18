@@ -1,12 +1,12 @@
 @extends('layouts.admin.master')
-@section('title', 'Tạo mới danh mục sản phẩm')
+@section('title', 'Cập nhật danh mục sản phẩm')
 
 @section('nav-active', 'product')
 @php
 $breadCrump = [
     ['name' => 'Quản lý sản phẩm', 'href' => route('admin.product')],
     ['name' => 'Quản lý danh mục sản phẩm', 'href' => route('admin.product-category')],
-    ['name' => 'Tạo mới danh mục sản phẩm', 'href' => route('admin.product-category.create')],
+    ['name' => 'Cập nhật danh mục sản phẩm', 'href' => route('admin.product-category.create')],
 ];
 @endphp
 
