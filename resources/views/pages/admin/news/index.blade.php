@@ -56,7 +56,8 @@
                 <tr>
                     <th scope="col" class="px-6 py-3"></th>
                     <th scope="col" class="px-6 py-3">Tin tức</th>
-                    <th scope="col" class="px-6 py-3 hidden sm:table-cell">Danh mục</th>
+                    <th scope="col" class="px-6 py-3 hidden sm:table-cell">Lượt xem</th>
+                    <th scope="col" class="px-6 py-3 hidden md:table-cell">Danh mục</th>
                     <th scope="col" class="px-6 py-3 hidden sm:table-cell">Trạng thái</th>
                     <th scope="col" class="px-6 py-3">Hành động</th>
                 </tr>
@@ -72,18 +73,19 @@
                         <td class="px-6 py-4">
                             <div class="flex gap-2">
                                 @if ($item->thumbnail)
-                                    <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="Thumbnail" class="w-20 h-20 object-cover rounded hidden md:block">
+                                    <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="Thumbnail" class="w-20 h-20 object-cover rounded hidden lg:block">
                                 @else
                                     <span class="text-gray-400">Không có ảnh</span>
                                 @endif
                                 <div>
                                     <h3 class="font-bold text-gray-900 mb-0">{{ $item->title }}</h3>
                                     <span class="text-gray-400 text-sm">{{ $item->created_at->format('d/m/Y H:i:s') }}</span>
-                                    <p class="text-sm text-gray-500">{{ Str::limit($item->excerpt, 75) }}</p>
+                                    <p class="text-sm text-gray-500 hidden md:block">{{ Str::limit($item->excerpt, 75) }}</p>
                                 </div>
                             </div>
                         </td>
-                        <td class="px-6 py-4 hidden sm:table-cell">{{ $item->category->name ?? 'Không xác định' }}</td>
+                        <td class="px-6 py-4 hidden sm:table-cell">{{ $item->watch }}</td>
+                        <td class="px-6 py-4 hidden md:table-cell">{{ $item->category->name ?? 'Không xác định' }}</td>
                         <td class="px-6 py-2 hidden sm:table-cell">
                             <form action="{{ route('admin.news.toggle', $item->id) }}" method="POST" class="mb-0">
                                 @csrf
