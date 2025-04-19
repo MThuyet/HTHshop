@@ -6,14 +6,15 @@
     <div class="responsive">
         <h2 class="sub-title mt-5">Liên Hệ</h2>
         <div class="grid xl:grid-cols-2 lg:grid-cols-1 grid-row-2 gap-4 my-[30px] bg-[#f3f3f3] p-6 rounded-md">
-            <form action="" method="POST" class="xl:col-span-1">
+            <form action="{{ route('contact.submit-form') }}" method="POST" class="xl:col-span-1">
                 <div class="grid lg:grid-cols-2 md:grid-cols-1 gap-5">
                     <div>
                         <label for="full-name" class="text-lg font-bold">
                             Họ và tên
                             <span class="text-[var(--red-color)]">*</span>
                         </label><br>
-                        <input type="text" name="fullName" id="full-name" placeholder="Họ và tên" maxlength="50" required
+                        <input type="text" name="fullname" id="full-name" placeholder="Họ và tên" maxlength="50" required
+                            value="{{ old('fullname') }}"
                             class="border-l-[3px] border-l-[var(--red-color)] p-2 w-full duration-500 ease
                             bg-[#fff] focus-within:outline-none
                             focus:outline-none focus:border-l-transparent focus:duration-500 focus:ease
@@ -25,7 +26,8 @@
                             Email
                             <span class="text-[var(--red-color)]">*</span>
                         </label><br>
-                        <input type="text" name="email" id="email" placeholder="Email" maxlength="254" required
+                        <input type="email" name="email" id="email" placeholder="Email" maxlength="254" required
+                            value="{{ old('email') }}"
                             class="border-l-[3px] border-l-[var(--red-color)] p-2 w-full
                             bg-[#fff] duration-500 ease
                             focus:outline-none focus:border-l-transparent focus:duration-500 focus:ease
@@ -42,7 +44,7 @@
                             class="border-l-[3px] border-l-[var(--red-color)] p-2 w-full bg-[#fff] resize-none
                             duration-500 ease
                             focus:outline-none focus:border-l-transparent focus:duration-500 focus:ease
-                        "></textarea>
+                        ">{{ old('message') }}</textarea>
                         <span class="error-message text-[var(--red-color)]"></span>
                     </div>
                     <button

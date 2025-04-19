@@ -66,10 +66,9 @@ Route::get('/ho-tro', function () {
 	return view('pages.client.HelpPage');
 })->name('help');
 
-// ========================== LIÊN HỆ ========================== //
-Route::get('/lien-he', function () {
-	return view('pages.client.ContactPage');
-})->name('contact');
+// ========================== CONTACT ========================== //
+Route::get('/lien-he', [Client\ContactController::class, 'showForm'])->name('contact.show-form');
+Route::post('/lien-he', [Client\ContactController::class, 'submitForm'])->name('contact.submit-form')->middleware('throttle:2,5');
 
 // ========================== CHÍNH SÁCH ========================== //
 Route::get('/chinh-sach', function () {
