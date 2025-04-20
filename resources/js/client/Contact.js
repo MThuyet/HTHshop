@@ -28,6 +28,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     input.value = "";
                 },
             },
+            {
+                test: (value) => value.length <= 50,
+                message: "Độ dài họ tên tối da chỉ được dưới 50 kí tự",
+            }
         ],
         email: [
             {
@@ -42,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 message: "Email không hợp lệ",
             },
             {
-                test: (value) => value.length <= 254,
+                test: (value) => value.length <= 255,
                 message: "Độ dài email tối đa chỉ được dưới 255 kí tự",
             },
         ],
@@ -55,8 +59,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
             },
             {
+                test: (value) => value.length >= 10,
+                message: "Độ dài nội dung tối thiểu phải trên 10 kí tự",
+            },
+            {
                 test: (value) => value.length <= 500,
-                message: "Độ dài email tối đa chỉ được dưới 500 kí tự",
+                message: "Độ dài nội dung tối đa chỉ được dưới 500 kí tự",
             },
         ],
     };
