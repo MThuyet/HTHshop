@@ -41,14 +41,14 @@
                     <option value="25" {{ $perPage == 25 ? 'selected' : '' }}>25 Dòng</option>
                 </select>
             </div>
-    
+
             <a href="{{ route('admin.news.create') }}"
                class="inline-block px-4 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow">
                 + Thêm tin tức mới
             </a>
         </div>
     </form>
-    
+
     <div class="overflow-auto h-full border-t-2 border-gray-200">
         {{-- Table --}}
         <table class="min-w-full text-sm text-left text-gray-500">
@@ -116,9 +116,9 @@
             </span>
             <div class="flex items-center gap-1">
                 @if ($news->lastPage() > 1)
-                    {{ 
+                    {{
                         $news->appends(['limit-row-length' => $perPage, 'search' => request('search')])
-                        ->links('vendor.pagination.tailwind') 
+                        ->links('vendor.pagination.tailwind')
                     }}
                 @else
                     <span class="text-gray-400 text-sm">Chỉ có 1 trang</span>
@@ -130,7 +130,7 @@
 <div id="modal-confirm-delete" class="fixed inset-0 z-[1000] hidden items-center justify-center bg-black/50">
     <div class="bg-white rounded-lg shadow-lg w-full max-w-md mx-auto p-6 absolute top-1/4 left-1/2
     -translate-x-1/2" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      
+
       <div class="flex items-center">
         <div class="flex items-center justify-center w-12 h-12 bg-red-100 rounded-full">
             <svg class="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -139,23 +139,23 @@
         </div>
         <div class="ml-4">
             <h3 class="text-lg font-semibold text-gray-900" id="modal-title">Xóa danh mục tin tức</h3>
-            <p class="text-sm text-gray-500 mt-1">Bạn có chắc muốn xóa tin tức 
-                <span class="font-bold" id="delete-news"></span> 
+            <p class="text-sm text-gray-500 mt-1">Bạn có chắc muốn xóa tin tức
+                <span class="font-bold" id="delete-news"></span>
                 này không?
             </p>
         </div>
       </div>
-  
+
       <!-- Buttons -->
       <div class="mt-6 flex justify-end gap-3">
-            <button id="btn-cancel-modal-confirm-delete" 
+            <button id="btn-cancel-modal-confirm-delete"
                 class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded">
                 Hủy
             </button>
             <form id="delete-news-form" method="POST" class="mb-0">
                 @csrf
                 @method('DELETE')
-                <button id="btn-confirm-delete" type="submit" 
+                <button id="btn-confirm-delete" type="submit"
                     class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded">Xác nhận</button>
             </form>
       </div>
@@ -171,10 +171,10 @@
 
         const openModal = (e) => {
             const newsId = e.dataset.id;
-            
+
             const currentRow = e.closest('tr');
             const fullname = currentRow.querySelector('td:nth-child(2) h3').textContent;
-            
+
             document.getElementById('delete-news').textContent = fullname;
 
             // Set form action

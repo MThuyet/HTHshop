@@ -137,7 +137,7 @@
             </li>
             <li>
                 <a href="{{ route('news.category', 'tin-tong-hop') }}"
-                    class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center">
+                    class="hover:text-orange-500 transition text-nowrap sm:px-2 py-1 md:px-4 md:py-2 flex flex-col md:flex-row items-center {{ request()->is('tin-tuc*') ? 'text-orange-500' : '' }}">
                     <span class="md:hidden">
                         <span class="material-symbols-rounded" style="font-size: 32px;">article</span>
                     </span>

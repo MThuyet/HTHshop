@@ -158,8 +158,7 @@ Route::middleware(['auth'])->group(function () {
 
 		// ========================== EDITOR ========================== //
 		Route::group(['prefix' => 'laravel-filemanager'], function () {
-			\UniSharp\LaravelFilemanager\Lfm::routes();
+			Lfm::routes();
 		});
-
 	});
 });
