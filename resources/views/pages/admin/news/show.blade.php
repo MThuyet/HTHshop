@@ -62,6 +62,12 @@
             
             <div class="space-y-4">
                 <div class="flex flex-col md:flex-row">
+                    <span class="w-full md:w-2/3 font-medium text-gray-600">Lượt xem:</span>
+                    <span class="w-full md:w-2/3 text-gray-900">{{ $news->watch }}
+                    </span>
+                </div>
+
+                <div class="flex flex-col md:flex-row">
                     <span class="w-full md:w-2/3 font-medium text-gray-600">Người tạo:</span>
                     <span class="w-full md:w-2/3 text-gray-900">{{ $news->createdBy?->fullname ?? 'Không xác định' }}
                     </span>

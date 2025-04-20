@@ -18,12 +18,13 @@ return new class extends Migration
 			$table->string('excerpt');
 			$table->longText('content');
 			$table->string('thumbnail');
+			$table->unsignedInteger('watch')->default(0);
 			$table->boolean('active')->default(1);
 			$table->timestamps();
 			$table->softDeletes();
 
 			$table->unsignedBigInteger('news_category_id');
-			$table->unsignedBigInteger('user_id_created');
+			$table->unsignedBigInteger('user_id_created')->nullable();
 			$table->unsignedBigInteger('user_id_updated')->nullable();
 
 			$table->foreign('news_category_id')->references('id')->on('news_categories')->onDelete('cascade');

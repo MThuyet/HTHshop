@@ -42,6 +42,14 @@ class NewsController extends Controller
 	public function detail($news_slug)
 	{
 		$news = News::where('slug', $news_slug)->firstOrFail();
+		$sessionKey = 'news_viewed_' . $news->id;
+
+		if(!session()->has($sessionKey)) {
+			$news->increment('watch');
+
+			session()->put($sessionKey, now());
+		}
+
 		return view('pages.client.NewsDetailPage', compact('news'));
 	}
 }
