@@ -150,13 +150,13 @@ class UserController extends Controller
         try {
             $user->active = !$user->active;
             $user->save();
-            return redirect()->route('admin.user')->with('toast', [
+            return redirect()->back()->with('toast', [
                 'title' => 'Cập nhật trạng thái',
                 'text' => 'Cập nhật trạng thái người dùng '. $user->fullname .' thành công',
                 'icon' => 'success'
             ]);
         } catch(\Exception $e) {
-            return redirect()->route('admin.user')->with('toast', [
+            return redirect()->back()->with('toast', [
                 'title' => 'Lỗi cập nhật trạng thái',
                 'text' => $e->getMessage(),
                 'icon' => 'error'
@@ -169,7 +169,20 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
-        return redirect()->route('admin.user')->with('success', 'User deleted'); 
+        try {
+            $user->delete();
+
+            return redirect()->route('admin.user')->with('toast', [
+                'title' => 'Xóa thành công',
+                'text' => 'Xóa thông tin người dùng thành công',
+                'icon' => 'success'
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->route('admin.user')->with('toast', [
+                'title' => 'Lỗi xóa người dùng',
+                'text' => $e->getMessage(),
+                'icon' => 'error'
+            ]);
+        }
     }
 }

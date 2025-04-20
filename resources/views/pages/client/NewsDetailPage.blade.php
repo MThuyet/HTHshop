@@ -10,12 +10,12 @@
             </div>
 
             <div class="news-thumbnail mb-4">
-                <img src="{{ asset('storage/images/news/' . $news->thumbnail) }}" alt="{{ $news->title }}">
+                <img src="{{ asset('storage/' . $news->thumbnail) }}" alt="{{ $news->title }}">
             </div>
 
             <div class="news-content">
                 <div class="news-excerpt mb-4 italic">
-                    <p>{!! $news->excerpt !!}</p>
+                    <p>{{ $news->excerpt }}</p>
                 </div>
 
                 <div class="news-full-content">

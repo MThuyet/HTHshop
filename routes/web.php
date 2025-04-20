@@ -5,6 +5,7 @@ use App\Http\Controllers;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Client;
 use Illuminate\Support\Facades\Route;
+use \UniSharp\LaravelFilemanager\Lfm;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +49,7 @@ Route::post('/dat-hang', [Client\OrderController::class, 'store'])->name('order.
 // ========================== TIN TỨC ========================== //
 Route::prefix('tin-tuc')->group(function () {
 	// Danh sách theo danh mục
-	Route::get('/danh-muc/{category_slug}', [Client\NewsController::class, 'index'])->name('news.category');
+	Route::get('/danh-muc/{category_slug?}', [Client\NewsController::class, 'index'])->name('news.category');
 
 	// Chi tiết tin tức
 	Route::get('/{news_slug}', [Client\NewsController::class, 'detail'])->name('news.detail');
@@ -122,5 +123,36 @@ Route::middleware(['auth'])->group(function () {
 		]);
 
 		Route::put('/admin/users/{user}/toggle', [Admin\UserController::class, 'toggleActive'])->name('admin.user.toggle');
+
+		// ========================== NEWS ========================== //
+		Route::resource('/admin/news', Admin\NewsController::class)->names([
+			'index' => 'admin.news',
+			'show' => 'admin.news.show',
+			'create' => 'admin.news.create',
+			'store' => 'admin.news.store',
+			'edit' => 'admin.news.edit',
+			'update' => 'admin.news.update',
+			'destroy' => 'admin.news.delete'
+		]);
+
+		Route::put('/admin/news/{news}/toggle', [Admin\NewsController::class, 'toggleActive'])->name('admin.news.toggle');
+
+		// ========================== NEWS CATEGORY ========================== //
+		Route::resource('/admin/news-category', Admin\NewsCategoryController::class)->names([
+			'index' => 'admin.news-category',
+			'show' => 'admin.news-category.show',
+			'create' => 'admin.news-category.create',
+			'store' => 'admin.news-category.store',
+			'edit' => 'admin.news-category.edit',
+			'update' => 'admin.news-category.update',
+			'destroy' => 'admin.news-category.delete'
+		]);
+
+		Route::put('/admin/news-category/{newsCategory}/toggle', [Admin\NewsCategoryController::class, 'toggleActive'])->name('admin.news-category.toggle');
+
+		// ========================== EDITOR ========================== //
+		Route::group(['prefix' => 'laravel-filemanager'], function () {
+			Lfm::routes();
+		});
 	});
 });
