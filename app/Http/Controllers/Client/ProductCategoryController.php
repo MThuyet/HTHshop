@@ -23,6 +23,14 @@ class ProductCategoryController extends Controller
 
 		// Nếu là phương thức POST (khi người dùng bấm "Áp dụng bộ lọc")
 		if ($request->isMethod('post')) {
+			$searchKeyword  = $request->input('searchValue');
+
+			if (!empty($searchKeyword)) {
+				$query->where(function ($q) use ($searchKeyword) {
+					$q->where('name', 'LIKE', "%$searchKeyword%");
+				});
+			}
+
 			// Lấy danh sách category được chọn từ form
 			$selectedCategories = $request->input('categories', []);
 

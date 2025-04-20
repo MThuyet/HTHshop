@@ -12,13 +12,15 @@
     <div
         class="header-search flex flex-row w-full md:flex-1 md:justify-center justify-between items-center lg:gap-6 gap-3 order-last md:order-none md:mt-0 mt-3">
         <!-- Search Input -->
-        <div class="relative flex items-center w-full max-w-md md:order-1 order-2">
+        <form action="{{ route('product') }}" method="POST"
+            class="relative flex items-center w-full max-w-md md:order-1 order-2">
+            @csrf
             <input class="w-full outline-none rounded-full px-4 py-2 pr-10 border border-gray-400" type="text"
-                placeholder="Tìm kiếm sản phẩm ...">
+                placeholder="Tìm kiếm sản phẩm ..." name="searchValue"
+                value="{{ old('searchValue', request('searchValue')) }}">
             <span class="material-symbols-rounded absolute right-2 text-gray-500 cursor-pointer"
                 style="font-size: 32px">search</span>
-
-        </div>
+        </form>
 
         {{-- Hỗ trợ --}}
         <a href="tel:0332393031" class="support items-center gap-2 flex md:order-2 order-1">
