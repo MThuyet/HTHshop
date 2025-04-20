@@ -15,14 +15,18 @@ class LoginController extends Controller
 
 	public function handleLogin(Request $request)
 	{
-		$email = $request->input('email');
+		$username = $request->input('username');
 		$password = $request->input('password');
-		$status = Auth::attempt(['email' => $email, 'password' => $password]);
+		$status = Auth::attempt(['username' => $username, 'password' => $password]);
 		// Thử đăng nhập
 		if ($status) {
 			$user = Auth::user();
 			if ($user->role === 'ADMIN' || $user->role === 'STAFF') {
-				return redirect()->route('admin.dashboard');
+				return redirect()->route('admin.dashboard')->with('toast', [
+					'title' => 'Đăng nhập thành công',
+					'text' => 'Chào mừng bạn quay trở lại',
+					'icon' => 'success'
+				]);
 			}
 		}
 

@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
@@ -22,7 +24,7 @@ class UserController extends Controller
 
         if($search) {
             $query->where('fullname', 'like', "%{$search}%")
-                ->orWhere('email', 'like', "%{$search}%");
+                ->orWhere('username', 'like', "%{$search}%");
         }
         $users = $query->paginate($perPage);
         
@@ -45,12 +47,32 @@ class UserController extends Controller
         try {
             $validated = $request->validate([
                 'fullname' => 'required|max:50',
-                'email' => 'required|email|max:100|unique:users',
-                'phone' => 'nullable|max:11',
-                'password' => 'required|min:6',
+                'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'username' => 'required|min:5|max:50|unique:users,username',
+                'password' => 'required|min:5|max:60',
                 'description' => 'nullable',
                 'role' => 'required|in:ADMIN,STAFF',
             ]);
+
+            if ($request->hasFile('avatar')) {
+                try {
+                    $avatarName = time() . '_' . uniqid() . '.' . $request->file('avatar')->extension();
+            
+                    $destinationPath = storage_path('app/public/images/avatar');
+                    if (!file_exists($destinationPath)) {
+                        mkdir($destinationPath, 0755, true);
+                    }
+            
+                    $request->file('avatar')->move($destinationPath, $avatarName);
+            
+                    $validated['avatar'] = 'images/avatar/' . $avatarName;
+            
+                    Log::info('Ảnh đã lưu bằng move(): ' . $validated['avatar']);
+            
+                } catch (\Exception $e) {
+                    Log::error('Avatar upload error', ['error' => $e->getMessage()]);
+                }
+            }
     
             $validated['password'] = Hash::make($validated['password']);
             User::create($validated);
@@ -106,14 +128,38 @@ class UserController extends Controller
             
             $validated = $request->validate([
                 'fullname' => 'required|max:50',
-                'email' => 'required|email|max:100|unique:users,email,' . $user->id,
-                'phone' => 'nullable|max:11',
+                'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'username' => 'nullable|max:50|unique:users,username,' . $user->id,
                 'description' => 'nullable',
-                'role' => 'required|in:ADMIN,STAFF',
+                'role' => 'nullable|in:ADMIN,STAFF',
                 'active' => 'boolean',
-                'password' => 'nullable|min:6'
+                'password' => 'nullable|min:5|max:60'
             ]);
-    
+            
+            if ($request->hasFile('avatar')) {
+                try {
+                    if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
+                        Storage::disk('public')->delete($user->avatar);
+                    }
+            
+                    $avatarName = time() . '_' . $user->id . '.' . $request->avatar->extension();
+            
+                    $destinationPath = storage_path('app/public/images/avatar');
+                    if (!file_exists($destinationPath)) {
+                        mkdir($destinationPath, 0755, true);
+                    }
+            
+                    $request->file('avatar')->move($destinationPath, $avatarName);
+            
+                    $validated['avatar'] = 'images/avatar/' . $avatarName;
+            
+                    Log::info('Ảnh đã lưu bằng move(): ' . $validated['avatar']);
+            
+                } catch (\Exception $e) {
+                    Log::error('Avatar upload error', ['error' => $e->getMessage()]);
+                }
+            }
+
             if ($request->password) {
                 $validated['password'] = Hash::make($request->password);
             } else {

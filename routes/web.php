@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 // Trang đăng nhập
 Route::get('/dang-nhap', [Controllers\Auth\LoginController::class, 'showForm'])->name('login');
 // Xử lý đăng nhập
-Route::post('/dang-nhap', [Controllers\Auth\LoginController::class, 'handleLogin']);
+Route::post('/dang-nhap', [Controllers\Auth\LoginController::class, 'handleLogin'])->name('handle-login');
 // Đăng xuất
 Route::get('/dang-xuat', [Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
@@ -80,6 +80,10 @@ Route::get('/chinh-sach', function () {
 
 // Middleware `auth` => đã đăng nhập
 Route::middleware(['auth'])->group(function () {
+
+	// ========================== USERS ========================== //
+	Route::get('/admin/profile', [Controllers\ProfileController::class, 'edit'])->name('user.profile.edit');
+	Route::put('/admin/profile', [Controllers\ProfileController::class, 'update'])->name('user.profile.update');
 
 	// Middleware `auth.admin` => là admin
 	Route::middleware(['auth.admin'])->group(function () {

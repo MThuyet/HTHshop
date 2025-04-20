@@ -33,6 +33,14 @@
             
             <div class="space-y-4">
                 <div class="flex flex-col md:flex-row">
+                    <span class="w-full md:w-1/3 font-medium text-gray-600">Ảnh đại diện:</span>
+                    <img src="{{ $user->avatar
+                    ? asset('storage/' . $user->avatar) 
+                    : asset('images/avatar-temp.webp') }}"
+                    alt="{{ $user->fullname }}" width="40" height="40" class="rounded-full cursor-pointer" />
+                </div>
+
+                <div class="flex flex-col md:flex-row">
                     <span class="w-full md:w-1/3 font-medium text-gray-600">Họ tên:</span>
                     <span class="w-full md:w-2/3 text-gray-900">{{ $user->fullname }}</span>
                 </div>

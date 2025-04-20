@@ -1,29 +1,20 @@
-const loginForm = document.querySelector('.login__container form');
+const loginForm = document.querySelector('form');
 const inputs = {
-    email: loginForm.querySelector('input[name="email"]'),
+    username: loginForm.querySelector('input[name="username"]'),
     password: loginForm.querySelector('input[name="password"]')
 };
 
-const patterns = {
-    phoneNumber: /^0[0-9]{9,10}$/,
-    email: /^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$/
-};
-
 const validationRules = {
-    email: [
+    username: [
         {
             test: value => !!value.trim(),
-            message: "Email không được để trống",
+            message: "Tên tài khoản không được để trống",
             action: input => { input.value = ""; }
         },
         {
-            test: value => patterns.email.test(value),
-            message: "Email không hợp lệ"
+            test: value => value.length >= 5 && value.length <= 50,
+            message: "Tên tài khoản phải dài từ 5-50 kí tự"
         },
-        {
-            test: value => value.length <= 254,
-            message: "Độ dài email tối đa chỉ được dưới 255 kí tự"
-        }
     ],
     password: [
         {

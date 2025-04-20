@@ -43,13 +43,15 @@
         </span>
     </button>
     <div class="relative group inline-block">
-        <img src="https://lh3.googleusercontent.com/a/ACg8ocJeZPKlmeSRNpC58UQdlDWIz1acbUlsaFnx0v_kd8-vGxO3nOM=s96-c"
-            alt="avatar" width="40" height="40" class="rounded-full cursor-pointer" />
+        <img src="{{ Auth::user()->avatar 
+            ? asset('storage/' . Auth::user()->avatar) 
+            : asset('images/avatar-temp.webp') }}"
+            alt="{{ Auth::user()->fullname }}" class="rounded-full h-[40px] w-[40px] cursor-pointer" />
 
         <ul
             class="absolute right-0 min-w-[150px] bg-white border shadow-sm rounded-md overflow-hidden z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-150">
             <li>
-                <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-sm">
+                <a href="{{ route('user.profile.edit') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-sm">
                     <span class="material-symbols-rounded">account_circle</span> Hồ sơ
                 </a>
             </li>
