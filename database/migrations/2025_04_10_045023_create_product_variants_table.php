@@ -13,7 +13,7 @@ return new class extends Migration
 	{
 		Schema::create('product_variants', function (Blueprint $table) {
 			$table->id();
-			$table->decimal('price', 12, 2);
+			$table->decimal('price', 12, 0);
 			$table->enum('print_position', [
 				'LEFT_CHEST',         // Ngực trái
 				'RIGHT_CHEST',        // Ngực phải

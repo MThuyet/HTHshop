@@ -42,9 +42,8 @@ Route::get('/gio-hang', function () {
 })->name('cart');
 
 // ========================== ĐẶT HÀNG ========================== //
-Route::get('/dat-hang', function () {
-	return view('pages.client.OrderPage');
-})->name('order');
+Route::get('/dat-hang', [Client\OrderController::class, 'index'])->name('order');
+Route::post('/dat-hang', [Client\OrderController::class, 'store'])->name('order.store');
 
 // ========================== TIN TỨC ========================== //
 Route::prefix('tin-tuc')->group(function () {

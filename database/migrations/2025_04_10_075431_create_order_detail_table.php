@@ -15,6 +15,8 @@ return new class extends Migration
 			$table->id();
 			$table->unsignedBigInteger('order_id');
 			$table->unsignedBigInteger('product_variant_id')->nullable();
+			$table->string('color')->nullable();
+			$table->string('size')->nullable();
 			$table->integer('quantity');
 			$table->string('custom_image')->nullable();
 			$table->timestamps();

@@ -19,7 +19,7 @@ return new class extends Migration
 			$table->string('location');
 			$table->string('phone', 11);
 			$table->string('note')->nullable();
-			$table->enum('status', ['IN_CART', 'PENDING', 'CONFIRMED', 'SHIPPING', 'DONE', 'CANCELLED'])->default('IN_CART');
+			$table->enum('status', ['PENDING', 'CONFIRMED', 'SHIPPING', 'DONE', 'CANCELLED'])->default('PENDING');
 			$table->string('cancel_reason')->nullable();
 			$table->decimal('total_price', 12, 2);
 			$table->timestamps();

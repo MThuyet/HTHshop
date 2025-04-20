@@ -44,7 +44,7 @@
                     shopping_bag
                 </span>
                 <span>Giỏ hàng</span>
-                <span
+                <span id="headerCartCount"
                     class="absolute -top-2 -right-0 bg-redColor text-white w-5 h-5 flex items-center justify-center rounded-full">0</span>
             </div>
         </a>
@@ -174,3 +174,45 @@
         </ul>
     </div>
 </nav>
+
+<script>
+    // Function to update cart count in header
+    function updateHeaderCartCount() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        document.getElementById('headerCartCount').textContent = totalItems;
+    }
+
+    // Update cart count when page loads
+    document.addEventListener('DOMContentLoaded', updateHeaderCartCount);
+
+    // Update cart count when cart changes in the same tab
+    function handleCartChange() {
+        updateHeaderCartCount();
+    }
+
+    // Listen for cart changes from other tabs
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'cart') {
+            updateHeaderCartCount();
+        }
+    });
+
+    // Override localStorage.setItem to detect cart changes
+    const originalSetItem = localStorage.setItem;
+    localStorage.setItem = function(key, value) {
+        originalSetItem.apply(this, arguments);
+        if (key === 'cart') {
+            handleCartChange();
+        }
+    };
+
+    // Override localStorage.removeItem to detect cart changes
+    const originalRemoveItem = localStorage.removeItem;
+    localStorage.removeItem = function(key) {
+        originalRemoveItem.apply(this, arguments);
+        if (key === 'cart') {
+            handleCartChange();
+        }
+    };
+</script>

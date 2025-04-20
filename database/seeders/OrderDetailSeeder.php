@@ -23,6 +23,8 @@ class OrderDetailSeeder extends Seeder
 					'order_id' => $orderId,
 					'product_variant_id' => $variantIds[array_rand($variantIds)],
 					'quantity' => rand(1, 5),
+					'color' => 'black',
+					'size' => 'M',
 					'custom_image' => rand(0, 1) ? 'uploads/customs/sample.png' : null,
 					'created_at' => $now,
 					'updated_at' => $now,

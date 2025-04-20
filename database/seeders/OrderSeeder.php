@@ -11,7 +11,7 @@ class OrderSeeder extends Seeder
 {
 	public function run(): void
 	{
-		$statuses = ['IN_CART', 'PENDING', 'CONFIRMED', 'SHIPPING', 'DONE', 'CANCELLED'];
+		$statuses = ['PENDING', 'CONFIRMED', 'SHIPPING', 'DONE', 'CANCELLED'];
 		$now = Carbon::now();
 
 		foreach ($statuses as $index => $status) {

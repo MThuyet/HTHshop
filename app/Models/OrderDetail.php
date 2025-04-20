@@ -2,19 +2,24 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderDetail extends Model
 {
-	use SoftDeletes;
+	use HasFactory, SoftDeletes;
 
 	protected $fillable = [
 		'order_id',
 		'product_variant_id',
 		'quantity',
-		'custom_image',
+		'price',
+		'color',
+		'size',
+		'print_position',
+		'custom_image'
 	];
 
 	// Một order detail thuộc về 1 đơn hàng
@@ -23,9 +28,9 @@ class OrderDetail extends Model
 		return $this->belongsTo(Order::class);
 	}
 
-	// Một order detail thuộc về 1 variant sản phẩm
-	public function productVariant(): BelongsTo
+	// Một order detail thuộc về 1 sản phẩm
+	public function product(): BelongsTo
 	{
-		return $this->belongsTo(ProductVariant::class);
+		return $this->belongsTo(Product::class);
 	}
 }

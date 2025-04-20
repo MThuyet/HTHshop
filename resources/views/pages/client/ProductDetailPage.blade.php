@@ -7,22 +7,27 @@
     <div class="responsive">
         {{-- Chi tiết sản phẩm --}}
         <form class="grid md:grid-cols-2 grid-cols-1 gap-4 text-textColor" id="productDetailForm" action="" method="POST"
-            enctype="multipart/form-data">
+            enctype="multipart/form-data" data-variants="{{ $product->variants->toJson() }}">
             @csrf
             <input type="hidden" name="productId" value="{{ $product->id }}">
             <input type="hidden" name="productName" value="{{ $product->name }}">
             <input type="hidden" name="mainImage"
                 value="{{ asset('storage/images/products/' . $product->images[0]->image) }}">
+            <input type="hidden" name="price" id="priceInput"
+                value="{{ $product->variants->where('print_position', 'CENTER_CHEST_A4')->first()->price ?? 0 }}">
+            <input type="hidden" name="productVariantId" id="productVariantId"
+                value="{{ $product->variants->where('print_position', 'CENTER_CHEST_A4')->first()->id ?? '' }}">
+
             <div class="w-full flex items-center flex-col-reverse gap-2">
                 <!-- Ảnh nhỏ (thumbnail) -->
                 <div class="flex flex-row gap-2 w-full items-center justify-center">
                     @foreach ($product->images as $index => $img)
                         <div class="w-20 h-20 overflow-hidden rounded-md border cursor-pointer thumbnail
-															{{ $index === 0 ? 'border-blue-500 border-2' : 'border-gray-300' }}"
+                    {{ $index === 0 ? 'border-blue-500 border-2' : 'border-gray-300' }}"
                             data-index="{{ $index }}"
                             data-src="{{ asset('storage/images/products/' . $img->image) }}">
-                            <img src="{{ asset('storage/images/products/' . $img->image) }}" alt="Thumb {{ $index + 1 }}"
-                                class="w-full h-full object-cover">
+                            <img src="{{ asset('storage/images/products/' . $img->image) }}"
+                                alt="Thumb {{ $index + 1 }}" class="w-full h-full object-cover">
                         </div>
                     @endforeach
                 </div>
@@ -33,70 +38,67 @@
                         src="{{ asset('storage/images/products/' . $product->images[0]->image) }}"
                         alt="{{ $product->name }}">
                 </div>
-
             </div>
 
-            <!-- Thống tin sản phẩm -->
+            <!-- Thông tin sản phẩm -->
             <div class="flex flex-col gap-4">
-                <p class="font-semibold">Áo phông Ông già Noel tùy chỉnh dành cho nam – Áo phông Giáng sinh
-                    thời trang cho ngày lễ
+                <p class="font-semibold text-lg">{{ $product->name }}</p>
+                <!-- Hiển thị giá động -->
+                <p class="text-xl font-bold text-orange-500" id="priceDisplay">
+                    {{ number_format($product->variants->where('print_position', 'CENTER_CHEST_A4')->first()->price ?? 0, 0, ',', '.') }}
+                    VNĐ
                 </p>
 
                 <!-- Mô tả sản phẩm -->
-                <div class=" flex flex-col gap-2 leading-relaxed ">
+                <div class="flex flex-col gap-2 leading-relaxed">
                     <p class="text-sm text-slate-600">
-                        Áo phông Ông già Noel với thiết kế độc đáo và mang không
-                        khí lễ
-                        hội, phù hợp làm quà tặng hoặc mặc trong dịp Giáng sinh. Phom dáng thoải mái, dễ phối đồ.
+                        Áo phông Ông già Noel với thiết kế độc đáo và mang không khí lễ hội, phù hợp làm quà tặng hoặc mặc
+                        trong dịp Giáng sinh. Phom dáng thoải mái, dễ phối đồ.
                     </p>
                     <p class="italic">Chất liệu: 100% cotton cao cấp, thoáng mát và thấm hút tốt.</p>
                 </div>
 
-                {{-- Chọn màu áo --}}
+                <!-- Chọn màu áo -->
                 <div class="flex flex-row items-center gap-4">
                     <input type="hidden" name="color" value="black">
                     <span class="text-base font-medium">Chọn màu áo:</span>
                     <div class="flex gap-3">
-                        <input type="hidden" name="color" value="black">
-
                         <!-- Màu đen -->
                         <div class="color-option md:w-9 cursor-pointer md:h-9 w-11 h-11 rounded-full border-[2px] overflow-hidden p-[3px] border-black"
                             data-color="black">
                             <div class="bg-black w-full h-full border-[1px] border-black/30 rounded-full"></div>
                         </div>
-
                         <!-- Màu trắng -->
                         <div class="color-option group w-11 h-11 md:w-9 md:h-9 rounded-full border-2 border-transparent cursor-pointer transition-all duration-200 p-[3px]"
                             data-color="white">
-                            <div class="bg-white w-full h-full border border-black/30 rounded-full "></div>
+                            <div class="bg-white w-full h-full border border-black/30 rounded-full"></div>
                         </div>
-
                     </div>
                 </div>
 
-                {{-- Chọn vị trí in áo --}}
+                <!-- Chọn vị trí in áo -->
                 <div class="flex flex-col gap-2 mb-3">
                     <span class="text-base font-medium">Chọn vị trí in:</span>
                     <div class="flex gap-3 flex-wrap">
                         <label
-                            class="print-position-option cursor-pointer border border-gray-400 rounded-full px-4 py-1 text-sm hover:border-orangeColor border-orangeColor">
-                            <input type="radio" name="printPosition" value="front" class="hidden">
+                            class="print-position-option cursor-pointer border border-gray-400 rounded-full px-4 py-1 text-sm hover:border-orangeColor border-orangeColor bg-orangeColor text-white">
+                            <input type="radio" name="printPosition" value="CENTER_CHEST_A4" class="hidden" checked>
                             Mặt trước
                         </label>
                         <label
                             class="print-position-option cursor-pointer border border-gray-400 rounded-full px-4 py-1 text-sm hover:border-orangeColor">
-                            <input type="radio" name="printPosition" value="back" class="hidden">
+                            <input type="radio" name="printPosition" value="CENTER_BACK_A4" class="hidden">
                             Mặt sau
                         </label>
                         <label
                             class="print-position-option cursor-pointer border border-gray-400 rounded-full px-4 py-1 text-sm hover:border-orangeColor">
-                            <input type="radio" name="printPosition" value="both" class="hidden">
-                            Cả 2 mặt
+                            <input type="radio" name="printPosition" value="BOTH_SIDES" class="hidden">
+                            Cả hai mặt
                         </label>
                     </div>
                 </div>
 
-                {{-- Chọn size --}}
+                <!-- Chọn size -->
                 <div class="flex flex-col gap-2">
                     <span>Chọn size:</span>
                     <div class="flex gap-2">
@@ -126,7 +128,6 @@
                             6
                         </button>
                     </div>
-
                     <div class="flex gap-2 mt-2">
                         <!-- Size options: S, M, L, XL, XXL, XXXL -->
                         <button type="button"
@@ -157,19 +158,17 @@
                     <input type="hidden" name="size" value="L">
                 </div>
 
-                {{-- Chọn số lượng --}}
+                <!-- Chọn số lượng -->
                 <div>
-                    <span class="">Chọn số lượng</span>
+                    <span>Chọn số lượng</span>
                     <div class="flex items-center gap-2 mt-2">
                         <button id="decreaseBtn" type="button"
                             class="border-orangeColor border-[1px] border-gray-400 rounded-full px-1 py-1 hover:bg-orangeColor text-textColor hover:text-white">
                             <span class="material-symbols-rounded text-orangeColor hover:text-white">remove</span>
                         </button>
-
                         <input id="quantity" type="number" value="1" min="1" max="50"
                             name="quantity"
                             class="w-20 h-9 font-semibold text-center border-[1px] border-gray-400 rounded-md">
-
                         <button id="increaseBtn" type="button"
                             class="border-orangeColor border-[1px] border-gray-400 rounded-full px-1 py-1 hover:bg-orangeColor text-textColor hover:text-white">
                             <span class="material-symbols-rounded text-orangeColor hover:text-white">add</span>
@@ -177,14 +176,13 @@
                     </div>
                 </div>
 
-                {{-- Tùy chỉnh ảnh --}}
-                <div class=" flex items-center gap-2">
-                    <label for="customImage" class="hover:text-orangeColor cursor-pointer">Tôi muốn tùy chỉnh
-                        ảnh</label>
+                <!-- Tùy chỉnh ảnh -->
+                <div class="flex items-center gap-2">
+                    <label for="customImage" class="hover:text-orangeColor cursor-pointer">Tôi muốn tùy chỉnh ảnh</label>
                     <input id="customImage" type="checkbox" class="w-5 h-5 rounded border-gray-400 accent-orangeColor">
                 </div>
 
-                {{-- Ô upload ảnh --}}
+                <!-- Ô upload ảnh -->
                 <div id="uploadContainer" class="hidden">
                     <label for="uploadImage"
                         class="flex flex-col items-center justify-center w-36 h-36 border-2 border-dashed border-orangeColor rounded-md cursor-pointer hover:bg-orange-50 transition overflow-hidden">
@@ -198,21 +196,19 @@
                     </label>
                 </div>
 
-                {{-- Button --}}
+                <!-- Button -->
                 <div class="flex flex-row md:items-center md:gap-4 gap-3 w-full">
                     <button id="addToCartBtn" data-slug="{{ $product->slug }}" type="submit"
-                        class="flex justify-center items-center w-fit md:w-auto lg:px-6 lg:py-3 px-4 py-3 border-2 border-orangeColor text-white bg-orangeColor rounded-lg hover:bg-white hover:text-orangeColor transition-all duration-300 relative overflow-hidden">
+                        class="flex justify-center items-center w-fit md:w-auto lg:px-6 lg:py-3 px-4 py-1 text-sm py-3 border-2 border-orangeColor text-white bg-orangeColor rounded-lg hover:bg-white hover:text-orangeColor transition-all duration-300 relative overflow-hidden">
                         <span class="material-symbols-rounded">add_shopping_cart</span>
-                        <span class="text-nowrap" id="addToCartBtn">Thêm vào giỏ hàng</span>
+                        <span class="text-nowrap">Thêm vào giỏ hàng</span>
                     </button>
-
                     <button type="submit"
-                        class="flex justify-center items-center w-fit md:w-auto lg:px-6 lg:py-3 px-4 py-3 border-2 border-green-500 text-white bg-green-500 rounded-lg hover:bg-white hover:text-green-500 transition-all duration-300 relative overflow-hidden">
+                        class="flex justify-center items-center w-fit md:w-auto lg:px-6 lg:py-3 px-4 py-1 text-sm py-3 border-2 border-green-500 text-white bg-green-500 rounded-lg hover:bg-white hover:text-green-500 transition-all duration-300 relative overflow-hidden">
                         <span class="material-symbols-rounded">shopping_cart_checkout</span>
                         <span class="text-nowrap">Mua ngay</span>
                     </button>
                 </div>
-
             </div>
         </form>
 
