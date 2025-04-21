@@ -18,15 +18,19 @@
 
         <div class="grid md:grid-cols-3 gap-4">
             <div class="md:col-span-2">
-                {{-- Tiêu đề --}}
+                {{-- Title --}}
                 <div>
-                    <label class="block font-bold">Tiêu đề</label>
+                    <label class="block font-bold">Tiêu đề
+                        <span class="text-red-500">*</span>
+                    </label>
                     <input type="text" name="title" value="{{ old('title', $news->title) }}" class="w-full border rounded px-3 py-2">
                 </div>
 
-                {{-- Danh mục --}}
+                {{-- News Category Id --}}
                 <div class="mt-3">
-                    <label class="block font-bold">Danh mục</label>
+                    <label class="block font-bold">Danh mục
+                        <span class="text-red-500">*</span>
+                    </label>
                     <select name="news_category_id" class="w-full border rounded px-3 py-2">
                         @foreach ($newsCategory as $category)
                             <option value="{{ $category->id }}" {{ old('category_id', $news->news_category_id) == $category->id ? 'selected' : '' }}>
@@ -36,16 +40,20 @@
                     </select>
                 </div>
 
-                {{-- Tóm tắt --}}
+                {{-- Excerpt --}}
                 <div class="mt-3">
-                    <label class="block font-bold">Tóm tắt</label>
+                    <label class="block font-bold">Tóm tắt
+                        <span class="text-red-500">*</span>
+                    </label>
                     <textarea name="excerpt" id="excerpt" rows="3" placeholder="Tóm tắt nội dung" class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ old('description', $news->excerpt) }}</textarea>
                 </div>
             </div>
 
             <div>
                 {{-- Thumbnail --}}
-                <label class="block mb-1 font-bold">Thumbnail</label>
+                <label class="block mb-1 font-bold">Thumbnail
+                    <span class="text-red-500">*</span>
+                </label>
                 <div class="mt-2">
                     <img id="thumbnail-preview" src="{{ asset('storage/' . $news->thumbnail) }}" alt="Xem trước ảnh" class="h-[220px] max-w-xs border mt-2 {{ $news->thumbnail ? '' : 'hidden' }}">
                 </div>
@@ -54,13 +62,15 @@
             </div>
         </div>
 
-        {{-- Nội dung --}}
+        {{-- Content --}}
         <div>
-            <label class="block font-bold">Nội dung</label>
+            <label class="block font-bold">Nội dung
+                <span class="text-red-500">*</span>
+            </label>
             <textarea id="content" name="content" class="w-full border rounded px-3 py-2">{{ old('content', $news->content) }}</textarea>
         </div>
 
-        {{-- Trạng thái --}}
+        {{-- Active --}}
         <div class="flex items-center gap-2">
             <input type="checkbox" name="active" value="1" {{ old('active', $news->active) ? 'checked' : '' }} class="w-4 h-4">
             <label>Hoạt động</label>
@@ -127,12 +137,10 @@
         window.SetUrl = function (fileUrl) {
             let url = fileUrl;
 
-            // Nếu là object
             if (typeof fileUrl === 'object' && fileUrl.url) {
                 url = fileUrl.url;
             }
 
-            // Nếu là mảng chứa object
             if (Array.isArray(fileUrl) && fileUrl.length > 0 && fileUrl[0].url) {
                 url = fileUrl[0].url;
             }

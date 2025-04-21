@@ -1,7 +1,6 @@
 @extends('layouts.admin.master')
 @section('title', 'Thông tin tin tức')
 @section('nav-active', 'news')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 @php 
     $breadCrump = [
@@ -30,9 +29,9 @@
         </div>
     </div>
     
-    {{-- Chi tiết tin tức --}}
+    {{-- Details of news --}}
     <div class="grid lg:grid-cols-3 items-center">
-        {{-- Thông tin cơ bản --}}
+        {{-- Basic info of news --}}
         <div
         class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 items-center justify-between gap-7 p-6 bg-gray-200 rounded-lg shadow-md">
             <div>

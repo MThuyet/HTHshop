@@ -18,13 +18,17 @@
                 {{-- Fullname + Username --}}
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label for="fullname" class="block text-sm font-bold text-gray-700">Họ tên</label>
+                        <label for="fullname" class="block text-sm font-bold text-gray-700">Họ tên
+                            <span class="text-red-500">*</span>
+                        </label>
                         <input type="text" name="fullname" id="fullname" maxlength="20"
                             class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Nhập họ và tên" required>
                     </div>
         
                     <div>
-                        <label for="username" class="block text-sm font-bold text-gray-700">Tên tài khoản</label>
+                        <label for="username" class="block text-sm font-bold text-gray-700">Tên tài khoản
+                            <span class="text-red-500">*</span>
+                        </label>
                         <input type="text" name="username" id="username" minlength="5" maxlength="50" placeholder="Nhập tên tài khoản"
                             class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                     </div>
@@ -33,7 +37,9 @@
                 {{-- Role --}}
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label for="role" class="block text-sm font-bold text-gray-700">Vai trò</label>
+                        <label for="role" class="block text-sm font-bold text-gray-700">Vai trò
+                            <span class="text-red-500">*</span>
+                        </label>
                         <select name="role" id="role"
                                 class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
                             <option value="ADMIN">ADMIN</option>
@@ -42,7 +48,9 @@
                     </div>
         
                     <div>
-                        <label for="password" class="block text-sm font-bold text-gray-700">Mật khẩu</label>
+                        <label for="password" class="block text-sm font-bold text-gray-700">Mật khẩu
+                            <span class="text-red-500">*</span>
+                        </label>
                         <input type="text" name="password" id="password" minlength="5" maxlength="60" placeholder="Nhập mật khẩu"
                             class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                     </div>      

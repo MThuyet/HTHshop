@@ -15,21 +15,23 @@
     <form action="{{ route('dashboard.news-category.store') }}" method="POST" class="m-2 px-4 py-2 border border-gray-200 bg-white rounded-lg shadow-md space-y-6">
         @csrf
         
-        {{-- Tên danh mục tin tức --}}
+        {{-- Category Product Name --}}
         <div>
-            <label for="name" class="block text-sm font-bold text-gray-700">Tên danh mục tin tức</label>
+            <label for="name" class="block text-sm font-bold text-gray-700">Tên danh mục
+                <span class="text-red-500">*</span>
+            </label>
             <input type="text" name="name" id="name" maxlength="100" value="{{ old('name') }}"
                 class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Nhập tên danh mục tin tức" required>
         </div>
     
-        {{-- Mô tả --}}
+        {{-- Description --}}
         <div>
             <label for="description" class="block text-sm font-bold text-gray-700">Mô tả</label>
             <textarea name="description" id="description" rows="3" placeholder="Nhập mô tả"
                 class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ old('description') }}</textarea>
         </div>
     
-        {{-- Trạng thái --}}
+        {{-- Active --}}
         <div class="flex items-center gap-2">
             <input type="checkbox" name="active" id="active" class="w-4 h-4" {{ old('active', true) ? 'checked' : '' }}>
             <label for="active" class="text-sm text-gray-700">Hiển thị</label>

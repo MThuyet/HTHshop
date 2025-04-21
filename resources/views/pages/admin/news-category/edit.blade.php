@@ -18,7 +18,9 @@
     
         {{-- Tên danh mục --}}
         <div>
-            <label class="block font-bold">Tên danh mục</label>
+            <label class="block font-bold">Tên danh mục
+                <span class="text-red-500">*</span>
+            </label>
             <input type="text" name="name" value="{{ old('name', $newsCategory->name) }}" class="w-full border rounded px-3 py-2">
         </div>
     

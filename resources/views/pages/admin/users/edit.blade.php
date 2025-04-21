@@ -20,12 +20,16 @@
                 {{-- Fullname + Username --}}
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label for="fullname" class="block text-sm font-bold text-gray-700">Họ tên</label>
+                        <label for="fullname" class="block text-sm font-bold text-gray-700">Họ tên
+                            <span class="text-red-500">*</span>
+                        </label>
                         <input type="text" name="fullname" value="{{ old('fullname', $user->fullname) }}" class="w-full border rounded px-3 py-2">
                     </div>
     
                     <div>
-                        <label for="username" class="block text-sm font-bold text-gray-700">Tên tài khoản</label>
+                        <label for="username" class="block text-sm font-bold text-gray-700">Tên tài khoản
+                            <span class="text-red-500">*</span>
+                        </label>
                         <input type="text" name="username" value="{{ old('username', $user->username) }}" class="w-full border rounded px-3 py-2">
                     </div>
                 </div>

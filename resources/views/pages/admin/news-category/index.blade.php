@@ -2,11 +2,11 @@
 @section('title', 'Quản lý danh mục tin tức')
 @section('nav-active', 'news')
 
-@php $breadCrump = [
+@php 
+    $breadCrump = [
         ['name' => 'Quản lý tin tức', 'href' => route('dashboard.news')], 
         ['name' => 'Quản lý danh mục tin tức', 'href' => route('dashboard.news-category')]
     ]; 
-
 @endphp
 
 @section('content')
@@ -63,7 +63,6 @@
                 <tr>
                     <th class="px-6 py-3"></th>
                     <th class="px-6 py-3">Tên danh mục</th>
-                    <th class="px-6 py-3 hidden lg:table-cell">Slug</th>
                     <th class="px-6 py-3 hidden md:table-cell">Mô tả</th>
                     <th class="px-6 py-3 hidden lg:table-cell">Ngày tạo</th>
                     <th class="px-6 py-3">Trạng thái</th>
@@ -80,7 +79,6 @@
                     </td>
         
                     <td class="px-6 py-2">{{ $category->name }}</td>
-                    <td class="px-6 py-2 hidden lg:table-cell">{{ $category->slug }}</td>
                     <td class="px-6 py-2 hidden md:table-cell">
                         {{ Str::limit($category->description, 50) }}
                     </td>
@@ -145,8 +143,8 @@
             </svg>
         </div>
         <div class="ml-4">
-            <h3 class="text-lg font-semibold text-gray-900" id="modal-title">Xóa danh mục tin tức</h3>
-            <p class="text-sm text-gray-500 mt-1">Bạn có chắc muốn xóa tin tức 
+            <h3 class="text-lg font-semibold text-gray-900" id="modal-title">Xóa Danh Mục Tin Tức</h3>
+            <p class="text-sm text-gray-500 mt-1">Bạn có chắc muốn xóa danh mục 
                 <span class="font-bold" id="delete-news-category"></span> 
                 này không?
             </p>
@@ -180,9 +178,9 @@
             const newsCategoryId = e.dataset.id;
             
             const currentRow = e.closest('tr');
-            const fullname = currentRow.querySelector('td:nth-child(2)').textContent;
+            const newsCategoryName = currentRow.querySelector('td:nth-child(2)').textContent;
             
-            document.getElementById('delete-news-category').textContent = fullname;
+            document.getElementById('delete-news-category').textContent = newsCategoryName;
 
             // Set form action
             form.action = `/dashboard/news-category/${newsCategoryId}`;

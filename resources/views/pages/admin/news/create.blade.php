@@ -17,24 +17,30 @@
         
             <div class="grid md:grid-cols-3 gap-4">
                 <div class="md:col-span-2">
-                    {{-- Tiêu đề --}}
+                    {{-- Title --}}
                     <div>
-                        <label for="title" class="block text-sm font-bold text-gray-700">Tiêu đề</label>
+                        <label for="title" class="block text-sm font-bold text-gray-700">Tiêu đề 
+                            <span class="text-red-500">*</span>
+                        </label>
                         <input type="text" name="title" id="title" maxlength="255" value="{{ old('title') }}"
                             class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             placeholder="Nhập tiêu đề tin tức" required>
                     </div>
                 
-                    {{-- Trích đoạn (excerpt) --}}
+                    {{-- Excerpt --}}
                     <div class="mt-3">
-                        <label for="excerpt" class="block text-sm font-bold text-gray-700">Tóm tắt</label>
+                        <label for="excerpt" class="block text-sm font-bold text-gray-700">Tóm tắt
+                            <span class="text-red-500">*</span>
+                        </label>
                         <textarea name="excerpt" id="excerpt" rows="3" placeholder="Tóm tắt nội dung"
-                        class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ old    ('excerpt') }}</textarea>
+                        class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ old('excerpt') }}</textarea>
                     </div>
                 
-                    {{-- Danh mục --}}
+                    {{-- News Category Id --}}
                     <div class="mt-3">
-                        <label for="news_category_id" class="block text-sm font-bold text-gray-700">Danh mục</label>
+                        <label for="news_category_id" class="block text-sm font-bold text-gray-700">Danh mục
+                            <span class="text-red-500">*</span>
+                        </label>
                         <select name="news_category_id" id="news_category_id"
                             class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
                             <option value="">-- Chọn danh mục --</option>
@@ -47,9 +53,11 @@
                     </div>
                 </div>
             
-                {{-- Ảnh thumbnail --}}
+                {{-- Thumbnail --}}
                 <div>
-                    <label for="thumbnail" class="block text-sm font-bold text-gray-700">Thumbnail</label>
+                    <label for="thumbnail" class="block text-sm font-bold text-gray-700">Thumbnail
+                        <span class="text-red-500">*</span>
+                    </label>
                     <div class="mt-2">
                         <img id="thumbnail-preview" src="" alt="Xem trước ảnh" class="h-[220px] max-w-xs border mt-2">
                     </div>
@@ -58,17 +66,12 @@
                 </div>
             </div>
 
-            {{-- Nội dung --}}
+            {{-- Content --}}
             <div>
-                <label for="content" class="block text-sm font-bold text-gray-700">Nội dung</label>
-                <textarea name="content" id="content" rows="10"
-                class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ old    ('content') }}</textarea>
-            </div>
-        
-            {{-- Trạng thái --}}
-            <div class="flex items-center gap-2">
-                <input type="checkbox" name="active" id="active" class="w-4 h-4" {{ old('active', true) ? 'checked' : '' }}>
-                <label for="active" class="text-sm text-gray-700">Hiển thị</label>
+                <label for="content" class="block text-sm font-bold text-gray-700">Nội dung
+                    <span class="text-red-500">*</span>
+                </label>
+                <textarea name="content" id="content" rows="10" class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ old('content') }}</textarea>
             </div>
         
             {{-- Submit --}}
@@ -138,12 +141,10 @@
         window.SetUrl = function (fileUrl) {
             let url = fileUrl;
 
-            // Nếu là object
             if (typeof fileUrl === 'object' && fileUrl.url) {
                 url = fileUrl.url;
             }
 
-            // Nếu là mảng chứa object
             if (Array.isArray(fileUrl) && fileUrl.length > 0 && fileUrl[0].url) {
                 url = fileUrl[0].url;
             }

@@ -1,7 +1,7 @@
 {{-- Header left side --}}
-<div class="flex items-center gap-5">
+<a href="{{ Auth::user()->role === 'ADMIN' ? route('admin.dashboard') : route('dashboard.news') }}" class="flex items-center gap-5">
     <img src="{{ asset('images/logo-header-crop.png') }}" class="max-w-[55px]" alt="logo-hth-shop" />
-</div>
+</a>
 
 {{-- Header center side --}}
 <div class="hidden sm:flex flex-1 justify-center gap-5">
@@ -36,13 +36,16 @@
 
 {{-- Header right side --}}
 <div class="flex items-center gap-5">
+    @if (Auth::user()->role === 'ADMIN')
     <button type="button"
-        class="flex items-center p-2 rounded-lg border border-gray-400 hover:bg-[#0F6A9C] hover:text-white"
-        id="search-btn-open-modal">
+    class="flex items-center p-2 rounded-lg border border-gray-400 hover:bg-[#0F6A9C] hover:text-white"
+    id="search-btn-open-modal">
         <span class="material-symbols-rounded">
             search
         </span>
     </button>
+    @endif
+    
     <button type="button"
         class="sm:hidden flex items-center p-2 rounded-lg border border-gray-400 hover:bg-[#0F6A9C] hover:text-white"
         id="menu-toggle">

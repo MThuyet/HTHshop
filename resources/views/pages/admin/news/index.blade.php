@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="bg-white p-2 border border-1 rounded-md">
-    {{-- Anchor ProCat & Search & Btn Create --}}
+    {{-- Product Category Anchor | Search & limit form | Create News Anchor --}}
     <form method="GET" action="{{ route('dashboard.news') }}" class="flex flex-col md:flex-row items-center justify-between mb-4 gap-3">
         <a href="{{ route('dashboard.news-category') }}"
             class="inline-block px-4 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow">
@@ -140,7 +140,7 @@
             </svg>
         </div>
         <div class="ml-4">
-            <h3 class="text-lg font-semibold text-gray-900" id="modal-title">Xóa danh mục tin tức</h3>
+            <h3 class="text-lg font-semibold text-gray-900" id="modal-title">Xóa Tin Tức</h3>
             <p class="text-sm text-gray-500 mt-1">Bạn có chắc muốn xóa tin tức
                 <span class="font-bold" id="delete-news"></span>
                 này không?
