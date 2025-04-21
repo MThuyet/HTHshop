@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\ProductCategory;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class ProductCategoryController extends Controller
 {
@@ -58,27 +59,25 @@ class ProductCategoryController extends Controller
 
             ProductCategory::create($validated);
 
-            // Trả về thông báo thành công
-            return redirect()->route('admin.product-category.index')->with('toast', [
+            return redirect()->route('admin.product-category')->with('toast', [
                 'title' => 'Tạo danh mục thành công',
                 'text' => 'Danh mục sản phẩm mới đã được tạo.',
                 'icon' => 'success'
             ]);
         } catch (ValidationException $e) {
             // Xử lý lỗi validate nếu có
-            $firstField = array_key_first($e->errors());
-            $firstError = $e->errors()[$firstField][0];
+            Log::error('Lỗi tạo danh mục', ['error' => $e]);
 
             return redirect()->back()->with('toast', [
-                'title' => 'Lỗi tạo danh mục',
-                'text' => $firstError,
+                'title' => 'Lỗi không mong muốn',
+                'text' => 'Có lỗi xảy ra, vui lòng thử lại.',
                 'icon' => 'error'
             ]);
         } catch (\Exception $e) {
             // Xử lý các lỗi không mong muốn
             return redirect()->back()->with('toast', [
                 'title' => 'Tạo danh mục thành công',
-                'text' => 'Thành công: ' . $e->getMessage(),
+                'text' => 'Thành công: ',
                 'icon' => 'success'
             ]);
         }
@@ -139,25 +138,26 @@ class ProductCategoryController extends Controller
             }
             $category->update($validated);
 
-            return redirect()->back()->with('toast', [
-                'title' => 'Cập nhật thành công',
-                'text' => 'Thông tin danh mục sản phẩm đã được cập nhật',
+            return redirect()->route('admin.product-category')->with('toast', [
+                'title' => 'Tạo danh mục thành công',
+                'text' => 'Cập nhật danh mục sản phẩm thành công.',
                 'icon' => 'success'
             ]);
         } catch (ValidationException $e) {
-            $firstField = array_key_first($e->errors());
-            $firstError = $e->errors()[$firstField][0];
+            // Xử lý lỗi validate nếu có
+            Log::error('Lỗi tạo danh mục', ['error' => $e]);
 
             return redirect()->back()->with('toast', [
-                'title' => 'Lỗi cập nhật',
-                'text' => $firstError,
+                'title' => 'Lỗi không mong muốn',
+                'text' => 'Có lỗi xảy ra, vui lòng thử lại.',
                 'icon' => 'error'
             ]);
         } catch (\Exception $e) {
+            // Xử lý các lỗi không mong muốn
             return redirect()->back()->with('toast', [
-                'title' => 'Cập nhật thất bại',
-                'text' => 'Lỗi: ' . $e->getMessage(),
-                'icon' => 'error'
+                'title' => 'Cập nhật danh mục thành công',
+                'text' => 'Thành công: ',
+                'icon' => 'success'
             ]);
         }
     }
@@ -174,6 +174,7 @@ class ProductCategoryController extends Controller
                 'icon' => 'success'
             ]);
         } catch (\Exception $e) {
+            Log::error('Lỗi tạo danh mục', ['error' => $e]);
             return redirect()->route('admin.product-category')->with('toast', [
                 'title' => 'Lỗi cập nhật trạng thái',
                 'text' => $e->getMessage(),
@@ -200,6 +201,7 @@ class ProductCategoryController extends Controller
                 'icon' => 'success'
             ]);
         } catch (\Exception $e) {
+            Log::error('Lỗi tạo danh mục', ['error' => $e]);
             return redirect()->route('admin.product-category')->with('toast', [
                 'title' => 'Xóa thất bại',
                 'text' => 'Lỗi: ' . $e->getMessage(),

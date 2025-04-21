@@ -30,9 +30,9 @@ $breadCrump = [
             {{-- Mô tả --}}
             <div>
                 <label for="description" class="block text-sm font-medium text-gray-700">Mô tả</label>
-                <textarea name="description" id="description"  value="{{old('description',$category->description)}}" rows="3"
+                <textarea name="description" id="description" rows="3"
                     class="mt-1 block p-2 w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-300"
-                    placeholder="Nhập mô tả danh mục"></textarea>
+                    placeholder="Nhập mô tả danh mục">{{old('description',$category->description)}}</textarea>
             </div>
 
             {{-- Trạng thái --}}

@@ -51,3 +51,51 @@
         </form>
     </div>
 @endsection
+{{-- Modal xác nhận --}}
+<div id="confirmModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
+    <div class="bg-white rounded-lg shadow-md w-full max-w-md p-6">
+        <h2 class="text-xl font-semibold text-gray-800 mb-3">Xác nhận cập nhật danh mục</h2>
+
+        <div class="mb-4 text-gray-700 space-y-2">
+            <p><strong>Tên danh mục:</strong> <span id="confirm-name" class="text-blue-600"></span></p>
+            <p><strong>Mô tả:</strong> <span id="confirm-description" class="text-blue-600"></span></p>
+            <p><strong>Trạng thái:</strong> <span id="confirm-status" class="text-blue-600"></span></p>
+        </div>
+
+        <p class="text-sm text-gray-500 mb-4">Bạn có chắc chắn muốn cập nhật danh mục này không?</p>
+
+        <div class="flex justify-end gap-2">
+            <button type="button" onclick="closeConfirmModal()" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+                Hủy
+            </button>
+            <button type="button" onclick="submitUpdateForm()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                Xác nhận cập nhật
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    function openConfirmModal() {
+        // Lấy giá trị từ form
+        const name = document.getElementById('name').value.trim();
+        const description = document.getElementById('description').value.trim();
+        const active = document.querySelector('input[name="active"]').checked;
+
+        // Gán giá trị vào modal
+        document.getElementById('confirm-name').textContent = name || '[Chưa nhập]';
+        document.getElementById('confirm-description').textContent = description || '[Không có mô tả]';
+        document.getElementById('confirm-status').textContent = active ? 'Hiển thị' : 'Ẩn';
+
+        // Hiện modal
+        document.getElementById('confirmModal').classList.remove('hidden');
+    }
+
+    function closeConfirmModal() {
+        document.getElementById('confirmModal').classList.add('hidden');
+    }
+
+    function submitUpdateForm() {
+        document.querySelector('form').submit();
+    }
+</script>
+

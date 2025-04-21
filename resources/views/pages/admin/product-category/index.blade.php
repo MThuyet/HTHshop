@@ -23,7 +23,7 @@
                         type="text"
                         name="search"
                         value="{{ request('search') }}"
-                        placeholder="Tìm kiếm người dùng..."
+                        placeholder="Tìm kiếm danh mục..."
                         class="w-full border border-gray-300 rounded-lg py-1.5 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                     <span class="material-symbols-rounded absolute left-3 top-2 text-gray-400">
