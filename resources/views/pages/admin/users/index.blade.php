@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="bg-white p-2 border border-1 rounded-md">
-    {{-- Anchor ProCat & Search & Btn Create --}}
+    {{-- Search form & Anchor Create User --}}
     <form method="GET" action="{{ route('admin.user') }}" class="flex flex-col md:flex-row items-center justify-between mb-4 gap-3">
         <div class="w-full md:w-1/2">
             <div class="relative z-40">
@@ -44,16 +44,16 @@
             </a>
         </div>
     </form>
-    
-    <div class="overflow-auto h-full border-t-2 border-gray-200">
-        {{-- Table --}}
+
+    {{-- Table --}}
+    <div class="overflow-x-auto h-full border-t-2 border-gray-200">
         <table class="min-w-full text-sm text-left text-gray-500">
             <thead class="text-xs uppercase bg-gray-100 text-gray-700">
                 <tr>
                     <th class="px-6 py-3"></th>
+                    <th class="px-6 py-3 hidden sm:table-cell">Ảnh đại diện</th>
                     <th class="px-6 py-3 hidden md:table-cell">Họ tên</th>
-                    <th class="px-6 py-3">Email</th>
-                    <th class="px-6 py-3 hidden lg:table-cell">Số điện thoại</th>
+                    <th class="px-6 py-3">Tên tài khoản</th>
                     <th class="px-6 py-3 hidden sm:table-cell">Vai trò</th>
                     <th class="px-6 py-3 hidden lg:table-cell">Ngày tạo</th>
                     <th class="px-6 py-3 hidden lg:table-cell">Trạng thái</th>
@@ -68,13 +68,19 @@
                             info
                         </a>
                     </td>
+
+                    <td class="px-6 py-2 hidden sm:table-cell">
+                        <img src="{{ $user['avatar']
+                        ? asset('storage/' . $user['avatar']) 
+                        : asset('images/avatar-temp.webp') }}"
+                        alt="{{ $user['fullname'] }}" class="rounded-full w-[40px] h-[40px]" />
+                    </td>
                     
                     <td class="px-6 py-2 hidden md:table-cell">
                         <span>{{ $user['fullname'] }}</span>
                     </td>
                     
-                    <td class="px-6 py-2">{{ $user['email'] }}</td>
-                    <td class="px-6 py-2 hidden lg:table-cell">{{ $user['phone'] }}</td>
+                    <td class="px-6 py-2">{{ $user['username'] }}</td>
                     <td class="px-6 py-2 hidden sm:table-cell">{{ $user['role'] }}</td>
                     <td class="px-6 py-2 hidden lg:table-cell">{{ $user['created_at']->format('d/m/Y H:i:s') }}</td>
                     
@@ -112,9 +118,9 @@
             </span>
             <div class="flex items-center gap-1">
                 @if ($users->lastPage() > 1)
-                    {{ 
+                    {{
                         $users->appends(['limit-row-length' => $perPage, 'search' => request('search')])
-                        ->links('vendor.pagination.tailwind') 
+                        ->links('vendor.pagination.tailwind')
                     }}
                 @else
                     <span class="text-gray-400 text-sm">Chỉ có 1 trang</span>

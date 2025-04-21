@@ -56,7 +56,7 @@ class NewsCategoryController extends Controller
     
             NewsCategory::create($validated);
     
-            return redirect()->route('admin.news-category')->with('toast', [
+            return redirect()->route('dashboard.news-category')->with('toast', [
                 'title' => 'Tạo danh mục thành công',
                 'text' => 'Danh mục tin tức mới đã được thêm vào',
                 'icon' => 'success'
@@ -167,13 +167,13 @@ class NewsCategoryController extends Controller
         try {
             $newsCategory->delete();
 
-            return redirect()->route('admin.news-category')->with('toast', [
+            return redirect()->route('dashboard.news-category')->with('toast', [
                 'title' => 'Xóa thành công',
                 'text' => 'Xóa danh mục tin tức thành công',
                 'icon' => 'success'
             ]);
         } catch (\Exception $e) {
-            return redirect()->route('admin.news-category')->with('toast', [
+            return redirect()->route('dashboard.news-category')->with('toast', [
                 'title' => 'Lỗi xóa danh mục tin tức',
                 'text' => $e->getMessage(),
                 'icon' => 'error'

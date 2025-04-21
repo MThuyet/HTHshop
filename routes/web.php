@@ -15,9 +15,9 @@ use \UniSharp\LaravelFilemanager\Lfm;
 
 // ========================== AUTH ========================== //
 // Trang đăng nhập
-Route::get('/dang-nhap', [Controllers\Auth\LoginController::class, 'showForm'])->name('login');
+Route::get('/dang-nhap', [Controllers\Auth\LoginController::class, 'showForm'])->name('login')->middleware('guest');;
 // Xử lý đăng nhập
-Route::post('/dang-nhap', [Controllers\Auth\LoginController::class, 'handleLogin']);
+Route::post('/dang-nhap', [Controllers\Auth\LoginController::class, 'handleLogin'])->name('handle-login');
 // Đăng xuất
 Route::get('/dang-xuat', [Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
@@ -80,6 +80,42 @@ Route::get('/chinh-sach', function () {
 // Middleware `auth` => đã đăng nhập
 Route::middleware(['auth'])->group(function () {
 
+	/* Các route dùng chung của admin và staff. */
+	// ========================== USERS ========================== //
+	Route::get('/dashboard/profile', [Controllers\ProfileController::class, 'edit'])->name('dashboard.profile.edit');
+	Route::put('/dashboard/profile', [Controllers\ProfileController::class, 'update'])->name('dashboard.profile.update');
+
+	// ========================== NEWS ========================== //
+	Route::resource('/dashboard/news', Admin\NewsController::class)->names([
+		'index' => 'dashboard.news',
+		'show' => 'dashboard.news.show',
+		'create' => 'dashboard.news.create',
+		'store' => 'dashboard.news.store',
+		'edit' => 'dashboard.news.edit',
+		'update' => 'dashboard.news.update',
+		'destroy' => 'dashboard.news.delete'
+	]);
+
+	Route::put('/dashboard/news/{news}/toggle', [Admin\NewsController::class, 'toggleActive'])->name('dashboard.news.toggle');
+
+	// ========================== NEWS CATEGORY ========================== //
+	Route::resource('/dashboard/news-category', Admin\NewsCategoryController::class)->names([
+		'index' => 'dashboard.news-category',
+		'show' => 'dashboard.news-category.show',
+		'create' => 'dashboard.news-category.create',
+		'store' => 'dashboard.news-category.store',
+		'edit' => 'dashboard.news-category.edit',
+		'update' => 'dashboard.news-category.update',
+		'destroy' => 'dashboard.news-category.delete'
+	]);
+
+	Route::put('/dashboard/news-category/{newsCategory}/toggle', [Admin\NewsCategoryController::class, 'toggleActive'])->name('dashboard.news-category.toggle');
+
+	// ========================== EDITOR ========================== //
+	Route::group(['prefix' => 'laravel-filemanager'], function () {
+		Lfm::routes();
+	});
+
 	// Middleware `auth.admin` => là admin
 	Route::middleware(['auth.admin'])->group(function () {
 
@@ -123,35 +159,5 @@ Route::middleware(['auth'])->group(function () {
 
 		Route::put('/admin/users/{user}/toggle', [Admin\UserController::class, 'toggleActive'])->name('admin.user.toggle');
 
-		// ========================== NEWS ========================== //
-		Route::resource('/admin/news', Admin\NewsController::class)->names([
-			'index' => 'admin.news',
-			'show' => 'admin.news.show',
-			'create' => 'admin.news.create',
-			'store' => 'admin.news.store',
-			'edit' => 'admin.news.edit',
-			'update' => 'admin.news.update',
-			'destroy' => 'admin.news.delete'
-		]);
-
-		Route::put('/admin/news/{news}/toggle', [Admin\NewsController::class, 'toggleActive'])->name('admin.news.toggle');
-
-		// ========================== NEWS CATEGORY ========================== //
-		Route::resource('/admin/news-category', Admin\NewsCategoryController::class)->names([
-			'index' => 'admin.news-category',
-			'show' => 'admin.news-category.show',
-			'create' => 'admin.news-category.create',
-			'store' => 'admin.news-category.store',
-			'edit' => 'admin.news-category.edit',
-			'update' => 'admin.news-category.update',
-			'destroy' => 'admin.news-category.delete'
-		]);
-
-		Route::put('/admin/news-category/{newsCategory}/toggle', [Admin\NewsCategoryController::class, 'toggleActive'])->name('admin.news-category.toggle');
-
-		// ========================== EDITOR ========================== //
-		Route::group(['prefix' => 'laravel-filemanager'], function () {
-			Lfm::routes();
-		});
 	});
 });

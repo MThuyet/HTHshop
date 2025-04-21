@@ -45,7 +45,7 @@
                         icon: '{{ session('toast.icon') ?? 'success' }}',
                         title: `{!! session('toast.title') ?? '' !!}`,
                         text: `{!! session('toast.text') ?? '' !!}`,
-                        timer: 3000,
+                        timer: `{{ session('toast.timer') ?? 3000  }}`,
                         showConfirmButton: false
                     });
                 </script>

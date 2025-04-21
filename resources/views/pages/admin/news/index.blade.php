@@ -2,13 +2,13 @@
 @section('title', 'Quản lý tin tức')
 @section('nav-active', 'news')
 
-@php $breadCrump = [['name' => 'Quản lý tin tức', 'href' => route('admin.news')]]; @endphp
+@php $breadCrump = [['name' => 'Quản lý tin tức', 'href' => route('dashboard.news')]]; @endphp
 
 @section('content')
 <div class="bg-white p-2 border border-1 rounded-md">
     {{-- Anchor ProCat & Search & Btn Create --}}
-    <form method="GET" action="{{ route('admin.news') }}" class="flex flex-col md:flex-row items-center justify-between mb-4 gap-3">
-        <a href="{{ route('admin.news-category') }}"
+    <form method="GET" action="{{ route('dashboard.news') }}" class="flex flex-col md:flex-row items-center justify-between mb-4 gap-3">
+        <a href="{{ route('dashboard.news-category') }}"
             class="inline-block px-4 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow">
             Danh mục tin tức
         </a>
@@ -42,7 +42,7 @@
                 </select>
             </div>
 
-            <a href="{{ route('admin.news.create') }}"
+            <a href="{{ route('dashboard.news.create') }}"
                class="inline-block px-4 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow">
                 + Thêm tin tức mới
             </a>
@@ -66,7 +66,7 @@
                 @foreach ($news as $item)
                     <tr class="bg-white border-b hover:bg-gray-50">
                         <td class="px-2 md:px-6 py-1 md:py-2 font-medium text-gray-900">
-                            <a href="{{ route('admin.news.show', $item->id) }}" class="material-symbols-rounded inline-flex rounded-md font-medium text-blue-500 border p-1 hover:underline">
+                            <a href="{{ route('dashboard.news.show', $item->id) }}" class="material-symbols-rounded inline-flex rounded-md font-medium text-blue-500 border p-1 hover:underline">
                                 info
                             </a>
                         </td>
@@ -87,7 +87,7 @@
                         <td class="px-6 py-4 hidden sm:table-cell">{{ $item->watch }}</td>
                         <td class="px-6 py-4 hidden md:table-cell">{{ $item->category->name ?? 'Không xác định' }}</td>
                         <td class="px-6 py-2 hidden sm:table-cell">
-                            <form action="{{ route('admin.news.toggle', $item->id) }}" method="POST" class="mb-0">
+                            <form action="{{ route('dashboard.news.toggle', $item->id) }}" method="POST" class="mb-0">
                                 @csrf
                                 @method('PUT')
                                 <button type="submit">
@@ -99,7 +99,7 @@
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex justify-start">
-                                <a href="{{ route('admin.news.edit', $item->id) }}" class="inline-flex rounded-md font-medium text-yellow-500 border border-1 p-1 hover:underline mx-2">
+                                <a href="{{ route('dashboard.news.edit', $item->id) }}" class="inline-flex rounded-md font-medium text-yellow-500 border border-1 p-1 hover:underline mx-2">
                                     <span class="material-symbols-rounded">edit_square</span>
                                 </a>
                                 <button class="inline-flex rounded-md font-medium text-red-500 border p-1 hover:underline btn-open-modal-confirm-delete" data-id="{{ $item->id }}">
@@ -180,14 +180,14 @@
             document.getElementById('delete-news').textContent = fullname;
 
             // Set form action
-            form.action = `/admin/news/${newsId}`;
+            form.action = `/dashboard/news/${newsId}`;
 
             modal.classList.remove('hidden');
         };
 
         const closeModal = () => {
             document.getElementById('delete-news').textContent = '';
-            form.action = `/admin/news`;
+            form.action = `/dashboard/news`;
             modal.classList.add('hidden');
         };
 

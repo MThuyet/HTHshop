@@ -4,15 +4,15 @@
 
 @php 
     $breadCrump = [
-        ['name' => 'Quản lý tin tức', 'href' => route('admin.news')],
-        ['name' => 'Quản lý danh mục tin tức', 'href' => route('admin.news-category')],
+        ['name' => 'Quản lý tin tức', 'href' => route('dashboard.news')],
+        ['name' => 'Quản lý danh mục tin tức', 'href' => route('dashboard.news-category')],
         ['name' => 'Chỉnh sửa danh mục tin tức', 'href' => Request::url()]
     ]; 
 @endphp
 
 @section('content')
 <div class="bg-white p-2 border border-1 rounded-md">
-    <form action="{{ route('admin.news-category.update', $newsCategory->id) }}" method="POST" class="m-2 px-4 py-2 border border-gray-200 bg-white rounded-lg shadow-md space-y-6">
+    <form action="{{ route('dashboard.news-category.update', $newsCategory->id) }}" method="POST" class="m-2 px-4 py-2 border border-gray-200 bg-white rounded-lg shadow-md space-y-6">
         @csrf
         @method('PUT')
     

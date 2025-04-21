@@ -71,7 +71,7 @@ class NewsController extends Controller
 
 			News::create($validated);
 
-			return redirect()->route('admin.news')->with('toast', [
+			return redirect()->route('dashboard.news')->with('toast', [
 				'title' => 'Thành công',
 				'text' => 'Tạo bài viết thành công',
 				'icon' => 'success'
@@ -80,7 +80,7 @@ class NewsController extends Controller
 			$firstField = array_key_first($e->errors());
 			$firstError = $e->errors()[$firstField][0];
 
-			return redirect()->route('admin.news.create')->with('toast', [
+			return redirect()->route('dashboard.news.create')->with('toast', [
 				'title' => 'Lỗi tạo tin tức',
 				'text' => $firstError,
 				'icon' => 'error'
@@ -173,13 +173,13 @@ class NewsController extends Controller
 	{
 		try {
 			$news->delete();
-			return redirect()->route('admin.news')->with('toast', [
+			return redirect()->route('dashboard.news')->with('toast', [
 				'title' => 'Xóa tin tức',
 				'text' => 'Xóa tin tức thành công',
 				'icon' => 'success'
 			]);
 		} catch (\Exception $e) {
-			return redirect()->route('admin.news')->with('toast', [
+			return redirect()->route('dashboard.news')->with('toast', [
 				'title' => 'Xóa tin tức',
 				'text' => 'Xóa tin tức thất bại' . $e->getMessage(),
 				'icon' => 'success'
@@ -192,13 +192,13 @@ class NewsController extends Controller
 		try {
 			$news->active = !$news->active;
 			$news->save();
-			return redirect()->route('admin.news')->with('toast', [
+			return redirect()->route('dashboard.news')->with('toast', [
 				'title' => 'Cập nhật trạng thái',
 				'text' => 'Cập nhật trạng thái tin tức ' . $news->title . ' thành công',
 				'icon' => 'success'
 			]);
 		} catch (\Exception $e) {
-			return redirect()->route('admin.news')->with('toast', [
+			return redirect()->route('dashboard.news')->with('toast', [
 				'title' => 'Lỗi cập nhật trạng thái',
 				'text' => $e->getMessage(),
 				'icon' => 'error'

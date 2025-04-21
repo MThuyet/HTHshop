@@ -3,8 +3,8 @@
 @section('nav-active', 'news')
 
 @php $breadCrump = [
-        ['name' => 'Quản lý tin tức', 'href' => route('admin.news')], 
-        ['name' => 'Quản lý danh mục tin tức', 'href' => route('admin.news-category')]
+        ['name' => 'Quản lý tin tức', 'href' => route('dashboard.news')], 
+        ['name' => 'Quản lý danh mục tin tức', 'href' => route('dashboard.news-category')]
     ]; 
 
 @endphp
@@ -12,8 +12,8 @@
 @section('content')
 <div class="bg-white p-2 border border-1 rounded-md">
     {{-- Anchor ProCat & Search & Btn Create --}}
-    <form method="GET" action="{{ route('admin.news-category') }}" class="flex flex-col md:flex-row items-center justify-between mb-4 gap-3">
-        <a href="{{ route('admin.news') }}"
+    <form method="GET" action="{{ route('dashboard.news-category') }}" class="flex flex-col md:flex-row items-center justify-between mb-4 gap-3">
+        <a href="{{ route('dashboard.news') }}"
             class="flex px-4 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow">
             <span class="material-symbols-rounded">
                 arrow_back
@@ -50,7 +50,7 @@
                 </select>
             </div>
     
-            <a href="{{ route('admin.news-category.create') }}"
+            <a href="{{ route('dashboard.news-category.create') }}"
                class="inline-block px-4 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow">
                 + Thêm danh mục mới
             </a>
@@ -74,7 +74,7 @@
                 @foreach ($newsCategory as $category)
                 <tr class="bg-white border-b hover:bg-gray-50 md:table-row py-2 md:py-0">
                     <td class="px-2 md:px-6 py-1 md:py-2 font-medium text-gray-900">
-                        <a href="{{ route('admin.news-category.show', $category->id) }}" class="material-symbols-rounded inline-flex rounded-md font-medium text-blue-500 border p-1 hover:underline">
+                        <a href="{{ route('dashboard.news-category.show', $category->id) }}" class="material-symbols-rounded inline-flex rounded-md font-medium text-blue-500 border p-1 hover:underline">
                             info
                         </a>
                     </td>
@@ -90,7 +90,7 @@
         
                     <!-- Trạng thái: toggle -->
                     <td class="px-6 py-2">
-                        <form action="{{ route('admin.news-category.toggle', $category->id) }}" method="POST" class="mb-0">
+                        <form action="{{ route('dashboard.news-category.toggle', $category->id) }}" method="POST" class="mb-0">
                             @csrf
                             @method('PUT')
                             <button type="submit">
@@ -103,7 +103,7 @@
         
                     <td class="px-6 py-2">
                         <div class="flex justify-start">
-                            <a href="{{ route('admin.news-category.edit', $category->id) }}" class="inline-flex rounded-md font-medium text-yellow-500 border p-1 hover:underline mr-2">
+                            <a href="{{ route('dashboard.news-category.edit', $category->id) }}" class="inline-flex rounded-md font-medium text-yellow-500 border p-1 hover:underline mr-2">
                                 <span class="material-symbols-rounded">edit_square</span>
                             </a>    
                             <button class="inline-flex rounded-md font-medium text-red-500 border p-1 hover:underline btn-open-modal-confirm-delete" data-id="{{ $category->id }}">
@@ -185,14 +185,14 @@
             document.getElementById('delete-news-category').textContent = fullname;
 
             // Set form action
-            form.action = `/admin/news-category/${newsCategoryId}`;
+            form.action = `/dashboard/news-category/${newsCategoryId}`;
 
             modal.classList.remove('hidden');
         };
 
         const closeModal = () => {
             document.getElementById('delete-news-category').textContent = '';
-            form.action = `/admin/news-category`;
+            form.action = `/dashboard/news-category`;
             modal.classList.add('hidden');
         };
 

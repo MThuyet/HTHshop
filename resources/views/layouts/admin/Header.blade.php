@@ -4,26 +4,34 @@
 </div>
 
 {{-- Header center side --}}
-<div class="hidden lg:flex flex-1 justify-center gap-5">
+<div class="hidden sm:flex flex-1 justify-center gap-5">
     @php
         $navList = [
             ['navName' => 'dashBoard', 'navIcon' => 'bar_chart_4_bars', 'route' => 'admin.dashboard'],
             ['navName' => 'product', 'navIcon' => 'apparel', 'route' => 'admin.product'],
             ['navName' => 'order', 'navIcon' => 'shopping_bag', 'route' => 'admin.dashboard'],
             ['navName' => 'user', 'navIcon' => 'manage_accounts', 'route' => 'admin.user'],
-            ['navName' => 'news', 'navIcon' => 'news', 'route' => 'admin.news'],
+            ['navName' => 'news', 'navIcon' => 'news', 'route' => 'dashboard.news'],
         ];
 
         $navItemActive = trim($__env->yieldContent('nav-active'));
     @endphp
 
-    @foreach ($navList as $item)
+    @if (Auth::user()->role === 'ADMIN')
+        @foreach ($navList as $item)
         <a href="{{ route($item['route']) }}"
             class="flex items-center p-2 rounded-lg border border-gray-400 hover:bg-[#0F6A9C] hover:text-white
-           {{ $item['navName'] === $navItemActive ? 'text-white bg-[#0F6A9C]' : '' }}">
-            <span class="material-symbols-rounded">{{ $item['navIcon'] }}</span>
+            {{ $item['navName'] === $navItemActive ? 'text-white bg-[#0F6A9C]' : '' }}">
+                <span class="material-symbols-rounded">{{ $item['navIcon'] }}</span>
         </a>
-    @endforeach
+        @endforeach
+    @else
+        <a href="{{ route('dashboard.news') }}"
+            class="flex items-center p-2 rounded-lg border border-gray-400 hover:bg-[#0F6A9C] hover:text-white 
+                {{ $navItemActive === 'news' ? 'text-white bg-[#0F6A9C]' : '' }} ">
+                <span class="material-symbols-rounded">news</span>
+        </a>
+    @endif
 </div>
 
 {{-- Header right side --}}
@@ -36,20 +44,22 @@
         </span>
     </button>
     <button type="button"
-        class="lg:hidden flex items-center p-2 rounded-lg border border-gray-400 hover:bg-[#0F6A9C] hover:text-white"
+        class="sm:hidden flex items-center p-2 rounded-lg border border-gray-400 hover:bg-[#0F6A9C] hover:text-white"
         id="menu-toggle">
         <span class="material-symbols-rounded">
             menu
         </span>
     </button>
     <div class="relative group inline-block">
-        <img src="https://lh3.googleusercontent.com/a/ACg8ocJeZPKlmeSRNpC58UQdlDWIz1acbUlsaFnx0v_kd8-vGxO3nOM=s96-c"
-            alt="avatar" width="40" height="40" class="rounded-full cursor-pointer" />
+        <img src="{{ Auth::user()->avatar 
+            ? asset('storage/' . Auth::user()->avatar) 
+            : asset('images/avatar-temp.webp') }}"
+            alt="{{ Auth::user()->fullname }}" class="rounded-full h-[40px] w-[40px] cursor-pointer" />
 
         <ul
             class="absolute right-0 min-w-[150px] bg-white border shadow-sm rounded-md overflow-hidden z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-150">
             <li>
-                <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-sm">
+                <a href="{{ route('dashboard.profile.edit') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-sm">
                     <span class="material-symbols-rounded">account_circle</span> Hồ sơ
                 </a>
             </li>

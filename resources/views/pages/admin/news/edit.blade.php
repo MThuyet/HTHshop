@@ -4,14 +4,14 @@
 
 @php 
     $breadCrump = [
-        ['name' => 'Quản lý tin tức', 'href' => route('admin.news')],
+        ['name' => 'Quản lý tin tức', 'href' => route('dashboard.news')],
         ['name' => 'Chỉnh sửa tin tức', 'href' => Request::url()]
     ]; 
 @endphp
 
 @section('content')
 <div class="bg-white p-2 border border-1 rounded-md">
-    <form action="{{ route('admin.news.update', $news->id) }}" method="POST" enctype="multipart/form-data"
+    <form action="{{ route('dashboard.news.update', $news->id) }}" method="POST" enctype="multipart/form-data"
         class="m-2 px-4 py-2 border border-gray-200 bg-white rounded-lg shadow-md space-y-6">
         @csrf
         @method('PUT')

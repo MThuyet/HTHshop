@@ -34,7 +34,7 @@
                 {{-- Danh sách tin tức --}}
                 <div class="grid gap-5 lg:grid-cols-2 grid-cols-1">
                     @foreach ($newsList as $news)
-                        <div class="flex gap-4 overflow-hidden">
+                        <div class="flex flex-col-reverse sm:flex-row gap-4 overflow-hidden pb-[20px] border-b-[1px]">
                             <a href="{{ route('news.detail', $news->slug) }}" title="{{ $news->title }}"
                                 class="block overflow-hidden h-[250px] w-[200px]">
                                 <img src="{{ asset('storage/' . $news->thumbnail) }}" alt="{{ $news->title }}"
@@ -59,7 +59,7 @@
                                             {!! Str::limit($news->title, 70) !!}
                                         </h3>
                                     </a>
-                                    <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                                    <p class="text-sm text-gray-600 leading-relaxed">
                                         {!! Str::limit($news->excerpt, 120, '...') !!}
                                         <a href="{{ route('news.detail', $news->slug) }}"
                                             class="block text-[var(--orange-color)] font-medium">
