@@ -214,6 +214,118 @@
 
         <hr class="mt-14">
 
+        <!-- Đánh giá sản phẩm -->
+        <div class="flex flex-col gap-2 mt-4">
+            <div class="flex items-center gap-2">
+                <div class="flex items-center">
+                    @php
+                        // Lấy danh sách review active của sản phẩm
+                        $reviews = $product->reviews()->where('active', true)->get();
+                        $totalReviews = $reviews->count();
+
+                        // Tính điểm trung bình
+                        $weightedSum = 0;
+                        for ($i = 1; $i <= 5; $i++) {
+                            $count = $reviews->where('rated', $i)->count();
+                            $weightedSum += $i * $count; // Tổng trọng số
+                        }
+                        $avgRating = $totalReviews > 0 ? round($weightedSum / $totalReviews, 1) : 0;
+                    @endphp
+
+                    <span class="flex items-center text-yellow-500">
+                        <span class="font-medium">Tổng: {{ $avgRating }}⭐</span>
+                    </span>
+
+                </div>
+                <span class="text-sm text-gray-600">
+                    ({{ $product->reviews->where('active', true)->count() }} đánh giá)
+                </span>
+            </div>
+
+            <!-- Danh sách đánh giá -->
+            <div class="mt-4 space-y-4">
+                @foreach ($product->reviews()->where('active', true)->get() as $review)
+                    <div class="border-b border-gray-200 pb-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="font-medium">{{ $review->fullname }}</span>
+                                <div class="flex items-center">
+                                    @for ($i = 1; $i <= $review->rated; $i++)
+                                        <span class="text-yellow-500 text-sm">⭐</span>
+                                    @endfor
+                                </div>
+                            </div>
+                            <span class="text-sm text-gray-500">{{ $review->created_at->format('d/m/Y') }}</span>
+                        </div>
+                        <p class="mt-2 text-sm text-gray-600">{{ $review->content }}</p>
+                        @if ($review->image)
+                            <img src="{{ asset('storage/' . $review->image) }}" alt="Review image"
+                                class="mt-2 max-w-xs rounded-lg">
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+
+            <!-- Form đánh giá -->
+            <div class="mt-6">
+                <h4 class="font-medium mb-2">Đánh giá sản phẩm</h4>
+                <form action="{{ route('reviews.store', $product->slug) }}" method="POST" class="space-y-3"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex flex-col gap-1">
+                            <label for="fullname" class="text-sm">Họ tên:</label>
+                            <input type="text" name="fullname" id="fullname" value="{{ old('fullname') }}"
+                                class="border border-gray-300 rounded-md p-2 text-sm" required>
+                            @error('fullname')
+                                <span class="text-red-500 text-xs">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label for="phone" class="text-sm">Số điện thoại:</label>
+                            <input type="tel" name="phone" id="phone" value="{{ old('phone') }}"
+                                class="border border-gray-300 rounded-md p-2 text-sm" required>
+                            @error('phone')
+                                <span class="text-red-500 text-xs">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm">Đánh giá:</span>
+                        <div class="flex items-center" id="ratingStars">
+                            @for ($i = 1; $i <= 5; $i++)
+                                <button type="button" class="rating-btn" data-rating="{{ $i }}">
+                                    <span
+                                        class="material-symbols-rounded text-gray-400 hover:text-yellow-500">star_border</span>
+                                </button>
+                            @endfor
+                        </div>
+                        <input type="hidden" name="rated" id="ratingInput" value="{{ old('rated', 0) }}">
+                        @error('rated')
+                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <textarea name="content" rows="3" class="w-full border border-gray-300 rounded-md p-2 text-sm"
+                            placeholder="Nhập đánh giá của bạn..." required>{{ old('content') }}</textarea>
+                        @error('content')
+                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label for="reviewImage" class="text-sm">Hình ảnh (nếu có):</label>
+                        <input type="file" name="image" id="reviewImage" accept="image/*" class="text-sm">
+                        @error('image')
+                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <button type="submit"
+                        class="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 text-sm">Gửi đánh
+                        giá</button>
+                </form>
+            </div>
+        </div>
+
         {{-- Đã xem gần đây --}}
         <div class="mt-10">
             <h2 class="sub-title text-center">Đã xem gần đây</h2>
@@ -325,3 +437,31 @@
         </div>
     </div>
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ratingButtons = document.querySelectorAll('.rating-btn');
+        const ratingInput = document.getElementById('ratingInput');
+
+        ratingButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const rating = this.getAttribute('data-rating');
+                ratingInput.value = rating;
+
+                // Reset tất cả sao về màu xám
+                ratingButtons.forEach(btn => {
+                    btn.querySelector('span').classList.remove('text-yellow-500');
+                    btn.querySelector('span').classList.add('text-gray-400');
+                    btn.querySelector('span').textContent = 'star_border';
+                });
+
+                // Tô sáng các sao từ 1 đến rating
+                for (let i = 0; i < rating; i++) {
+                    ratingButtons[i].querySelector('span').classList.remove('text-gray-400');
+                    ratingButtons[i].querySelector('span').classList.add('text-yellow-500');
+                    ratingButtons[i].querySelector('span').textContent = 'star';
+                }
+            });
+        });
+    });
+</script>

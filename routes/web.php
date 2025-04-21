@@ -31,6 +31,7 @@ Route::match(['get', 'post'], '/san-pham', [Client\ProductCategoryController::cl
 // Chi tiết sản phẩm
 Route::get('/san-pham/{product_slug}', [Client\ProductDetailController::class, 'index'])->name('product.detail');
 Route::post('/upload-image', [Client\ProductDetailController::class, 'uploadImage'])->name('upload.image');
+Route::post('/products/{product_slug}/reviews', [Client\ProductDetailController::class, 'storeReview'])->name('reviews.store');
 
 // ========================== YÊU THÍCH ========================== //
 Route::get('/yeu-thich', function () {
