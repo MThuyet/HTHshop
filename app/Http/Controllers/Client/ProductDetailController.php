@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\Review;
 
 class ProductDetailController extends Controller
 {
@@ -47,5 +48,48 @@ class ProductDetailController extends Controller
 				'error' => 'Lỗi khi upload ảnh: ' . $e->getMessage()
 			], 500);
 		}
+	}
+
+	public function storeReview(Request $request, $product_slug)
+	{
+		// Tìm sản phẩm theo slug
+		$product = Product::where('slug', $product_slug)->firstOrFail();
+
+		// Xác thực dữ liệu
+		$validated = $request->validate([
+			'fullname' => 'required|string|max:255',
+			'phone' => 'required|string|max:20',
+			'rated' => 'required|integer|between:1,5',
+			'content' => 'required|string',
+			'image' => 'nullable|image|max:2048', // Giới hạn file ảnh 2MB
+		]);
+
+		// Xử lý upload hình ảnh (nếu có)
+		$imagePath = null;
+		if ($request->hasFile('image')) {
+			$image = $request->file('image');
+			$originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+			$extension = $image->getClientOriginalExtension();
+			$filename = Str::slug($originalName) . '_' . time() . '.' . $extension;
+			$imagePath = $image->storeAs('images/reviews', $filename, 'public');
+		}
+
+		// Lưu đánh giá vào database
+		$review = new Review();
+		$review->product_id = $product->id;
+		$review->fullname = $validated['fullname'];
+		$review->phone = $validated['phone'];
+		$review->rated = $validated['rated'];
+		$review->content = $validated['content'];
+		$review->image = $imagePath;
+		$review->active = true;
+		$review->save();
+
+		// Trả về thông báo thành công
+		return redirect()->back()->with('toast', [
+			'icon' => 'success',
+			'title' => 'HTH Shop',
+			'text' => 'Cảm ơn bạn đã đánh giá sản phẩm của chúng tôi!'
+		]);
 	}
 }
