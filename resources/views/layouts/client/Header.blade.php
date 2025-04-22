@@ -58,7 +58,7 @@
                     favorite
                 </span>
                 <span>Yêu thích</span>
-                <span
+                <span id="headerFavoriteCount"
                     class="absolute -top-2 -right-0 bg-redColor text-white w-5 h-5 flex items-center justify-center rounded-full">0</span>
             </div>
         </a>
@@ -184,37 +184,60 @@
         const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
         document.getElementById('headerCartCount').textContent = totalItems;
     }
+    
+    // Function to update favorite count in header
+    function updateHeaderFavoriteCount() {
+        const favorites = JSON.parse(localStorage.getItem('favoriteProducts')) || [];
+        document.getElementById('headerFavoriteCount').textContent = favorites.length;
+    }
 
-    // Update cart count when page loads
-    document.addEventListener('DOMContentLoaded', updateHeaderCartCount);
+    // Update counts when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        updateHeaderCartCount();
+        updateHeaderFavoriteCount();
+    });
 
     // Update cart count when cart changes in the same tab
     function handleCartChange() {
         updateHeaderCartCount();
     }
+    
+    // Update favorite count when favorites changes in the same tab
+    function handleFavoriteChange() {
+        updateHeaderFavoriteCount();
+    }
 
-    // Listen for cart changes from other tabs
+    // Listen for storage changes from other tabs
     window.addEventListener('storage', function(e) {
         if (e.key === 'cart') {
             updateHeaderCartCount();
         }
+        if (e.key === 'favoriteProducts') {
+            updateHeaderFavoriteCount();
+        }
     });
 
-    // Override localStorage.setItem to detect cart changes
+    // Override localStorage.setItem to detect changes
     const originalSetItem = localStorage.setItem;
     localStorage.setItem = function(key, value) {
         originalSetItem.apply(this, arguments);
         if (key === 'cart') {
             handleCartChange();
         }
+        if (key === 'favoriteProducts') {
+            handleFavoriteChange();
+        }
     };
 
-    // Override localStorage.removeItem to detect cart changes
+    // Override localStorage.removeItem to detect changes
     const originalRemoveItem = localStorage.removeItem;
     localStorage.removeItem = function(key) {
         originalRemoveItem.apply(this, arguments);
         if (key === 'cart') {
             handleCartChange();
+        }
+        if (key === 'favoriteProducts') {
+            handleFavoriteChange();
         }
     };
 </script>

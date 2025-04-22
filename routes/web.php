@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers;
+use App\Http\Controllers\Client\ProductController;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Client;
 use Illuminate\Support\Facades\Route;
@@ -32,11 +34,25 @@ Route::match(['get', 'post'], '/san-pham', [Client\ProductCategoryController::cl
 Route::get('/san-pham/{product_slug}', [Client\ProductDetailController::class, 'index'])->name('product.detail');
 Route::post('/upload-image', [Client\ProductDetailController::class, 'uploadImage'])->name('upload.image');
 Route::post('/products/{product_slug}/reviews', [Client\ProductDetailController::class, 'storeReview'])->name('reviews.store');
-
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+Route::post('/products/toggle-favorite', [ProductController::class, 'toggleFavorite']);
+Route::get('/products', [ProductController::class, 'getProductsByIds']); 
 // ========================== YÊU THÍCH ========================== //
 Route::get('/yeu-thich', function () {
 	return view('pages.client.FavoritePage');
 })->name('favorite');
+
+// API dự phòng cho truy xuất sản phẩm yêu thích (trong trường hợp API routes không hoạt động)
+Route::get('/api-web/products', [Client\ProductController::class, 'getProductsByIds']);
+Route::get('/api-web/products/debug', [Client\ProductController::class, 'debugFavoriteProducts']);
+Route::post('/api-web/products/toggle-favorite', [Client\ProductController::class, 'toggleFavorite']);
+
+// Debug Page
+Route::get('/api-test', function() {
+    return view('pages.client.ApiTestPage');
+})->name('api.test');
 
 // ========================== GIỎ HÀNG ========================== //
 Route::get('/gio-hang', function () {
@@ -70,6 +86,23 @@ Route::get('/chinh-sach', function () {
 	return view('pages.client.PolicyPage');
 });
 
+// Route để reset session yêu thích
+Route::get('/reset-favorite-session', function(Request $request) {
+    $request->session()->forget('favoriteProducts');
+    $request->session()->forget('likedProductsSession');
+    return redirect()->back()->with('success', 'Đã reset session yêu thích');
+});
+
+// Route để kiểm tra session yêu thích
+Route::get('/check-favorite-session', function(Request $request) {
+    $favoriteProducts = json_decode($request->session()->get('favoriteProducts', '[]'), true);
+    $likedProductsSession = json_decode($request->session()->get('likedProductsSession', '[]'), true);
+    
+    return response()->json([
+        'favoriteProducts' => $favoriteProducts,
+        'likedProductsSession' => $likedProductsSession
+    ]);
+});
 
 /*
 |--------------------------------------------------------------------------
