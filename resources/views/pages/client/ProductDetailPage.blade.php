@@ -6,13 +6,13 @@
 @section('content')
     <div class="responsive">
         {{-- Chi tiết sản phẩm --}}
-        <form class="grid md:grid-cols-2 grid-cols-1 gap-4 text-textColor" id="productDetailForm" action="" method="POST"
-            enctype="multipart/form-data" data-variants="{{ $product->variants->toJson() }}">
+        <form class="grid md:grid-cols-2 grid-cols-1 gap-4 text-textColor" id="productDetailForm" enctype="multipart/form-data"
+            data-variants="{{ $product->variants->toJson() }}" data-discount="{{ $product->discount }}" action=""
+            method="POST">
             @csrf
             <input type="hidden" name="productId" value="{{ $product->id }}">
             <input type="hidden" name="productName" value="{{ $product->name }}">
-            <input type="hidden" name="mainImage"
-                value="{{ asset('storage/images/products/' . $product->images[0]->image) }}">
+            <input type="hidden" name="mainImage" value="{{ asset('storage/' . $product->images[0]->image) }}">
             <input type="hidden" name="price" id="priceInput"
                 value="{{ $product->variants->where('print_position', 'CENTER_CHEST_A4')->first()->price ?? 0 }}">
             <input type="hidden" name="productVariantId" id="productVariantId"
@@ -24,10 +24,9 @@
                     @foreach ($product->images as $index => $img)
                         <div class="w-20 h-20 overflow-hidden rounded-md border cursor-pointer thumbnail
                     {{ $index === 0 ? 'border-blue-500 border-2' : 'border-gray-300' }}"
-                            data-index="{{ $index }}"
-                            data-src="{{ asset('storage/images/products/' . $img->image) }}">
-                            <img src="{{ asset('storage/images/products/' . $img->image) }}"
-                                alt="Thumb {{ $index + 1 }}" class="w-full h-full object-cover">
+                            data-index="{{ $index }}" data-src="{{ asset('storage/' . $img->image) }}">
+                            <img src="{{ asset('storage/' . $img->image) }}" alt="{{ $product->name }}"
+                                class="w-full h-full object-cover">
                         </div>
                     @endforeach
                 </div>
@@ -35,8 +34,7 @@
                 <!-- Ảnh lớn -->
                 <div class="">
                     <img id="mainImage" class="w-full h-[400px] md:h-[500px] rounded-lg object-cover"
-                        src="{{ asset('storage/images/products/' . $product->images[0]->image) }}"
-                        alt="{{ $product->name }}">
+                        src="{{ asset('storage/' . $product->images[0]->image) }}" alt="{{ $product->name }}">
                 </div>
             </div>
 
@@ -44,16 +42,19 @@
             <div class="flex flex-col gap-4">
                 <p class="font-semibold text-lg">{{ $product->name }}</p>
                 <!-- Hiển thị giá động -->
-                <p class="text-xl font-bold text-orange-500" id="priceDisplay">
-                    {{ number_format($product->variants->where('print_position', 'CENTER_CHEST_A4')->first()->price ?? 0, 0, ',', '.') }}
-                    VNĐ
-                </p>
+                <div class="flex items-center gap-2">
+                    <p class="text-xl font-bold text-orange-500" id="priceDisplay">
+                        {{ number_format(round($product->variants->where('print_position', 'CENTER_CHEST_A4')->first()->price * (1 - $product->discount / 100)), 0, ',', '.') }}đ
+                    </p>
+                    <p class="text-gray-400 line-through text-sm" id="originalPriceDisplay">
+                        {{ number_format(round($product->variants->where('print_position', 'CENTER_CHEST_A4')->first()->price), 0, ',', '.') }}đ
+                    </p>
+                </div>
 
                 <!-- Mô tả sản phẩm -->
                 <div class="flex flex-col gap-2 leading-relaxed">
                     <p class="text-sm text-slate-600">
-                        Áo phông Ông già Noel với thiết kế độc đáo và mang không khí lễ hội, phù hợp làm quà tặng hoặc mặc
-                        trong dịp Giáng sinh. Phom dáng thoải mái, dễ phối đồ.
+                        {{ $product->description }}
                     </p>
                     <p class="italic">Chất liệu: 100% cotton cao cấp, thoáng mát và thấm hút tốt.</p>
                 </div>
@@ -177,24 +178,29 @@
                 </div>
 
                 <!-- Tùy chỉnh ảnh -->
-                <div class="flex items-center gap-2">
-                    <label for="customImage" class="hover:text-orangeColor cursor-pointer">Tôi muốn tùy chỉnh ảnh</label>
-                    <input id="customImage" type="checkbox" class="w-5 h-5 rounded border-gray-400 accent-orangeColor">
-                </div>
+                @if ($product->has_customization)
+                    <div class="flex items-center gap-2">
+                        <label for="customImage" class="hover:text-orangeColor cursor-pointer">Tôi muốn tùy chỉnh
+                            ảnh</label>
+                        <input id="customImage" type="checkbox"
+                            class="w-5 h-5 rounded border-gray-400 accent-orangeColor">
+                    </div>
 
-                <!-- Ô upload ảnh -->
-                <div id="uploadContainer" class="hidden">
-                    <label for="uploadImage"
-                        class="flex flex-col items-center justify-center w-36 h-36 border-2 border-dashed border-orangeColor rounded-md cursor-pointer hover:bg-orange-50 transition overflow-hidden">
-                        <img id="previewImage" class="hidden w-full h-full object-cover rounded-md" alt="Preview Image">
-                        <div id="uploadPlaceholder" class="flex flex-col items-center">
-                            <span class="material-symbols-rounded text-orangeColor mb-2"
-                                style="font-size: 48px">upload</span>
-                            <span class="text-gray-600 text-sm text-center">Nhấn để tải ảnh lên</span>
-                        </div>
-                        <input id="uploadImage" type="file" class="hidden" accept="image/*" name="customImage">
-                    </label>
-                </div>
+                    <!-- Ô upload ảnh -->
+                    <div id="uploadContainer" class="hidden">
+                        <label for="uploadImage"
+                            class="flex flex-col items-center justify-center w-36 h-36 border-2 border-dashed border-orangeColor rounded-md cursor-pointer hover:bg-orange-50 transition overflow-hidden">
+                            <img id="previewImage" class="hidden w-full h-full object-cover rounded-md"
+                                alt="Preview Image">
+                            <div id="uploadPlaceholder" class="flex flex-col items-center">
+                                <span class="material-symbols-rounded text-orangeColor mb-2"
+                                    style="font-size: 48px">upload</span>
+                                <span class="text-gray-600 text-sm text-center">Nhấn để tải ảnh lên</span>
+                            </div>
+                            <input id="uploadImage" type="file" class="hidden" accept="image/*" name="customImage">
+                        </label>
+                    </div>
+                @endif
 
                 <!-- Button -->
                 <div class="flex flex-row md:items-center md:gap-4 gap-3 w-full">
@@ -326,115 +332,82 @@
             </div>
         </div>
 
-        {{-- Đã xem gần đây --}}
-        <div class="mt-10">
-            <h2 class="sub-title text-center">Đã xem gần đây</h2>
-            <div class=" grid md:grid-rows-1 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
-                @for ($i = 0; $i < 5; $i++)
-                    <div
-                        class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
-                        <!-- Discount badge -->
-                        <span
-                            class="absolute top-2 left-2 bg-orangeColor text-white text-xs font-semibold px-3 py-1.5 rounded-full z-10">
-                            Giảm 35%
-                        </span>
+        <!-- Sản phẩm liên quan -->
+        @if ($relatedProducts->count() > 0)
+            <div class="mt-14">
+                <h2 class="text-2xl font-semibold mb-6">Sản phẩm liên quan</h2>
+                <div
+                    class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-2 gap-y-4 sm:gap-4 md:gap-x-3 lg:gap-x-5">
+                    @foreach ($relatedProducts as $relatedProduct)
+                        <div
+                            class="slide-up-effect relative bg-white shadow-md rounded-md overflow-hidden transition-all duration-300 group hover:scale-[1.02] hover:-translate-y-1 hover:shadow-lg">
+                            <!-- Discount badge -->
+                            <span
+                                class="absolute top-2 left-2 bg-redColor text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md z-10 animate-pulse">
+                                -{{ $relatedProduct->discount }}%
+                            </span>
 
-                        <!-- Product image -->
-                        <div class="relative overflow-hidden cursor-pointer">
-                            <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                                class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
+                            <!-- Product image -->
+                            <a href="{{ route('product.detail', $relatedProduct->slug) }}">
+                                <div class="relative overflow-hidden cursor-pointer">
+                                    <img src="{{ asset('storage/' . $relatedProduct->images[0]->image) }}"
+                                        alt="{{ $relatedProduct->name }}" class="w-full h-60 object-cover rounded-t-md">
 
-                            <!-- Add to cart button with tooltip -->
-                            <button
-                                class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                                <span class="material-symbols-rounded" style="font-weight: 600">
-                                    add_shopping_cart
-                                </span>
+                                    <!-- Wishlist button with tooltip -->
+                                    <button
+                                        class="wishlist-btn absolute top-1 right-1 w-10 h-10 bg-white text-orangeColor flex items-center justify-center rounded-full shadow-md group/button">
+                                        <span class="material-symbols-rounded icon-heart">
+                                            favorite
+                                        </span>
 
-                                <!-- Tooltip -->
-                                <span
-                                    class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
-                                    Thêm vào giỏ hàng
-                                </span>
-                            </button>
-                        </div>
+                                        <!-- Tooltip -->
+                                        <span
+                                            class="tooltip-text absolute right-full mr-1 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 delay-100 md:group-hover/button:opacity-100 md:group-hover/button:translate-x-0">
+                                            Yêu thích
+                                        </span>
+                                    </button>
 
-                        <!-- Product details -->
-                        <div class="md:px-4 md:py-2 p-2">
-                            <p
-                                class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1
-													 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em]">
-                                Áo thun nam in hình độc đáo tùy chỉnh
-                            </p>
+                                    <!-- Add to cart button with tooltip -->
+                                    <button
+                                        class="absolute bottom-1 right-1 w-10 h-10 bg-white text-orangeColor flex items-center justify-center rounded-full transition-all shadow-md group/button">
+                                        <span class="material-symbols-rounded">
+                                            add_shopping_cart
+                                        </span>
 
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-2">
-                                    <p class="text-orangeColor lg:text-lg md:text-md sm:text-sm text-[14px] font-[550]">
-                                        149.000đ
+                                        <!-- Tooltip -->
+                                        <span
+                                            class="absolute right-full mr-1 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 md:group-hover/button:opacity-100 md:group-hover/button:translate-x-0">
+                                            Thêm vào giỏ hàng
+                                        </span>
+                                    </button>
+                                </div>
+                            </a>
+
+                            <!-- Product details -->
+                            <div class="md:px-4 md:py-2 p-2">
+                                <a href="{{ route('product.detail', $relatedProduct->slug) }}">
+                                    <p
+                                        class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em] hover:text-orangeColor">
+                                        {{ $relatedProduct->name }}
                                     </p>
-                                    <p class="text-[#888888] line-through text-[10px] sm:text-[12px]">220.000đ</p>
+                                </a>
+
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <p class="text-orangeColor font-semibold text-[14px]">
+                                            {{ number_format(round($relatedProduct->variants[0]->price * (1 - $relatedProduct->discount / 100)), 0, ',', '.') }}đ
+                                        </p>
+                                        <p class="text-gray-400 line-through text-[12px]">
+                                            {{ number_format($relatedProduct->variants[0]->price, 0, ',', '.') }}đ
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endfor
+                    @endforeach
+                </div>
             </div>
-        </div>
-
-        {{-- Sản phẩm liên quan --}}
-        <div class="mt-20">
-            <h2 class="sub-title text-center">Sản phẩm liên quan</h2>
-            <div class=" grid md:grid-rows-1 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
-                @for ($i = 0; $i < 5; $i++)
-                    <div
-                        class="relative bg-white shadow-md rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl group">
-                        <!-- Discount badge -->
-                        <span
-                            class="absolute top-2 left-2 bg-orangeColor text-white text-xs font-semibold px-3 py-1.5 rounded-full z-10">
-                            Giảm 35%
-                        </span>
-
-                        <!-- Product image -->
-                        <div class="relative overflow-hidden cursor-pointer">
-                            <img src="{{ asset('images/product1.png') }}" alt="Áo Polo Phối Khóa Cổ"
-                                class="w-full h-60 object-cover transition-transform duration-300 hover:scale-105">
-
-                            <!-- Add to cart button with tooltip -->
-                            <button
-                                class="absolute bottom-2 right-2 w-10 h-10 bg-white/80 text-orangeColor flex items-center justify-center rounded-full transition-all duration-300 hover:bg-white hover:scale-110 shadow-md group/button">
-                                <span class="material-symbols-rounded" style="font-weight: 600">
-                                    add_shopping_cart
-                                </span>
-
-                                <!-- Tooltip -->
-                                <span
-                                    class="absolute right-full mr-3 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 group-hover/button:opacity-100 group-hover/button:translate-x-0">
-                                    Thêm vào giỏ hàng
-                                </span>
-                            </button>
-                        </div>
-
-                        <!-- Product details -->
-                        <div class="md:px-4 md:py-2 p-2">
-                            <p
-                                class="text-gray-800 md:text-md sm:text-md text-[16px] mb-1
-												 line-clamp-2 overflow-hidden text-ellipsis min-h-[3.2em]">
-                                Áo thun nam in hình độc đáo tùy chỉnh
-                            </p>
-
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-2">
-                                    <p class="text-orangeColor lg:text-lg md:text-md sm:text-sm text-[14px] font-[550]">
-                                        149.000đ
-                                    </p>
-                                    <p class="text-[#888888] line-through text-[10px] sm:text-[12px]">220.000đ</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endfor
-            </div>
-        </div>
+        @endif
     </div>
 @endsection
 

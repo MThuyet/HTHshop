@@ -16,7 +16,6 @@ class Product extends Model
 		'name',
 		'slug',
 		'description',
-		'default_price',
 		'active',
 		'discount',
 		'has_customization',

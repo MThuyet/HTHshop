@@ -2,12 +2,20 @@ document.addEventListener("DOMContentLoaded", function () {
     // ======== Lấy variants từ form ========
     const form = document.getElementById("productDetailForm");
     const variants = JSON.parse(form.dataset.variants);
+    const discount = parseInt(form.dataset.discount);
     const priceInput = document.getElementById("priceInput");
     const priceDisplay = document.getElementById("priceDisplay");
+    const originalPriceDisplay = document.getElementById(
+        "originalPriceDisplay"
+    );
 
     // Format giá sang VNĐ
     function formatPrice(price) {
-        return price.toLocaleString("vi-VN") + " VNĐ";
+        return (
+            Math.round(price)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "đ"
+        );
     }
 
     // Cập nhật giá dựa trên print_position
@@ -15,15 +23,32 @@ document.addEventListener("DOMContentLoaded", function () {
         const variant = variants.find(
             (v) => v.print_position === printPosition
         );
-        const price = variant ? variant.price : 0;
-        priceInput.value = price;
-        priceDisplay.textContent = formatPrice(price);
+        if (variant) {
+            const originalPrice = variant.price;
+            const discountedPrice =
+                originalPrice - (originalPrice * discount) / 100;
 
-        // Cập nhật productVariantId
-        const productVariantIdInput =
-            document.getElementById("productVariantId");
-        if (productVariantIdInput && variant) {
-            productVariantIdInput.value = variant.id;
+            // Cập nhật giá hiển thị
+            priceDisplay.innerHTML = `
+                <p class="text-xl font-bold text-orange-500">
+                    ${formatPrice(discountedPrice)}
+                </p>
+            `;
+
+            // Cập nhật giá gốc
+            if (originalPriceDisplay) {
+                originalPriceDisplay.textContent = formatPrice(originalPrice);
+            }
+
+            // Cập nhật giá trong input hidden
+            priceInput.value = discountedPrice;
+
+            // Cập nhật productVariantId
+            const productVariantIdInput =
+                document.getElementById("productVariantId");
+            if (productVariantIdInput) {
+                productVariantIdInput.value = variant.id;
+            }
         }
     }
 
@@ -174,35 +199,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let uploadedImageBase64 = "";
 
-    customImageCheckbox.addEventListener("change", function () {
-        if (this.checked) {
-            uploadContainer.classList.remove("hidden");
-        } else {
-            uploadContainer.classList.add("hidden");
-            uploadInputImage.value = "";
-            previewImageBox.classList.add("hidden");
-            uploadPlaceholder.classList.remove("hidden");
-            uploadedImageBase64 = "";
-        }
-    });
+    if (customImageCheckbox) {
+        customImageCheckbox.addEventListener("change", function () {
+            if (this.checked) {
+                uploadContainer.classList.remove("hidden");
+            } else {
+                uploadContainer.classList.add("hidden");
+                uploadInputImage.value = "";
+                previewImageBox.classList.add("hidden");
+                uploadPlaceholder.classList.remove("hidden");
+                uploadedImageBase64 = "";
+            }
+        });
+    }
 
-    uploadInputImage.addEventListener("change", function (event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                uploadedImageBase64 = e.target.result;
-                previewImageBox.src = uploadedImageBase64;
-                previewImageBox.classList.remove("hidden");
-                uploadPlaceholder.classList.add("hidden");
-            };
-            reader.readAsDataURL(file);
-        } else {
-            previewImageBox.classList.add("hidden");
-            uploadPlaceholder.classList.remove("hidden");
-            uploadedImageBase64 = "";
-        }
-    });
+    if (uploadInputImage) {
+        uploadInputImage.addEventListener("change", function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    uploadedImageBase64 = e.target.result;
+                    previewImageBox.src = uploadedImageBase64;
+                    previewImageBox.classList.remove("hidden");
+                    uploadPlaceholder.classList.add("hidden");
+                };
+                reader.readAsDataURL(file);
+            } else {
+                previewImageBox.classList.add("hidden");
+                uploadPlaceholder.classList.remove("hidden");
+                uploadedImageBase64 = "";
+            }
+        });
+    }
 
     // ======== Thêm vào giỏ hàng ========
     document
@@ -216,8 +245,11 @@ document.addEventListener("DOMContentLoaded", function () {
             const customImageCheckbox = document.getElementById("customImage");
             const uploadImageInput = document.getElementById("uploadImage");
 
+            // Chỉ xử lý upload ảnh nếu các phần tử tồn tại và được chọn
             if (
+                customImageCheckbox &&
                 customImageCheckbox.checked &&
+                uploadImageInput &&
                 uploadImageInput.files.length > 0
             ) {
                 const imageFormData = new FormData();
@@ -235,10 +267,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     .then((response) => response.json())
                     .then((data) => {
                         if (data.path) {
-                            storeCartItem(
-                                formData,
-                                "http://127.0.0.1:8000/storage/" + data.path
-                            );
+                            storeCartItem(formData, data.path);
                         } else {
                             Swal.fire({
                                 icon: "error",
@@ -265,7 +294,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
     // ======== Mua ngay ========
-    // Lấy nút "Mua ngay"
     const buyNowBtn = document.querySelector(
         'button[type="submit"]:not(#addToCartBtn)'
     );
@@ -283,9 +311,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 window.location.href = "/dat-hang";
             }
 
-            // Xử lý upload ảnh nếu có
+            // Chỉ xử lý upload ảnh nếu các phần tử tồn tại và được chọn
             if (
+                customImageCheckbox &&
                 customImageCheckbox.checked &&
+                uploadImageInput &&
                 uploadImageInput.files.length > 0
             ) {
                 const imageFormData = new FormData();
@@ -303,11 +333,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     .then((response) => response.json())
                     .then((data) => {
                         if (data.path) {
-                            storeCartItem(
-                                formData,
-                                "http://127.0.0.1:8000/storage/" + data.path,
-                                true
-                            );
+                            storeCartItem(formData, data.path, true);
                             redirectToCheckout();
                         } else {
                             Swal.fire({

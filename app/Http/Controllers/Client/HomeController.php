@@ -23,6 +23,7 @@ class HomeController extends Controller
 		foreach ([$latestProducts, $mostFavoritedProducts, $bestSellingProducts] as $productList) {
 			foreach ($productList as $product) {
 				$product->product_image = $product->images()->first();
+				$product->product_variant = $product->variants()->first();
 			}
 		}
 

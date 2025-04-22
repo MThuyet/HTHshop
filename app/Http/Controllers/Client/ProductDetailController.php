@@ -15,7 +15,20 @@ class ProductDetailController extends Controller
 		$product = Product::where('slug', $product_slug)->first();
 		$product->images = $product->images()->get();
 		$product->variants = $product->variants()->get();
-		return view('pages.client.ProductDetailPage', compact('product'));
+
+		// Lấy sản phẩm liên quan cùng danh mục
+		$relatedProducts = Product::where('product_category_id', $product->product_category_id)
+			->where('id', '!=', $product->id)
+			->where('active', 1)
+			->with(['images' => function ($query) {
+				$query->first();
+			}, 'variants' => function ($query) {
+				$query->where('print_position', 'CENTER_CHEST_A4')->first();
+			}])
+			->limit(4)
+			->get();
+
+		return view('pages.client.ProductDetailPage', compact('product', 'relatedProducts'));
 	}
 
 	public function uploadImage(Request $request)

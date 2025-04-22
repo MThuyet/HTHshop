@@ -153,7 +153,7 @@
                         <!-- Product image -->
                         <a href="{{ route('product.detail', $product->slug) }}">
                             <div class="relative overflow-hidden cursor-pointer">
-                                <img src="{{ asset('storage/images/products/' . $product->product_image->image) }}"
+                                <img src="{{ asset('storage/' . $product->product_image->image) }}"
                                     alt="{{ $product->name }}" class="w-full h-60 object-cover object-center rounded-t-md">
 
                                 <!-- Wishlist button with tooltip -->
@@ -198,10 +198,10 @@
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-2">
                                     <p class="text-orangeColor font-semibold text-[14px]">
-                                        {{ number_format($product->default_price - ($product->default_price * $product->discount) / 100, 0, ',', '.') }}đ
+                                        {{ number_format($product->product_variant->price - ($product->product_variant->price * $product->discount) / 100, 0, ',', '.') }}đ
                                     </p>
                                     <p class="text-gray-400 line-through text-[12px]">
-                                        {{ number_format($product->default_price, 0, ',', '.') }}đ
+                                        {{ number_format($product->product_variant->price, 0, ',', '.') }}đ
                                     </p>
                                 </div>
                             </div>

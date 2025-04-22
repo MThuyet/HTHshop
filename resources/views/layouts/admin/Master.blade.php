@@ -18,7 +18,8 @@
 <body class="h-screen">
     <div id="app" class="bg-[#F2F8FF]">
         {{-- Header --}}
-        <header class="fixed top-0 left-0 z-[1000] right-0 flex justify-between items-center py-2 px-5 bg-white shadow-md">
+        <header
+            class="fixed top-0 left-0 z-[1000] right-0 flex justify-between items-center py-2 px-5 bg-white shadow-md">
             @include('layouts.admin.Header')
         </header>
 
@@ -29,24 +30,26 @@
                     <span class="mx-1 text-gray-400">/</span>
                     @foreach ($breadCrump as $item)
                         <a href="{{ $item['href'] }}" class="hover:underline text-gray-700">{{ $item['name'] }}</a>
-                        @unless($loop->last)
+                        @unless ($loop->last)
                             <span class="mx-1 text-gray-400">/</span>
                         @endunless
                     @endforeach
                 </div>
             @endif
             @yield('content')
-            
+
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.js"></script>
 
             @if (session('toast'))
                 <script>
                     Swal.fire({
-                        icon: '{{ session('toast.icon') ?? 'success' }}',
-                        title: `{!! session('toast.title') ?? '' !!}`,
-                        text: `{!! session('toast.text') ?? '' !!}`,
-                        timer: `{{ session('toast.timer') ?? 3000  }}`,
-                        showConfirmButton: false
+                        icon: '{{ session('toast')['icon'] }}',
+                        title: '{{ session('toast')['title'] }}',
+                        text: '{{ session('toast')['text'] }}',
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
                     });
                 </script>
             @endif

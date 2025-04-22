@@ -24,6 +24,7 @@ class ProductVariantSeeder extends Seeder
 					'product_id' => $productId,
 					'created_at' => $now,
 					'updated_at' => $now,
+					'deleted_at' => null
 				]);
 			}
 		}

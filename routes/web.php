@@ -164,5 +164,24 @@ Route::middleware(['auth'])->group(function () {
 
 		Route::put('/admin/users/{user}/toggle', [Admin\UserController::class, 'toggleActive'])->name('admin.user.toggle');
 
+		// ========================== PRODUCT ========================== //
+		Route::resource('/admin/product', Admin\ProductController::class)->names([
+			'index' => 'admin.product',
+			'show' => 'admin.product.show',
+			'create' => 'admin.product.create',
+			'store' => 'admin.product.store',
+			'edit' => 'admin.product.edit',
+			'update' => 'admin.product.update',
+			'destroy' => 'admin.product.delete'
+		]);
+
+		// active
+		Route::put('/admin/product/{product}/toggle', [Admin\ProductController::class, 'toggleActive'])->name('admin.product.toggle');
+
+		// customization
+		Route::put('/admin/product/{product}/toggle-customization', [Admin\ProductController::class, 'toggleCustomization'])->name('admin.product.toggle-customization');
+
+		// delete image
+		Route::delete('/admin/product/image/{image}', [Admin\ProductController::class, 'deleteImage'])->name('admin.product.image.delete');
 	});
 });

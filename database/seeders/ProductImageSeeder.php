@@ -15,9 +15,10 @@ class ProductImageSeeder extends Seeder
 			for ($i = 1; $i <= 2; $i++) {
 				DB::table('product_images')->insert([
 					'product_id' => $productId,
-					'image' => "sample.png",
+					'image' => "images/products/test-bgUser2-1745314923-1.jpg",
 					'created_at' => now(),
 					'updated_at' => now(),
+					'deleted_at' => null
 				]);
 			}
 		}

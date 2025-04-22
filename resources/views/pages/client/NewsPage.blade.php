@@ -44,7 +44,7 @@
                                 <div>
                                     <div class="flex items-center gap-2 mb-3 text-xs text-gray-500">
                                         <span class="inline-block px-3 py-1 font-medium rounded-xl bg-gray-200 text-gray-800">
-                                            {{ $news->category->name }}
+                                            {{ $news->category?->name ?? 'Không có danh mục' }}
                                         </span>
                                         <div class="flex items-center">
                                             <span class="material-symbols-rounded">

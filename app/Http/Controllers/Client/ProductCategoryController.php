@@ -55,6 +55,7 @@ class ProductCategoryController extends Controller
 		foreach ($products as $product) {
 			// Lấy ảnh sản phẩm đầu tiên (hoặc có thể thay đổi nếu cần nhiều ảnh)
 			$product->product_image = $product->images()->first();
+			$product->product_variant = $product->variants()->first();
 		}
 
 		// Trả về view cùng với các dữ liệu cần thiết

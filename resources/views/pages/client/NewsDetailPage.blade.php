@@ -24,8 +24,9 @@
             </div>
 
             <div class="back-to-list mt-6">
-                <a href="{{ route('news.category', $news->category->slug) }}" class="text-orangeColor hover:underline">
-                    Quay lại danh mục
+                <a href="{{ $news->category ? route('news.category', $news->category->slug) : route('news.category', 'tin-tong-hop') }}"
+                    class="text-orangeColor hover:underline">
+                    {{ $news->category ? 'Quay lại danh mục' : 'Quay lại trang tin tức' }}
                 </a>
             </div>
         </div>

@@ -22,7 +22,6 @@ class ProductSeeder extends Seeder
 				'view' => 0,
 				'favorite' => 0,
 				'bought' => 0,
-				'default_price' => 350000
 			],
 			[
 				'product_category_id' => 2,
@@ -33,7 +32,6 @@ class ProductSeeder extends Seeder
 				'view' => rand(0, 100),
 				'favorite' => rand(0, 100),
 				'bought' => rand(0, 100),
-				'default_price' => 350000
 			],
 			[
 				'product_category_id' => 3,
@@ -44,7 +42,6 @@ class ProductSeeder extends Seeder
 				'view' => rand(0, 100),
 				'favorite' => rand(0, 100),
 				'bought' => rand(0, 100),
-				'default_price' => 350000
 			],
 			[
 				'product_category_id' => 4,
@@ -55,7 +52,6 @@ class ProductSeeder extends Seeder
 				'view' => rand(0, 100),
 				'favorite' => rand(0, 100),
 				'bought' => rand(0, 100),
-				'default_price' => 350000
 			],
 		];
 
@@ -63,9 +59,10 @@ class ProductSeeder extends Seeder
 			DB::table('products')->insert(array_merge($product, [
 				'active' => 1,
 				'discount' => 30,
-				'has_customization' => false,
+				'has_customization' => 0,
 				'created_at' => $now,
 				'updated_at' => $now,
+				'deleted_at' => null
 			]));
 		}
 	}
