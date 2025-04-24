@@ -1,7 +1,6 @@
 import "./client/bootstrap";
 import SimpleBar from "simplebar";
 import "simplebar/dist/simplebar.css";
-import "./client/favorites";
 
 // Simplebar
 document.addEventListener("DOMContentLoaded", function () {

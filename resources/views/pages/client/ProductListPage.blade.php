@@ -1,5 +1,7 @@
 @extends('layouts.client.master')
 @section('title', 'Danh sách sản phẩm')
+@vite('resources/js/client/HandleWishList.js')
+
 
 @section('content')
     <div class="responsive flex justify-between gap-4 md:flex-row flex-col">
@@ -159,7 +161,7 @@
                                 <!-- Wishlist button with tooltip -->
                                 <button
                                     class="wishlist-btn absolute top-1 right-1 w-10 h-10 bg-white text-orangeColor flex items-center justify-center rounded-full shadow-md group/button"
-                                    data-variant-product-id="{{ $product->variants->first()->id ?? '' }}">
+                                    data-product-id="{{ $product->id ?? '' }}">
                                     <span class="material-symbols-rounded icon-heart">
                                         favorite
                                     </span>
