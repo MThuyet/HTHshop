@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Review;
 
-class ProductDetailController extends Controller
+class ProductDetailsController extends Controller
 {
 	public function index($product_slug)
 	{

@@ -8,7 +8,7 @@
 <div class="bg-white p-2 border border-1 rounded-md">
     {{-- Product Category Anchor | Search & limit form | Create News Anchor --}}
     <form method="GET" action="{{ route('dashboard.news') }}" class="flex flex-col md:flex-row items-center justify-between mb-4 gap-3">
-        <a href="{{ route('dashboard.news-category') }}"
+        <a href="{{ route('dashboard.news-categories') }}"
             class="inline-block px-4 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow">
             Danh mục tin tức
         </a>
@@ -63,46 +63,46 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($news as $item)
+                @foreach ($newsList as $Newsitem)
                     <tr class="bg-white border-b hover:bg-gray-50">
                         <td class="px-2 md:px-6 py-1 md:py-2 font-medium text-gray-900">
-                            <a href="{{ route('dashboard.news.show', $item->id) }}" class="material-symbols-rounded inline-flex rounded-md font-medium text-blue-500 border p-1 hover:underline">
+                            <a href="{{ route('dashboard.news.show', $Newsitem->id) }}" class="material-symbols-rounded inline-flex rounded-md font-medium text-blue-500 border p-1 hover:underline">
                                 info
                             </a>
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex gap-2">
-                                @if ($item->thumbnail)
-                                    <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="Thumbnail" class="w-20 h-20 object-cover rounded hidden lg:block">
+                                @if ($Newsitem->thumbnail)
+                                    <img src="{{ asset('storage/' . $Newsitem->thumbnail) }}" alt="Thumbnail" class="w-20 h-20 object-cover rounded hidden lg:block">
                                 @else
                                     <span class="text-gray-400">Không có ảnh</span>
                                 @endif
                                 <div>
-                                    <h3 class="font-bold text-gray-900 mb-0">{{ $item->title }}</h3>
-                                    <span class="text-gray-400 text-sm">{{ $item->created_at->format('d/m/Y H:i:s') }}</span>
-                                    <p class="text-sm text-gray-500 hidden md:block">{{ Str::limit($item->excerpt, 75) }}</p>
+                                    <h3 class="font-bold text-gray-900 mb-0">{{ $Newsitem->title }}</h3>
+                                    <span class="text-gray-400 text-sm">{{ $Newsitem->created_at->format('d/m/Y H:i:s') }}</span>
+                                    <p class="text-sm text-gray-500 hidden md:block">{{ Str::limit($Newsitem->excerpt, 75) }}</p>
                                 </div>
                             </div>
                         </td>
-                        <td class="px-6 py-4 hidden sm:table-cell">{{ $item->watch }}</td>
-                        <td class="px-6 py-4 hidden md:table-cell">{{ $item->category->name ?? 'Không xác định' }}</td>
+                        <td class="px-6 py-4 hidden sm:table-cell">{{ $Newsitem->watch }}</td>
+                        <td class="px-6 py-4 hidden md:table-cell">{{ $Newsitem->category->name ?? 'Không xác định' }}</td>
                         <td class="px-6 py-2 hidden sm:table-cell">
-                            <form action="{{ route('dashboard.news.toggle', $item->id) }}" method="POST" class="mb-0">
+                            <form action="{{ route('dashboard.news.toggle', $Newsitem->id) }}" method="POST" class="mb-0">
                                 @csrf
                                 @method('PUT')
                                 <button type="submit">
-                                    <span style="font-size: 32px;" class="material-symbols-rounded {{ $item->active ? 'text-green-600' : 'text-gray-600' }}">
-                                        {{ $item->active ? 'toggle_on' : 'toggle_off' }}
+                                    <span style="font-size: 32px;" class="material-symbols-rounded {{ $Newsitem->active ? 'text-green-600' : 'text-gray-600' }}">
+                                        {{ $Newsitem->active ? 'toggle_on' : 'toggle_off' }}
                                     </span>
                                 </button>
                             </form>
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex justify-start">
-                                <a href="{{ route('dashboard.news.edit', $item->id) }}" class="inline-flex rounded-md font-medium text-yellow-500 border border-1 p-1 hover:underline mx-2">
+                                <a href="{{ route('dashboard.news.edit', $Newsitem->id) }}" class="inline-flex rounded-md font-medium text-yellow-500 border border-1 p-1 hover:underline mx-2">
                                     <span class="material-symbols-rounded">edit_square</span>
                                 </a>
-                                <button class="inline-flex rounded-md font-medium text-red-500 border p-1 hover:underline btn-open-modal-confirm-delete" data-id="{{ $item->id }}">
+                                <button class="inline-flex rounded-md font-medium text-red-500 border p-1 hover:underline btn-open-modal-confirm-delete" data-id="{{ $Newsitem->id }}">
                                     <span class="material-symbols-rounded">delete</span>
                                 </button>
                             </div>
@@ -114,12 +114,12 @@
         {{-- Pagination --}}
         <div class="flex flex-wrap justify-center gap-5 items-center mt-3 px-2">
             <span class="text-sm text-gray-500">
-                Hiển thị {{ $news->firstItem() }}-{{ $news->lastItem() }}/{{ $news->total() }} dòng
+                Hiển thị {{ $newsList->firstItem() }}-{{ $newsList->lastItem() }}/{{ $newsList->total() }} dòng
             </span>
             <div class="flex items-center gap-1">
-                @if ($news->lastPage() > 1)
+                @if ($newsList->lastPage() > 1)
                     {{
-                        $news->appends(['limit-row-length' => $perPage, 'search' => request('search')])
+                        $newsList->appends(['limit-row-length' => $perPage, 'search' => request('search')])
                         ->links('vendor.pagination.tailwind')
                     }}
                 @else

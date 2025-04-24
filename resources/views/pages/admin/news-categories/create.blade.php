@@ -5,14 +5,14 @@
 @php 
     $breadCrump = [
         ['name' => 'Quản lý tin tức', 'href' => route('dashboard.news')],
-        ['name' => 'Quản lý danh mục tin tức', 'href' => route('dashboard.news-category')],
-        ['name' => 'Tạo danh mục tin tức mới', 'href' => route('dashboard.news-category.create')]
+        ['name' => 'Quản lý danh mục tin tức', 'href' => route('dashboard.news-categories')],
+        ['name' => 'Tạo danh mục tin tức mới', 'href' => route('dashboard.news-categories.create')]
     ]; 
 @endphp
 
 @section('content')
 <div class="bg-white p-2 border border-1 rounded-md">
-    <form action="{{ route('dashboard.news-category.store') }}" method="POST" class="m-2 px-4 py-2 border border-gray-200 bg-white rounded-lg shadow-md space-y-6">
+    <form action="{{ route('dashboard.news-categories.store') }}" method="POST" class="m-2 px-4 py-2 border border-gray-200 bg-white rounded-lg shadow-md space-y-6">
         @csrf
         
         {{-- Category Product Name --}}

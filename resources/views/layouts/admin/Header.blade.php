@@ -9,9 +9,9 @@
     @php
         $navList = [
             ['navName' => 'dashBoard', 'navIcon' => 'bar_chart_4_bars', 'route' => 'admin.dashboard'],
-            ['navName' => 'product', 'navIcon' => 'apparel', 'route' => 'admin.product'],
-            ['navName' => 'order', 'navIcon' => 'shopping_bag', 'route' => 'admin.order'],
-            ['navName' => 'user', 'navIcon' => 'manage_accounts', 'route' => 'admin.user'],
+            ['navName' => 'product', 'navIcon' => 'apparel', 'route' => 'admin.products'],
+            ['navName' => 'order', 'navIcon' => 'shopping_bag', 'route' => 'admin.orders'],
+            ['navName' => 'user', 'navIcon' => 'manage_accounts', 'route' => 'admin.users'],
             ['navName' => 'news', 'navIcon' => 'news', 'route' => 'dashboard.news'],
         ];
 

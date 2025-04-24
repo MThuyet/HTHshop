@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
-class ProductController extends Controller
+class ProductsController extends Controller
 {
 	/**
 	 * Display a listing of the resource.
@@ -36,7 +36,7 @@ class ProductController extends Controller
 		$perPage = $request->input('per_page', 10);
 		$products = $query->paginate($perPage);
 
-		return view('pages.admin.product.index', compact('products'));
+		return view('pages.admin.products.index', compact('products'));
 	}
 
 	/**
@@ -45,7 +45,7 @@ class ProductController extends Controller
 	public function create()
 	{
 		$categories = ProductCategory::where('active', true)->get();
-		return view('pages.admin.product.create', compact('categories'));
+		return view('pages.admin.products.create', compact('categories'));
 	}
 
 	/**
@@ -102,7 +102,7 @@ class ProductController extends Controller
 
 			DB::commit();
 
-			return redirect()->route('admin.product')->with('toast', [
+			return redirect()->route('admin.products')->with('toast', [
 				'icon' => 'success',
 				'title' => 'HTH Shop',
 				'text' => 'Tạo sản phẩm thành công'
@@ -132,7 +132,7 @@ class ProductController extends Controller
 		$product->product_images = $product->images()->get();
 		$product->product_variants = $product->variants()->get();
 		$product->reviews = $product->reviews()->orderBy('rated', 'asc')->get();
-		return view('pages.admin.product.show', compact('product'));
+		return view('pages.admin.products.show', compact('product'));
 	}
 
 	/**
@@ -142,7 +142,7 @@ class ProductController extends Controller
 	{
 		$product = Product::findOrFail($id);
 		$categories = ProductCategory::where('active', true)->get();
-		return view('pages.admin.product.edit', compact('product', 'categories'));
+		return view('pages.admin.products.edit', compact('product', 'categories'));
 	}
 
 	/**
@@ -233,7 +233,7 @@ class ProductController extends Controller
 		try {
 			// Kiểm tra xem sản phẩm đã bị xóa mềm chưa
 			if ($product->trashed()) {
-				return redirect()->route('admin.product')
+				return redirect()->route('admin.products')
 					->with('toast', [
 						'icon' => 'error',
 						'title' => 'Lỗi',
@@ -244,18 +244,18 @@ class ProductController extends Controller
 			// Thực hiện xóa mềm
 			$product->delete();
 
-			return redirect()->route('admin.product')
+			return redirect()->route('admin.products')
 				->with('toast', [
 					'icon' => 'success',
 					'title' => 'HTH Shop',
 					'text' => 'Sản phẩm đã được xóa thành công'
 				]);
 		} catch (\Exception $e) {
-			return redirect()->route('admin.product')
+			return redirect()->route('admin.products')
 				->with('toast', [
 					'icon' => 'error',
 					'title' => 'Lỗi',
-					'text' => 'Có lỗi xảy ra khi xóa sản phẩm.'
+					'text' => 'Có lỗi xảy ra khi xóa sản phẩm' . $e->getMessage() 
 				]);
 		}
 	}
@@ -282,7 +282,7 @@ class ProductController extends Controller
 		return redirect()->back()->with('toast', [
 			'icon' => 'success',
 			'title' => 'HTH Shop',
-			'text' => 'Cập nhật trạng thái của sản phẩm thành công'
+			'text' => 'Cập nhật trạng thái tùy chỉnh của sản phẩm thành công'
 		]);
 	}
 

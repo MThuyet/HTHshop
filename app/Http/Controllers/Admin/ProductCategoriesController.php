@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 
-class ProductCategoryController extends Controller
+class ProductCategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,9 +24,9 @@ class ProductCategoryController extends Controller
         if ($search) {
             $query->where('name', 'like', "%{$search}%");
         }
-        $productCategory = $query->paginate($perPage);
+        $productCategories = $query->paginate($perPage);
 
-        return view('pages.admin.product-category.index', compact('productCategory', 'perPage'));
+        return view('pages.admin.product-categories.index', compact('productCategories', 'perPage'));
     }
 
     /**
@@ -35,7 +35,7 @@ class ProductCategoryController extends Controller
     public function create()
     {
         //
-        return view('pages.admin.product-category.create');
+        return view('pages.admin.product-categories.create');
     }
 
     /**
@@ -59,7 +59,7 @@ class ProductCategoryController extends Controller
 
             ProductCategory::create($validated);
 
-            return redirect()->route('admin.product-category')->with('toast', [
+            return redirect()->route('admin.product-categories')->with('toast', [
                 'title' => 'Tạo danh mục thành công',
                 'text' => 'Danh mục sản phẩm mới đã được tạo.',
                 'icon' => 'success'
@@ -84,13 +84,12 @@ class ProductCategoryController extends Controller
         }
     }
 
-
     /**
      * Display the specified resource.
      */
     public function show(ProductCategory $productCategory)
     {
-        return view('pages.admin.product-category.show', compact('productCategory'));
+        return view('pages.admin.product-categories.show', compact('productCategory'));
     }
 
     /**
@@ -99,19 +98,15 @@ class ProductCategoryController extends Controller
     public function edit(Request $request, ProductCategory $productCategory)
     {
         //
-        return view('pages.admin.product-category.edit', [
-            'category' => $productCategory
-        ]);
+        return view('pages.admin.product-categories.edit', compact('productCategory'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, ProductCategory $productCategory)
     {
 
-        $category = ProductCategory::findOrFail($id);
-        //
         try {
             $request->merge([
                 'slug' => Str::slug($request->input('name')),
@@ -119,47 +114,42 @@ class ProductCategoryController extends Controller
             ]);
 
             $validated = $request->validate([
-                'name' => 'required|max:100|unique:product_categories,name,' . $id,
-                'slug' => 'required|max:120|unique:product_categories,slug,' . $id,
+                'name' => 'required|max:100|unique:product_categories,name,' . $productCategory->id,
+                'slug' => 'required|max:120|unique:product_categories,slug,' . $productCategory->id,
                 'description' => 'nullable|string|max:255',
                 'active' => 'boolean'
             ]);
-            $hasChanges =
-                $validated['name'] !== $category->name ||
-                $validated['slug'] !== $category->slug ||
-                $validated['description'] !== $category->description ||
-                $validated['active'] != $category->active; // != để tránh lỗi kiểu dữ liệu
-
-            if (!$hasChanges) {
+            
+            if(!$this->checkHasChange($productCategory->toArray(), $validated)) {
                 return redirect()->back()->with('toast', [
                     'title' => 'Không có thay đổi',
                     'text' => 'Bạn chưa thay đổi thông tin nào.',
                     'icon' => 'info'
                 ]);
             }
-            $category->update($validated);
+            
+            $productCategory->update($validated);
 
-            return redirect()->route('admin.product-category')->with('toast', [
-                'title' => 'Tạo danh mục thành công',
+            return redirect()->route('admin.product-categories')->with('toast', [
+                'title' => 'Cập nhật thành công',
                 'text' => 'Cập nhật danh mục sản phẩm thành công.',
                 'icon' => 'success'
             ]);
         } catch (ValidationException $e) {
-            // Xử lý lỗi validate nếu có
-            Log::error('Lỗi tạo danh mục', ['error' => $e]);
+            $firstField = array_key_first($e->errors()); 
+            $firstError = $e->errors()[$firstField][0];  
 
             return redirect()->back()->with('toast', [
-                'title' => 'Lỗi không mong muốn',
-                'text' => 'Có lỗi xảy ra, vui lòng thử lại.',
+                'title' => 'Lỗi cập nhật danh mục sản phẩm',
+                'text' => $firstError,
                 'icon' => 'error'
-            ]);
+            ])->withInput();
         } catch (\Exception $e) {
-            // Xử lý các lỗi không mong muốn
             return redirect()->back()->with('toast', [
-                'title' => 'Cập nhật danh mục thành công',
-                'text' => 'Thành công: ',
-                'icon' => 'success'
-            ]);
+                'title' => 'Lỗi cập nhật danh mục sản phẩm',
+                'text' => $e->getMessage(),
+                'icon' => 'error'
+            ])->withInput();
         }
     }
 
@@ -169,14 +159,13 @@ class ProductCategoryController extends Controller
         try {
             $productCategory->active = !$productCategory->active;
             $productCategory->save();
-            return redirect()->route('admin.product-category')->with('toast', [
+            return redirect()->back()->with('toast', [
                 'title' => 'Cập nhật trạng thái',
                 'text' => 'Cập nhật trạng thái danh mục ' . $productCategory->name . ' thành công',
                 'icon' => 'success'
             ]);
         } catch (\Exception $e) {
-            Log::error('Lỗi tạo danh mục', ['error' => $e]);
-            return redirect()->route('admin.product-category')->with('toast', [
+            return redirect()->route('admin.product-categories')->with('toast', [
                 'title' => 'Lỗi cập nhật trạng thái',
                 'text' => $e->getMessage(),
                 'icon' => 'error'
@@ -187,8 +176,6 @@ class ProductCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-
-
     public function destroy(string $id)
     {
         //
@@ -196,18 +183,29 @@ class ProductCategoryController extends Controller
             $category = ProductCategory::findOrFail($id);
             $category->delete();
 
-            return redirect()->route('admin.product-category')->with('toast', [
+            return redirect()->route('admin.product-categories')->with('toast', [
                 'title' => 'Xóa thành công',
                 'text' => 'Danh mục sản phẩm đã bị xóa',
                 'icon' => 'success'
             ]);
         } catch (\Exception $e) {
-            Log::error('Lỗi tạo danh mục', ['error' => $e]);
-            return redirect()->route('admin.product-category')->with('toast', [
+            return redirect()->route('admin.product-categories')->with('toast', [
                 'title' => 'Xóa thất bại',
                 'text' => 'Lỗi: ' . $e->getMessage(),
                 'icon' => 'error'
             ]);
         }
+    }
+
+    /**
+     * Check if there are any changes between the old and new data.
+     */
+    public function checkHasChange(array $oldData, array $newData): bool
+    {
+        foreach ($newData as $key => $value) {
+            if (!array_key_exists($key, $oldData)) continue;
+            if ($oldData[$key] != $value) return true;
+        }
+        return false;
     }
 }

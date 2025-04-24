@@ -4,14 +4,14 @@
 
 @php 
     $breadCrump = [
-        ['name' => 'Quản lý người dùng', 'href' => route('admin.user')],
+        ['name' => 'Quản lý người dùng', 'href' => route('admin.users')],
         ['name' => 'Chỉnh sửa thông tin người dùng', 'href' => Request::url()]
     ]; 
 @endphp
 
 @section('content')
 <div class="bg-white p-2 border border-1 rounded-md">
-    <form action="{{ route('admin.user.update', $user->id) }}" method="POST" enctype="multipart/form-data" class="m-2 px-4 py-2 border border-gray-200 bg-white rounded-lg shadow-md space-y-6">
+    <form action="{{ route('admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data" class="m-2 px-4 py-2 border border-gray-200 bg-white rounded-lg shadow-md space-y-6">
         @csrf
         @method('PUT')
 

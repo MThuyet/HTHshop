@@ -6,19 +6,19 @@
 
 @php
     $breadCrump = [
-        ['name' => 'Quản lý sản phẩm', 'href' => route('admin.product')],
-        ['name' => $product->name, 'href' => '#'],
+        ['name' => 'Quản lý sản phẩm', 'href' => route('admin.products')],
+        ['name' => $product->name, 'href' => Request::url()],
     ];
 @endphp
 
 @section('content')
     <div class="flex flex-wrap gap-2 mb-4">
-        <a href="{{ route('admin.product') }}"
+        <a href="{{ route('admin.products') }}"
             class="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
             <span class="material-symbols-rounded mr-2">arrow_back</span>
             Quay lại danh sách
         </a>
-        <a href="{{ route('admin.product.edit', $product->id) }}"
+        <a href="{{ route('admin.products.edit', $product->id) }}"
             class="inline-flex items-center px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600">
             <span class="material-symbols-rounded mr-2">edit_square</span>
             Chỉnh sửa
@@ -232,7 +232,7 @@
                 if (result.isConfirmed) {
                     const form = document.createElement('form');
                     form.method = 'POST';
-                    form.action = `/admin/product/${productId}`;
+                    form.action = `/admin/products/${productId}`;
 
                     const csrfToken = document.createElement('input');
                     csrfToken.type = 'hidden';

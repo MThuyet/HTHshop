@@ -2,18 +2,18 @@
 @section('title', 'Quản lý sản phẩm')
 @section('nav-active', 'product')
 
-@php $breadCrump = [['name' => 'Quản lý sản phẩm', 'href' => route('admin.product')]]; @endphp
+@php $breadCrump = [['name' => 'Quản lý sản phẩm', 'href' => route('admin.products')]]; @endphp
 
 @section('content')
     <div class="bg-white p-2 border border-1 rounded-md">
         {{-- Anchor ProCat & Search & Btn Create --}}
-        <div class="flex flex-col md:flex-row items-center justify-between mb-4 gap-3">
-            <a href="{{ route('admin.product-category') }}"
+        <form action="{{ route('admin.products') }}" method="GET" class="flex flex-col md:flex-row items-center justify-between mb-4 gap-3">
+            <a href="{{ route('admin.product-categories') }}"
                 class="inline-block px-4 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow">
                 Danh mục sản phẩm
             </a>
             <div class="w-full md:w-1/2">
-                <form action="{{ route('admin.product') }}" method="GET" class="relative z-40">
+                <div class="relative z-40">
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Tìm kiếm sản phẩm..."
                         class="w-full border border-gray-300 rounded-lg py-1.5 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <span class="material-symbols-rounded absolute left-3 top-2 text-gray-400">
@@ -23,7 +23,7 @@
                         class="text-white absolute end-2.5 top-1/2 -translate-y-1/2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Tìm kiếm
                     </button>
-                </form>
+                </div>
             </div>
 
             <div class="flex gap-4">
@@ -35,12 +35,12 @@
                     <option value="25" {{ request('per_page', 10) == 25 ? 'selected' : '' }}>25 Dòng</option>
                 </select>
 
-                <a href="{{ route('admin.product.create') }}"
+                <a href="{{ route('admin.products.create') }}"
                     class="inline-block px-4 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow">
                     + Thêm sản phẩm mới
                 </a>
             </div>
-        </div>
+        </form>
 
         <div class="overflow-x-auto h-full">
             {{-- Table --}}
@@ -62,7 +62,7 @@
                     @forelse ($products as $item)
                         <tr class="bg-white border-b hover:bg-gray-50">
                             <td class="px-2 md:px-6 py-1 md:py-2 font-medium text-gray-900">
-                                <a href="{{ route('admin.product.show', $item->id) }}"
+                                <a href="{{ route('admin.products.show', $item->id) }}"
                                     class="material-symbols-rounded inline-flex rounded-md font-medium text-blue-500 border p-1 hover:underline">
                                     info
                                 </a>
@@ -81,7 +81,7 @@
                             <td class="px-6 py-4">{{ $item->name }}</td>
                             <td class="px-6 py-4">{{ $item->type === 'ROUND_NECK' ? 'Cổ tròn' : 'Cổ trụ' }}</td>
                             <td class="px-6 py-4">
-                                <form action="{{ route('admin.product.toggle-customization', $item->id) }}" method="POST">
+                                <form action="{{ route('admin.products.toggle-customization', $item->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <button type="submit">
@@ -101,7 +101,7 @@
                             </td>
                             <td class="px-6 py-4">{{ $item->category->name }}</td>
                             <td class="px-6 py-4">
-                                <form action="{{ route('admin.product.toggle', $item->id) }}" method="POST">
+                                <form action="{{ route('admin.products.toggle', $item->id) }}" method="POST">
                                     @csrf
                                     @method('PUT') <button type="submit">
                                         <span style="font-size: 32px;"
@@ -113,12 +113,12 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 <div class="flex items-center gap-2">
-                                    <a href="{{ route('admin.product.edit', $item->id) }}"
-                                        class="text-indigo-600 hover:text-indigo-900">
-                                        <span class="material-symbols-rounded">edit</span>
+                                    <a href="{{ route('admin.products.edit', $item->id) }}"
+                                        class="inline-flex rounded-md font-medium text-yellow-500 border p-1 hover:underline mr-2">
+                                        <span class="material-symbols-rounded">edit_square</span>
                                     </a>
                                     <button type="button" onclick="confirmDelete({{ $item->id }})"
-                                        class="text-red-600 hover:text-red-900">
+                                        class="inline-flex rounded-md font-medium text-red-500 border p-1 hover:underline btn-open-modal-confirm-delete">
                                         <span class="material-symbols-rounded">delete</span>
                                     </button>
                                 </div>
@@ -248,7 +248,7 @@
                 if (result.isConfirmed) {
                     const form = document.createElement('form');
                     form.method = 'POST';
-                    form.action = `/admin/product/${productId}`;
+                    form.action = `/admin/products/${productId}`;
 
                     const csrfToken = document.createElement('input');
                     csrfToken.type = 'hidden';

@@ -7,7 +7,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-class ProductController extends Controller
+class ProductsController extends Controller
 {
     public function toggleFavorite(Request $request)
     {
@@ -19,21 +19,22 @@ class ProductController extends Controller
     
             if($validated['actionType'] === 'INCREASE') {
                 Product::whereId($validated['productId'])->increment('favorite');
+                return response(['status' => true, 'message' => 'Thêm sản phẩm vào mục yêu thích thành công'], 200);
             }else {
                 Product::whereId($validated['productId'])->decrement('favorite');
+                return response(['status' => true, 'message' => 'Xóa sản phẩm trong mục yêu thích thành công'], 200);
             }
-
-            return response(['status' => true, 'message' => 'Cập nhật số lượt yêu thích sản phẩm thành công'], 200);
+            
         } catch(ValidationException $e) {
             return response([
                 'status' =>  false, 
-                'message' => 'Cập nhật số lượt yêu thích sản phẩm thất bại',
+                'message' => 'Lỗi không mong muốn',
                 'reason' => 'Nguyên nhân: ' . $e
             ], 422);
         } catch(\Exception $e) {
             return response([
                 'status' => false, 
-                'message' => 'Cập nhật số lượt yêu thích sản phẩm thất bại',
+                'message' => 'Lỗi không mong muốn',
                 'reason' => 'Nguyên nhân: ' . $e
             ], 500);
         }

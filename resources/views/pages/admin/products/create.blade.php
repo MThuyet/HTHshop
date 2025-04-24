@@ -3,14 +3,14 @@
 @section('nav-active', 'product')
 @php
     $breadCrump = [
-        ['name' => 'Quản lý sản phẩm', 'href' => route('admin.product')],
-        ['name' => 'Tạo sản phẩm mới', 'href' => route('admin.product.create')],
+        ['name' => 'Quản lý sản phẩm', 'href' => route('admin.products')],
+        ['name' => 'Tạo sản phẩm mới', 'href' => route('admin.products.create')],
     ];
 @endphp
 
 @section('content')
     <div class="bg-white p-4 border border-1 rounded-md">
-        <form action="{{ route('admin.product.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6"
+        <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6"
             onsubmit="return true;">
             @csrf
             {{-- Thông tin cơ bản --}}
@@ -176,7 +176,7 @@
 
             {{-- Nút submit --}}
             <div class="flex justify-end gap-4">
-                <a href="{{ route('admin.product') }}"
+                <a href="{{ route('admin.products') }}"
                     class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                     Hủy
                 </a>

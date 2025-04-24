@@ -20,18 +20,18 @@
             <div class="md:col-span-2">
                 {{-- Title --}}
                 <div>
-                    <label class="block font-bold">Tiêu đề
+                    <label for="title" class="block font-bold">Tiêu đề
                         <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" name="title" value="{{ old('title', $news->title) }}" class="w-full border rounded px-3 py-2">
+                    <input type="text" name="title" id="title" value="{{ old('title', $news->title) }}" class="w-full border rounded px-3 py-2">
                 </div>
 
                 {{-- News Category Id --}}
                 <div class="mt-3">
-                    <label class="block font-bold">Danh mục
+                    <label for="news_category_id" class="block font-bold">Danh mục
                         <span class="text-red-500">*</span>
                     </label>
-                    <select name="news_category_id" class="w-full border rounded px-3 py-2">
+                    <select id="news_category_id" name="news_category_id" class="w-full border rounded px-3 py-2">
                         @foreach ($newsCategory as $category)
                             <option value="{{ $category->id }}" {{ old('category_id', $news->news_category_id) == $category->id ? 'selected' : '' }}>
                                 {{ $category->name }}
@@ -42,7 +42,7 @@
 
                 {{-- Excerpt --}}
                 <div class="mt-3">
-                    <label class="block font-bold">Tóm tắt
+                    <label for="excerpt" class="block font-bold">Tóm tắt
                         <span class="text-red-500">*</span>
                     </label>
                     <textarea name="excerpt" id="excerpt" rows="3" placeholder="Tóm tắt nội dung" class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ old('description', $news->excerpt) }}</textarea>

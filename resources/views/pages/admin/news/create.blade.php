@@ -59,7 +59,7 @@
                         <span class="text-red-500">*</span>
                     </label>
                     <div class="mt-2">
-                        <img id="thumbnail-preview" src="" alt="Xem trước ảnh" class="h-[220px] max-w-xs border mt-2">
+                        <img id="thumbnail-preview" src="{{ asset('storage/'. old('thumbnail')) }}" alt="Xem trước ảnh" class="h-[220px] max-w-xs border mt-2">
                     </div>
                     <input type="hidden" name="thumbnail" id="thumbnail" value="">
                     <button type="button" onclick="selectThumbnail()" class="px-3 py-1 bg-gray-700 text-white rounded">Chọn ảnh</button>

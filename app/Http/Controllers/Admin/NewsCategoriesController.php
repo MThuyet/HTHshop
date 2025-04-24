@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
 
-class NewsCategoryController extends Controller
+class NewsCategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,9 +23,9 @@ class NewsCategoryController extends Controller
         if($search) {
             $query->where('name', 'like', "%{$search}%");
         }
-        $newsCategory = $query->paginate($perPage);
+        $newsCategories = $query->paginate($perPage);
         
-        return view('pages.admin.news-category.index', compact('newsCategory', 'perPage'));
+        return view('pages.admin.news-categories.index', compact('newsCategories', 'perPage'));
     }
 
     /**
@@ -33,7 +33,7 @@ class NewsCategoryController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.news-category.create');
+        return view('pages.admin.news-categories.create');
     }
 
     /**
@@ -56,7 +56,7 @@ class NewsCategoryController extends Controller
     
             NewsCategory::create($validated);
     
-            return redirect()->route('dashboard.news-category')->with('toast', [
+            return redirect()->route('dashboard.news-categories')->with('toast', [
                 'title' => 'Tạo danh mục thành công',
                 'text' => 'Danh mục tin tức mới đã được thêm vào',
                 'icon' => 'success'
@@ -69,13 +69,13 @@ class NewsCategoryController extends Controller
                 'title' => 'Lỗi tạo danh mục',
                 'text' => $firstError,
                 'icon' => 'error'
-            ]);
+            ])->withInput();
         } catch (\Exception $e) {
             return redirect()->back()->with('toast', [
                 'title' => 'Lỗi hệ thống',
                 'text' => $e->getMessage(),
                 'icon' => 'error'
-            ]);
+            ])->withInput();
         }
     }
 
@@ -84,7 +84,7 @@ class NewsCategoryController extends Controller
      */
     public function show(NewsCategory $newsCategory)
     {
-        return view('pages.admin.news-category.show', compact('newsCategory'));
+        return view('pages.admin.news-categories.show', compact('newsCategory'));
     }
 
     /**
@@ -92,7 +92,7 @@ class NewsCategoryController extends Controller
      */
     public function edit(NewsCategory $newsCategory)
     {
-        return view('pages.admin.news-category.edit', compact('newsCategory'));
+        return view('pages.admin.news-categories.edit', compact('newsCategory'));
     }
 
     /**
@@ -114,6 +114,14 @@ class NewsCategoryController extends Controller
                 'active' => 'boolean'
             ]);
 
+            if(!$this->checkHasChange($newsCategory->toArray(), $validated)) {
+                return redirect()->back()->with('toast', [
+                    'title' => 'Không có thay đổi',
+                    'text' => 'Bạn chưa thay đổi thông tin nào.',
+                    'icon' => 'info'
+                ]);
+            }
+
             $newsCategory->update($validated);
 
             return redirect()->back()->with('toast', [
@@ -129,16 +137,15 @@ class NewsCategoryController extends Controller
                 'title' => 'Lỗi cập nhật danh mục',
                 'text' => $firstError,
                 'icon' => 'error'
-            ]);
+            ])->withInput();
         } catch (\Exception $e) {
             return redirect()->back()->with('toast', [
                 'title' => 'Lỗi cập nhật danh mục',
                 'text' => $e->getMessage(),
                 'icon' => 'error'
-            ]);
+            ])->withInput();
         }
     }
-
 
     public function toggleActive(NewsCategory $newsCategory)
     {
@@ -167,17 +174,29 @@ class NewsCategoryController extends Controller
         try {
             $newsCategory->delete();
 
-            return redirect()->route('dashboard.news-category')->with('toast', [
+            return redirect()->route('dashboard.news-categories')->with('toast', [
                 'title' => 'Xóa thành công',
                 'text' => 'Xóa danh mục tin tức thành công',
                 'icon' => 'success'
             ]);
         } catch (\Exception $e) {
-            return redirect()->route('dashboard.news-category')->with('toast', [
+            return redirect()->route('dashboard.news-categories')->with('toast', [
                 'title' => 'Lỗi xóa danh mục tin tức',
                 'text' => $e->getMessage(),
                 'icon' => 'error'
             ]);
         }
+    }
+
+    /**
+     * Check if there are any changes between the old and new data.
+     */
+    public function checkHasChange(array $oldData, array $newData): bool
+    {
+        foreach ($newData as $key => $value) {
+            if (!array_key_exists($key, $oldData)) continue;
+            if ($oldData[$key] != $value) return true;
+        }
+        return false;
     }
 }

@@ -43,13 +43,13 @@
             @if (session('toast'))
                 <script>
                     Swal.fire({
-                        icon: '{{ session('toast')['icon'] }}',
-                        title: '{{ session('toast')['title'] }}',
-                        text: '{{ session('toast')['text'] }}',
+                        icon: '{{ session('toast')['icon'] ?? "info" }}',
+                        title: '{{ session('toast')['title'] ?? "" }}',
+                        text: '{{ session('toast')['text'] ?? "" }}',
                         toast: true,
-                        position: 'top-end',
+                        position: '{{ session('toast')['position'] ?? "top-end" }}',
                         showConfirmButton: false,
-                        timer: 3000,
+                        timer: '{{ session('toast')['timer'] ?? '3000' }}',
                     });
                 </script>
             @endif

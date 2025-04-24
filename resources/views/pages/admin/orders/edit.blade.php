@@ -4,8 +4,8 @@
 
 @php
     $breadCrump = [
-        ['name' => 'Quản lý đơn hàng', 'href' => route('admin.order')],
-        ['name' => 'Chỉnh sửa đơn hàng: ' . $order->order_code, 'href' => '#'],
+        ['name' => 'Quản lý đơn hàng', 'href' => route('admin.orders')],
+        ['name' => 'Chỉnh sửa đơn hàng: ' . $order->order_code, 'href' => Request::url()],
     ];
 
     $statusLabels = [
@@ -22,7 +22,7 @@
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
             <h2 class="text-2xl font-bold text-gray-800 mb-4 md:mb-0">Chỉnh sửa đơn hàng</h2>
             <div class="flex flex-wrap gap-2">
-                <a href="{{ route('admin.order') }}"
+                <a href="{{ route('admin.orders') }}"
                     class="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
                     <span class="material-symbols-rounded mr-2">arrow_back</span>
                     Quay lại danh sách
@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <form method="POST" action="{{ route('admin.order.update', $order->id) }}" class="space-y-6">
+        <form method="POST" action="{{ route('admin.orders.update', $order->id) }}" class="space-y-6">
             @csrf
             @method('PUT')
 
@@ -45,7 +45,7 @@
                     <div class="flex gap-2">
                         <p class="text-gray-600 font-semibold">Ngày tạo:</p>
                         <p class="font-medium">
-                            {{ $order->created_at->setTimezone('Asia/Ho_Chi_Minh')->format('d/m/Y H:i:s') }}</p>
+                            {{ $order->created_at->format('d/m/Y H:i:s') }}</p>
                     </div>
                     <div class="flex gap-2">
                         <p class="text-gray-600 font-semibold">Trạng thái:</p>

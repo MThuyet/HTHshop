@@ -3,7 +3,7 @@
 @section('nav-active', 'order')
 
 @php
-    $breadCrump = [['name' => 'Quản lý đơn hàng', 'href' => route('admin.order')]];
+    $breadCrump = [['name' => 'Quản lý đơn hàng', 'href' => route('admin.orders')]];
 
     $statusLabels = [
         'PENDING' => 'Chờ xác nhận',
@@ -16,7 +16,7 @@
 
 @section('content')
     <div class="bg-white p-2 border border-1 rounded-md">
-        <form method="GET" action="{{ route('admin.order') }}"
+        <form method="GET" action="{{ route('admin.orders') }}"
             class="flex flex-col md:flex-row items-center justify-between mb-4 gap-3">
             <div class="w-full md:w-1/2">
                 <div class="relative z-40">
@@ -81,11 +81,11 @@
                             <td class="px-6 py-4">
                                 {{ $order->created_at->setTimezone('Asia/Ho_Chi_Minh')->format('d/m/Y H:i:s') }}</td>
                             <td class="px-6 py-4 text-center">
-                                <a href="{{ route('admin.order.show', $order->id) }}"
+                                <a href="{{ route('admin.orders.show', $order->id) }}"
                                     class="inline-flex rounded-md font-medium text-blue-500 border p-1 hover:underline mr-2">
                                     <span class="material-symbols-rounded">visibility</span>
                                 </a>
-                                <a href="{{ route('admin.order.edit', $order->id) }}"
+                                <a href="{{ route('admin.orders.edit', $order->id) }}"
                                     class="inline-flex rounded-md font-medium text-yellow-500 border p-1 hover:underline mr-2">
                                     <span class="material-symbols-rounded">edit_square</span>
                                 </a>

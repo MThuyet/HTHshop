@@ -4,14 +4,14 @@
 
 @php 
     $breadCrump = [
-        ['name' => 'Quản lý người dùng', 'href' => route('admin.user')],
-        ['name' => 'Tạo người dùng mới', 'href' => route('admin.user.create')]
+        ['name' => 'Quản lý người dùng', 'href' => route('admin.users')],
+        ['name' => 'Tạo người dùng mới', 'href' => route('admin.users.create')]
     ]; 
 @endphp
 
 @section('content')
 <div class="bg-white p-2 border border-1 rounded-md">
-    <form action="{{ route('admin.user.store') }}" method="POST" enctype="multipart/form-data" class="m-2 px-4 py-2 border border-gray-200 bg-white rounded-lg shadow-md space-y-6">
+    <form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data" class="m-2 px-4 py-2 border border-gray-200 bg-white rounded-lg shadow-md space-y-6">
         @csrf
         <div class="grid md:grid-cols-5 gap-5">
             <div class="md:col-span-4 space-y-6">
@@ -22,7 +22,7 @@
                             <span class="text-red-500">*</span>
                         </label>
                         <input type="text" name="fullname" id="fullname" maxlength="20"
-                            class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Nhập họ và tên" required>
+                            class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Nhập họ và tên" value="{{ old('fullname') }}" required>
                     </div>
         
                     <div>
@@ -30,7 +30,8 @@
                             <span class="text-red-500">*</span>
                         </label>
                         <input type="text" name="username" id="username" minlength="5" maxlength="50" placeholder="Nhập tên tài khoản"
-                            class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                            value="{{ old('username') }}" required>
                     </div>
                 </div>
             
@@ -42,8 +43,8 @@
                         </label>
                         <select name="role" id="role"
                                 class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
-                            <option value="ADMIN">ADMIN</option>
-                            <option value="STAFF">STAFF</option>
+                            <option value="ADMIN" {{ old('role') === 'ADMIN' ? 'selected' : '' }}>ADMIN</option>
+                            <option value="STAFF" {{ old('role') === 'STAFF' ? 'selected' : '' }}>STAFF</option>
                         </select>
                     </div>
         
@@ -52,7 +53,7 @@
                             <span class="text-red-500">*</span>
                         </label>
                         <input type="text" name="password" id="password" minlength="5" maxlength="60" placeholder="Nhập mật khẩu"
-                            class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
                     </div>      
                 </div>
             
@@ -60,7 +61,7 @@
                 <div>
                     <label for="description" class="block text-sm font-bold text-gray-700">Mô tả</label>
                     <textarea name="description" id="description" rows="3" placeholder="Nhập mô tả"
-                        class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+                        class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ old('description') }}</textarea>
                 </div>
             </div>
             <div class="flex flex-col items-center">

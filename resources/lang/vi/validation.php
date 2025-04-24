@@ -21,6 +21,11 @@ return [
             'max' => 'Tên danh mục không được vượt quá 100 ký tự.',
             'unique' => 'Tên danh mục đã tồn tại.',
         ],
+        'email' => [
+            'required' => 'Email là bắt buộc.',
+            'email' => 'Email không hợp lệ.',
+            'max' => 'Email không được dài quá 255 ký tự.',
+        ],
         'content' => [
             'required' => 'Nội dung biểu mẫu là bắt buộc.',
             'string' => 'Nội dung biểu mẫu phải là một chuỗi ký tự.',
@@ -72,11 +77,9 @@ return [
             'required' => 'Họ tên là bắt buộc.',
             'max' => 'Họ tên không được dài quá 50 ký tự.',
         ],
-        'email' => [
-            'required' => 'Email là bắt buộc.',
-            'email' => 'Email không hợp lệ.',
-            'max' => 'Email không được dài quá 100 ký tự.',
-            'unique' => 'Email đã tồn tại.',
+        'username' => [
+            'required' => 'Tên tài khoản là bắt buộc.',
+            'max' => 'Tên tài khoản không được dài quá 50 ký tự.',
         ],
         'phone' => [
             'max' => 'Số điện thoại không được dài quá 11 ký tự.',
@@ -88,6 +91,7 @@ return [
         'password' => [
             'nullable' => 'Mật khẩu có thể để trống.',
             'min' => 'Mật khẩu phải có ít nhất 6 ký tự.',
+            'max' => 'Mật khẩu không được dài quá 60 ký tự'
         ],
     ],
 ];

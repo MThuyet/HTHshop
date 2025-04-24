@@ -13,10 +13,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const searchData = [
-        { name: "Quản lý sản phẩm", url: "{{ route('admin.dashboard') }}" },
-        { name: "Thống kê doanh thu", url: "/admin/statistics" },
-        { name: "Quản lý bài viết", url: "/admin/articles" },
-        { name: "Cài đặt tài khoản", url: "/admin/settings" }
+        /* DashBoard */
+        { name: "Thống kê", url: "/admin/dashboard" },
+
+        /* Products */
+        { name: "Quản lý sản phẩm", url: "/admin/products" },
+        { name: "Thêm sản phẩm mới", url: "/admin/products/create" },
+
+        /* Product Categories */
+        { name: "Quản lý danh mục sản phẩm", url: "/admin/product-categories" },
+        { name: "Thêm danh mục sản phẩm mới", url: "/admin/product-categories/create" },
+
+        /* Orders */
+        { name: "Quản lý đơn hàng", url: "/admin/orders" },
+
+        /* Users */
+        { name: "Quản lý người dùng", url: "/admin/users" },
+        { name: "Thêm người dùng", url: "/admin/users/create" },
+
+        /* News */
+        { name: "Quản lý bài viết", url: "/dashboard/news" },
+        { name: "Thêm bài viết", url: "/dashboard/news/create" },
+
+        /* News Categories */
+        { name: "Quản lý danh mục bài viết", url: "/dashboard/news-categories" },
+        { name: "Thêm danh mục bài viết", url: "/dashboard/news-categories/create" },
+
+        /* Profile */
+        { name: "Cài đặt hồ sơ cá nhân", url: "/dashboard/profile" }
     ];
 
     searchCloseBtn?.addEventListener('click', () => {

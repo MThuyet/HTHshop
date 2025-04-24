@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client;
 
@@ -14,5 +13,5 @@ use App\Http\Controllers\Client;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::post('/products/by-ids', [Client\ProductController::class, 'getProductsByIds']);
-Route::post('products/toggle-favorite', [Client\ProductController::class, 'toggleFavorite'])->middleware('throttle: 40,1');
+Route::post('/products/by-ids', [Client\ProductsController::class, 'getProductsByIds']);
+Route::post('products/toggle-favorite', [Client\ProductsController::class, 'toggleFavorite'])->middleware('throttle: 40,1');

@@ -2,12 +2,12 @@
 @section('title', 'Quản lý người dùng')
 @section('nav-active', 'user')
 
-@php $breadCrump = [['name' => 'Quản lý người dùng', 'href' => route('admin.user')]]; @endphp
+@php $breadCrump = [['name' => 'Quản lý người dùng', 'href' => route('admin.users')]]; @endphp
 
 @section('content')
 <div class="bg-white p-2 border border-1 rounded-md">
     {{-- Search form & Anchor Create User --}}
-    <form method="GET" action="{{ route('admin.user') }}" class="flex flex-col md:flex-row items-center justify-between mb-4 gap-3">
+    <form method="GET" action="{{ route('admin.users') }}" class="flex flex-col md:flex-row items-center justify-between mb-4 gap-3">
         <div class="w-full md:w-1/2">
             <div class="relative z-40">
                 <div class="mb-0 text-md">
@@ -38,7 +38,7 @@
                 </select>
             </div>
     
-            <a href="{{ route('admin.user.create') }}"
+            <a href="{{ route('admin.users.create') }}"
                class="inline-block px-4 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow">
                 + Thêm người dùng mới
             </a>
@@ -64,7 +64,7 @@
                 @foreach ($users as $user)
                 <tr class="bg-white border-b hover:bg-gray-50 md:table-row py-2 md:py-0">
                     <td class="px-2 md:px-6 py-1 md:py-2 font-medium text-gray-900">
-                        <a href="{{ route('admin.user.show', $user->id) }}" class="material-symbols-rounded inline-flex rounded-md font-medium text-blue-500 border p-1 hover:underline">
+                        <a href="{{ route('admin.users.show', $user->id) }}" class="material-symbols-rounded inline-flex rounded-md font-medium text-blue-500 border p-1 hover:underline">
                             info
                         </a>
                     </td>
@@ -86,7 +86,7 @@
                     
                     <!-- Cột trạng thái - ẩn trên mobile -->
                     <td class="px-6 py-2 hidden lg:table-cell">
-                        <form action="{{ route('admin.user.toggle', $user->id) }}" method="POST" class="mb-0">
+                        <form action="{{ route('admin.users.toggle', $user->id) }}" method="POST" class="mb-0">
                             @csrf
                             @method('PUT')
                             <button type="submit">
@@ -99,7 +99,7 @@
                     
                     <td class="px-6 py-2 hidden sm:table-cell">
                         <div class="flex justify-start">
-                            <a href="{{ route('admin.user.edit', $user->id) }}" class="inline-flex rounded-md font-medium text-yellow-500 border p-1 hover:underline mr-2">
+                            <a href="{{ route('admin.users.edit', $user->id) }}" class="inline-flex rounded-md font-medium text-yellow-500 border p-1 hover:underline mr-2">
                                 <span class="material-symbols-rounded">edit_square</span>
                             </a>    
                             <button class="inline-flex rounded-md font-medium text-red-500 border p-1 hover:underline btn-open-modal-confirm-delete" data-id="{{ $user->id }}">

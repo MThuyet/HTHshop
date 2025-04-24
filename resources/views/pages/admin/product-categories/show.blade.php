@@ -4,8 +4,9 @@
 
 @php
     $breadCrump = [
-        ['name' => 'Danh mục sản phẩm', 'href' => route('admin.product-category')],
-        ['name' => 'Chi tiết: '. $productCategory->name, 'href' => Request::url()]
+        ['name' => 'Quản lý sản phẩm', 'href' => route('admin.products')],
+        ['name' => 'Quản lý danh mục sản phẩm', 'href' => route('admin.product-categories')],
+        ['name' => 'Chi tiết danh mục: '. $productCategory->name, 'href' => Request::url()]
     ];
 @endphp
 
@@ -14,15 +15,15 @@
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
         <h2 class="text-2xl font-bold text-gray-800 mb-4 md:mb-0">Chi tiết danh mục sản phẩm</h2>
         <div class="flex flex-wrap gap-2">
-            <a href="{{ route('admin.product-category') }}" class="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
+            <a href="{{ route('admin.product-categories') }}" class="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">
                 <span class="material-symbols-rounded mr-2">arrow_back</span>
                 Quay lại danh sách
             </a>
-            <a href="{{ route('admin.product-category.edit', $productCategory->id) }}" class="inline-flex items-center px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600">
+            <a href="{{ route('admin.product-categories.edit', $productCategory->id) }}" class="inline-flex items-center px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600">
                 <span class="material-symbols-rounded mr-2">edit_square</span>
                 Chỉnh sửa
             </a>
-                <button class="inline-flex items-center px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 btn-open-modal-confirm-delete" data-id="{{ route('admin.product-category.delete', $productCategory->id) }}">
+                <button class="inline-flex items-center px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 btn-open-modal-confirm-delete" data-id="{{ route('admin.product-categories.delete', $productCategory->id) }}">
                     <span class="material-symbols-rounded mr-2">delete</span>
                     Xóa
                 </button>
@@ -54,7 +55,7 @@
                 <div class="flex flex-col md:flex-row">
                     <span class="w-full md:w-1/3 font-medium text-gray-600">Trạng thái:</span>
                     <span class="w-full md:w-2/3">
-                        <form action="{{ route('admin.product-category.toggle', $productCategory->id) }}" method="POST" class="mb-0">
+                        <form action="{{ route('admin.product-categories.toggle', $productCategory->id) }}" method="POST" class="mb-0">
                             @csrf
                             @method('PUT')
                             <button type="submit" class="flex items-center">
@@ -87,61 +88,64 @@
         </div>
     </div>
 </div>
-@endsection
-<!-- Modal xác nhận xóa -->
-<div id="modal-confirm-delete" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-    <div class="bg-white p-6 rounded-lg max-w-sm w-full">
-        <h2 class="text-lg font-semibold mb-4 text-gray-800">Xác nhận xóa</h2>
-        <p class="text-gray-700 mb-6">Bạn có chắc chắn muốn xóa danh mục sản phẩm này không?</p>
-        <form id="delete-category-form" method="POST" action="">
-            @csrf
-            @method('DELETE')
-            <div class="flex justify-end gap-2">
-                <button type="button" id="btn-cancel-modal-confirm-delete"
-                        class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300">
-                    Hủy
-                </button>
-                <button type="submit"
-                        class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-500">
-                    Xác nhận
-                </button>
+
+<div id="modal-confirm-delete" class="fixed inset-0 z-[1000] hidden items-center justify-center bg-black/50">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md mx-auto p-6 absolute top-1/4 left-1/2
+    -translate-x-1/2" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      
+        <div class="flex items-center">
+            <div class="flex items-center justify-center w-12 h-12 bg-red-100 rounded-full">
+                <svg class="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v3.75M12 15.75h.007v.008H12v-.008zm-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126Z" />
+                </svg>
             </div>
-        </form>
+            <div class="ml-4">
+                <h3 class="text-lg font-semibold text-gray-900" id="modal-title">Xóa danh mục sản phẩm</h3>
+                <p class="text-sm text-gray-500 mt-1">Bạn có chắc muốn xóa danh mục
+                    <b>{{ $productCategory->name }}</b>
+                    không?
+                </p>
+            </div>
+        </div>
+  
+        <!-- Buttons -->
+        <div class="mt-6 flex justify-end gap-3">
+            <button id="btn-cancel-modal-confirm-delete" 
+                class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded">
+                Hủy
+            </button>
+            <form id="delete-news-category-form" action="{{ route('dashboard.news-categories.delete', $productCategory->id) }}" method="POST" class="mb-0">
+                @csrf
+                @method('DELETE')
+                <button id="btn-confirm-delete" type="submit" 
+                    class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded">Xác nhận</button>
+            </form>
+        </div>
     </div>
 </div>
+@endsection
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const modal = document.getElementById('modal-confirm-delete');
-        const openBtn = document.querySelector('.btn-open-modal-confirm-delete');
-        const cancelBtn = document.getElementById('btn-cancel-modal-confirm-delete');
-        const form = document.getElementById('delete-category-form');
+        const btnOpen = document.querySelectorAll('.btn-open-modal-confirm-delete');
+        const btnCancel = document.getElementById('btn-cancel-modal-confirm-delete');
+        const form = document.getElementById('delete-news-category-form');
 
-        openBtn.addEventListener('click', () => {
-            const action = openBtn.getAttribute('data-id');
-            form.setAttribute('action', action);
-            modal.classList.remove('hidden');
+        const openModal = () => modal.classList.remove('hidden');
+        const closeModal = () => modal.classList.add('hidden');
+
+        btnOpen.forEach(button => {
+            button.addEventListener('click', () => openModal(button));
         });
 
-        cancelBtn.addEventListener('click', () => {
-            modal.classList.add('hidden');
-            form.setAttribute('action', '');
-        });
-
-        // Optional: Click ra ngoài để đóng
+        btnCancel.addEventListener('click', closeModal);
         modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.add('hidden');
-                form.setAttribute('action', '');
-            }
+            if (e.target === modal) closeModal();
         });
 
-        // Optional: ESC để đóng
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                modal.classList.add('hidden');
-                form.setAttribute('action', '');
-            }
+            if (e.key === 'Escape') closeModal();
         });
     });
 </script>

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
-class UserController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -77,7 +77,7 @@ class UserController extends Controller
             $validated['password'] = Hash::make($validated['password']);
             User::create($validated);
     
-            return redirect()->route('admin.user')->with('toast', [
+            return redirect()->route('admin.users')->with('toast', [
                 'title' => 'Tạo mới thành công',
                 'text' => 'Tạo thông tin người dùng mới thành công',
                 'icon' => 'success'
@@ -86,17 +86,17 @@ class UserController extends Controller
             $firstField = array_key_first($e->errors()); 
             $firstError = $e->errors()[$firstField][0];  
     
-            return redirect()->route('admin.user.create')->with('toast', [
+            return redirect()->route('admin.users.create')->with('toast', [
                 'title' => 'Lỗi tạo người dùng',
                 'text' => $firstError,
                 'icon' => 'error'
-            ]);
+            ])->withInput();
         } catch (\Exception $e) {
-            return redirect()->route('admin.user.create')->with('toast', [
+            return redirect()->route('admin.users.create')->with('toast', [
                 'title' => 'Tạo mới thất bại',
                 'text' => 'Lỗi: ' . $e->getMessage(),
                 'icon' => 'error'
-            ]);
+            ])->withInput();
         }
     }
 
@@ -181,13 +181,13 @@ class UserController extends Controller
                 'title' => 'Lỗi cập nhật thông tin người dùng',
                 'text' => $firstError,
                 'icon' => 'error'
-            ]);
+            ])->withInput();
         } catch(\Exception $e) {
             return redirect()->back()->with('toast', [
                 'title' => 'Lỗi cập nhật thông tin người dùng',
                 'text' => $e->getMessage(),
                 'icon' => 'error'
-            ]);
+            ])->withInput();
         }
     }
 
@@ -218,13 +218,13 @@ class UserController extends Controller
         try {
             $user->delete();
 
-            return redirect()->route('admin.user')->with('toast', [
+            return redirect()->route('admin.users')->with('toast', [
                 'title' => 'Xóa thành công',
                 'text' => 'Xóa thông tin người dùng thành công',
                 'icon' => 'success'
             ]);
         } catch (\Exception $e) {
-            return redirect()->route('admin.user')->with('toast', [
+            return redirect()->route('admin.users')->with('toast', [
                 'title' => 'Lỗi xóa người dùng',
                 'text' => $e->getMessage(),
                 'icon' => 'error'

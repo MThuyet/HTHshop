@@ -8,7 +8,7 @@ use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class OrderController extends Controller
+class OrdersController extends Controller
 {
 	public function index()
 	{

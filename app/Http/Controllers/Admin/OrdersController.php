@@ -7,7 +7,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class OrderController extends Controller
+class OrdersController extends Controller
 {
 	/**
 	 * Display a listing of the resource.
@@ -28,7 +28,7 @@ class OrderController extends Controller
 			->orderBy('created_at', 'desc')
 			->paginate($perPage);
 
-		return view('pages.admin.order.index', compact('orders', 'perPage'));
+		return view('pages.admin.orders.index', compact('orders', 'perPage'));
 	}
 
 	/**
@@ -52,7 +52,7 @@ class OrderController extends Controller
 	 */
 	public function show(Order $order)
 	{
-		return view('pages.admin.order.show', compact('order'));
+		return view('pages.admin.orders.show', compact('order'));
 	}
 
 	/**
@@ -60,7 +60,7 @@ class OrderController extends Controller
 	 */
 	public function edit(Order $order)
 	{
-		return view('pages.admin.order.edit', compact('order'));
+		return view('pages.admin.orders.edit', compact('order'));
 	}
 
 	/**
@@ -93,7 +93,7 @@ class OrderController extends Controller
 			DB::commit();
 
 			return redirect()
-				->route('admin.order.show', $order)
+				->route('admin.orders.show', $order)
 				->with('toast', [
 					'icon' => 'success',
 					'title' => 'Thành công',

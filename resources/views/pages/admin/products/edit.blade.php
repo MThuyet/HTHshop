@@ -2,11 +2,16 @@
 @section('title', 'Chỉnh sửa sản phẩm')
 @section('nav-active', 'product')
 
-@php $breadCrump = [['name' => 'Quản lý sản phẩm', 'href' => route('admin.product')], ['name' => 'Chỉnh sửa sản phẩm', 'href' => '#']]; @endphp
+@php 
+    $breadCrump = [
+        ['name' => 'Quản lý sản phẩm', 'href' => route('admin.products')], 
+        ['name' => 'Chỉnh sửa sản phẩm ' . $product->name, 'href' => Request::url()]
+    ]; 
+@endphp
 
 @section('content')
     <div class="bg-white p-4 border border-1 rounded-md">
-        <form action="{{ route('admin.product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -170,7 +175,7 @@
             </div>
 
             <div class="mt-6 flex justify-end gap-4">
-                <a href="{{ route('admin.product') }}"
+                <a href="{{ route('admin.products') }}"
                     class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                     Hủy
                 </a>
@@ -219,7 +224,7 @@
                         }
 
                         // Gửi request xóa ảnh
-                        fetch(`{{ route('admin.product.image.delete', '') }}/${imageId}`, {
+                        fetch(`{{ route('admin.products.image.delete', '') }}/${imageId}`, {
                             method: 'DELETE',
                             headers: {
                                 'X-CSRF-TOKEN': '{{ csrf_token() }}',

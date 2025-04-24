@@ -5,35 +5,35 @@
 @php 
     $breadCrump = [
         ['name' => 'Quản lý tin tức', 'href' => route('dashboard.news')],
-        ['name' => 'Quản lý danh mục tin tức', 'href' => route('dashboard.news-category')],
+        ['name' => 'Quản lý danh mục tin tức', 'href' => route('dashboard.news-categories')],
         ['name' => 'Chỉnh sửa danh mục tin tức', 'href' => Request::url()]
     ]; 
 @endphp
 
 @section('content')
 <div class="bg-white p-2 border border-1 rounded-md">
-    <form action="{{ route('dashboard.news-category.update', $newsCategory->id) }}" method="POST" class="m-2 px-4 py-2 border border-gray-200 bg-white rounded-lg shadow-md space-y-6">
+    <form action="{{ route('dashboard.news-categories.update', $newsCategory->id) }}" method="POST" class="m-2 px-4 py-2 border border-gray-200 bg-white rounded-lg shadow-md space-y-6">
         @csrf
         @method('PUT')
     
         {{-- Tên danh mục --}}
         <div>
-            <label class="block font-bold">Tên danh mục
+            <label for="name" class="block font-bold">Tên danh mục
                 <span class="text-red-500">*</span>
             </label>
-            <input type="text" name="name" value="{{ old('name', $newsCategory->name) }}" class="w-full border rounded px-3 py-2">
+            <input type="text" id="name" name="name" value="{{ old('name', $newsCategory->name) }}" class="w-full border rounded px-3 py-2">
         </div>
     
         {{-- Mô tả --}}
         <div>
-            <label class="block font-bold">Mô tả</label>
-            <textarea name="description" class="w-full border rounded px-3 py-2">{{ old('description', $newsCategory->description) }}</textarea>
+            <label for="description" class="block font-bold">Mô tả</label>
+            <textarea id="description" name="description" class="w-full border rounded px-3 py-2">{{ old('description', $newsCategory->description) }}</textarea>
         </div>
     
         {{-- Trạng thái hoạt động --}}
         <div class="flex items-center gap-2">
-            <input type="checkbox" name="active" value="1" {{ old('active', $newsCategory->active) ? 'checked' : '' }} class="w-4 h-4">
-            <label>Hoạt động</label>
+            <input type="checkbox" id="active" name="active" value="1" {{ old('active', $newsCategory->active) ? 'checked' : '' }} class="w-4 h-4">
+            <label for="active">Hoạt động</label>
         </div>
     
         {{-- Submit --}}

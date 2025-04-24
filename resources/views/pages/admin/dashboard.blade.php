@@ -1,13 +1,12 @@
 @extends('layouts.admin.master')
 
-@section('title', 'Bảng Điều Khiển')
+@section('title', 'Thống kê')
 @section('nav-active', 'dashBoard')
-@section('currentScreenManager', 'Bảng Điều Khiển')
 
 @vite(['resources/js/admin/Dashboard.js'])
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-@php $breadCrump = [['name' => 'Bảng điều khiển', 'href' => route('admin.dashboard')]]; @endphp
+@php $breadCrump = [['name' => 'Thống kê', 'href' => route('admin.dashboard')]]; @endphp
 
 @section('content')
     <div class="grid md:grid-cols-3">

@@ -25,9 +25,9 @@ class NewsController extends Controller
 		if ($search) {
 			$query->where('title', 'like', "%{$search}%");
 		}
-		$news = $query->paginate($perPage);
+		$newsList = $query->paginate($perPage);
 
-		return view('pages.admin.news.index', compact('news', 'perPage'));
+		return view('pages.admin.news.index', compact('newsList', 'perPage'));
 	}
 
 	/**
@@ -84,7 +84,7 @@ class NewsController extends Controller
 				'title' => 'Lỗi tạo tin tức',
 				'text' => $firstError,
 				'icon' => 'error'
-			]);
+			])->withInput();
 		} catch (\Exception $e) {
 			return redirect()->back()->with('toast', [
 				'title' => 'Thất bại',
@@ -156,13 +156,13 @@ class NewsController extends Controller
 				'title' => 'Lỗi cập nhật tin tức',
 				'text' => $firstError,
 				'icon' => 'error'
-			]);
+			])->withInput();
 		} catch (\Exception $e) {
 			return redirect()->back()->with('toast', [
 				'title' => 'Đã xảy ra lỗi',
 				'text' => $e->getMessage(),
 				'icon' => 'error'
-			]);
+			])->withInput();
 		}
 	}
 
@@ -195,7 +195,7 @@ class NewsController extends Controller
 			return redirect()->route('dashboard.news')->with('toast', [
 				'title' => 'Cập nhật trạng thái',
 				'text' => 'Cập nhật trạng thái tin tức ' . $news->title . ' thành công',
-				'icon' => 'success'
+				'icon' => 'success',
 			]);
 		} catch (\Exception $e) {
 			return redirect()->route('dashboard.news')->with('toast', [
