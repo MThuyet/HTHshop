@@ -33,5 +33,5 @@
     </div>
 @endsection
 <script>
-    const assetStorageUrl = @json(asset('storage/images/products/'));
+    const assetStorageUrl = @json(asset('storage'));
 </script>

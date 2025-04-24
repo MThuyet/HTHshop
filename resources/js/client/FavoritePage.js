@@ -55,6 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }else {
                 noFavoritesMessage.classList.remove('hidden');
             }
+            console.log(data);
+            
         })
         .catch(error => {
             console.error('Error fetching favorite products:', error);
@@ -80,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const productUrl = `/san-pham/${product.slug}`;
             const productPrice = product.variants[0].price;
-            const productDiscount = product.variants[0].discount;
+            const productDiscount = product.discount;
             const productImage = product.images[0].image;
 
             productCard.innerHTML += `
