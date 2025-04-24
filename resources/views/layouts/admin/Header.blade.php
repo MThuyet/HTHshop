@@ -1,5 +1,6 @@
 {{-- Header left side --}}
-<a href="{{ Auth::user()->role === 'ADMIN' ? route('admin.dashboard') : route('dashboard.news') }}" class="flex items-center gap-5">
+<a href="{{ Auth::user()->role === 'ADMIN' ? route('admin.dashboard') : route('dashboard.news') }}"
+    class="flex items-center gap-5">
     <img src="{{ asset('images/logo-header-crop.png') }}" class="max-w-[55px]" alt="logo-hth-shop" />
 </a>
 
@@ -9,7 +10,7 @@
         $navList = [
             ['navName' => 'dashBoard', 'navIcon' => 'bar_chart_4_bars', 'route' => 'admin.dashboard'],
             ['navName' => 'product', 'navIcon' => 'apparel', 'route' => 'admin.product'],
-            ['navName' => 'order', 'navIcon' => 'shopping_bag', 'route' => 'admin.dashboard'],
+            ['navName' => 'order', 'navIcon' => 'shopping_bag', 'route' => 'admin.order'],
             ['navName' => 'user', 'navIcon' => 'manage_accounts', 'route' => 'admin.user'],
             ['navName' => 'news', 'navIcon' => 'news', 'route' => 'dashboard.news'],
         ];
@@ -19,17 +20,17 @@
 
     @if (Auth::user()->role === 'ADMIN')
         @foreach ($navList as $item)
-        <a href="{{ route($item['route']) }}"
-            class="flex items-center p-2 rounded-lg border border-gray-400 hover:bg-[#0F6A9C] hover:text-white
+            <a href="{{ route($item['route']) }}"
+                class="flex items-center p-2 rounded-lg border border-gray-400 hover:bg-[#0F6A9C] hover:text-white
             {{ $item['navName'] === $navItemActive ? 'text-white bg-[#0F6A9C]' : '' }}">
                 <span class="material-symbols-rounded">{{ $item['navIcon'] }}</span>
-        </a>
+            </a>
         @endforeach
     @else
         <a href="{{ route('dashboard.news') }}"
-            class="flex items-center p-2 rounded-lg border border-gray-400 hover:bg-[#0F6A9C] hover:text-white 
+            class="flex items-center p-2 rounded-lg border border-gray-400 hover:bg-[#0F6A9C] hover:text-white
                 {{ $navItemActive === 'news' ? 'text-white bg-[#0F6A9C]' : '' }} ">
-                <span class="material-symbols-rounded">news</span>
+            <span class="material-symbols-rounded">news</span>
         </a>
     @endif
 </div>
@@ -37,15 +38,15 @@
 {{-- Header right side --}}
 <div class="flex items-center gap-5">
     @if (Auth::user()->role === 'ADMIN')
-    <button type="button"
-    class="flex items-center p-2 rounded-lg border border-gray-400 hover:bg-[#0F6A9C] hover:text-white"
-    id="search-btn-open-modal">
-        <span class="material-symbols-rounded">
-            search
-        </span>
-    </button>
+        <button type="button"
+            class="flex items-center p-2 rounded-lg border border-gray-400 hover:bg-[#0F6A9C] hover:text-white"
+            id="search-btn-open-modal">
+            <span class="material-symbols-rounded">
+                search
+            </span>
+        </button>
     @endif
-    
+
     <button type="button"
         class="sm:hidden flex items-center p-2 rounded-lg border border-gray-400 hover:bg-[#0F6A9C] hover:text-white"
         id="menu-toggle">
@@ -54,15 +55,14 @@
         </span>
     </button>
     <div class="relative group inline-block">
-        <img src="{{ Auth::user()->avatar 
-            ? asset('storage/' . Auth::user()->avatar) 
-            : asset('images/avatar-temp.webp') }}"
+        <img src="{{ Auth::user()->avatar ? asset('storage/' . Auth::user()->avatar) : asset('images/avatar-temp.webp') }}"
             alt="{{ Auth::user()->fullname }}" class="rounded-full h-[40px] w-[40px] cursor-pointer" />
 
         <ul
             class="absolute right-0 min-w-[150px] bg-white border shadow-sm rounded-md overflow-hidden z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-150">
             <li>
-                <a href="{{ route('dashboard.profile.edit') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-sm">
+                <a href="{{ route('dashboard.profile.edit') }}"
+                    class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 text-sm">
                     <span class="material-symbols-rounded">account_circle</span> Hồ sơ
                 </a>
             </li>
@@ -90,7 +90,8 @@
         </div>
         <div id="search-dropdown-result"
             class="mt-3 max-h-60 overflow-y-auto border border-gray-200 rounded-md bg-white shadow-sm text-sm">
-            <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Quản lý sản
+            <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-gray-100 text-gray-700">Quản lý
+                sản
                 phẩm</a>
         </div>
         <button class="close-modal-btn absolute right-[-10px] top-[-12px]" id="search-btn-close">
