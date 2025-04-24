@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers;
+use App\Http\Controllers\Client\ProductController;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Client;
 use Illuminate\Support\Facades\Route;
@@ -32,7 +34,9 @@ Route::match(['get', 'post'], '/san-pham', [Client\ProductCategoryController::cl
 Route::get('/san-pham/{product_slug}', [Client\ProductDetailController::class, 'index'])->name('product.detail');
 Route::post('/upload-image', [Client\ProductDetailController::class, 'uploadImage'])->name('upload.image');
 Route::post('/products/{product_slug}/reviews', [Client\ProductDetailController::class, 'storeReview'])->name('reviews.store');
-
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 // ========================== YÊU THÍCH ========================== //
 Route::get('/yeu-thich', function () {
     return view('pages.client.FavoritePage');

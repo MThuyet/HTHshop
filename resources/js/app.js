@@ -33,51 +33,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Active favorite
-const wishlistButtons = document.querySelectorAll(".wishlist-btn");
-
-wishlistButtons.forEach((btn) => {
-    const icon = btn.querySelector(".icon-heart");
-    const tooltip = btn.querySelector(".tooltip-text");
-
-    let isFavorited = false;
-
-    function updateButtonUI() {
-        if (isFavorited) {
-            tooltip.textContent = "Đã yêu thích";
-            icon.style.fontVariationSettings = "'FILL' 1";
-            btn.classList.remove("bg-white", "text-orangeColor");
-            btn.classList.add("bg-orangeColor", "text-white");
-        } else {
-            tooltip.textContent = "Yêu thích";
-            icon.style.fontVariationSettings = "'FILL' 0";
-            btn.classList.remove("bg-orangeColor", "text-white");
-            btn.classList.add("bg-white", "text-orangeColor");
-        }
-    }
-
-    // Khởi tạo giao diện
-    updateButtonUI();
-
-    // Click để toggle trạng thái
-    btn.addEventListener("click", function (e) {
-        e.preventDefault(); // Ngăn trình duyệt thực hiện hành vi mặc định (chuyển trang)
-        e.stopPropagation(); // Ngăn sự kiện lan ra thẻ cha (thẻ <a>)
-
-        isFavorited = !isFavorited;
-        updateButtonUI();
-    });
-
-    // Hover để hiển thị tooltip đúng theo trạng thái
-    btn.addEventListener("mouseenter", function (e) {
-        tooltip.textContent = isFavorited ? "Đã yêu thích" : "Yêu thích";
-    });
-
-    btn.addEventListener("mouseleave", function (e) {
-        tooltip.textContent = isFavorited ? "Đã yêu thích" : "Yêu thích";
-    });
-});
-
 // Animation
 document.addEventListener("DOMContentLoaded", function () {
     // Lấy danh sách phần tử cần quan sát

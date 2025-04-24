@@ -1,7 +1,6 @@
 @extends('layouts.client.Master')
-@section('title')
-    Trang chủ
-@endsection
+@section('title', 'Trang chủ')
+@vite('resources/js/client/HandleWishList.js')
 
 @section('content')
     @if (session('success'))
@@ -72,14 +71,15 @@
 
                             <!-- Wishlist button with tooltip -->
                             <button
-                                class="wishlist-btn absolute top-1 right-1 w-10 h-10 bg-white text-orangeColor flex items-center justify-center rounded-full shadow-md group/button">
+                                class="wishlist-btn absolute top-1 right-1 w-10 h-10 bg-white text-orangeColor flex items-center justify-center rounded-full shadow-md group/button"
+                                data-product-id="{{ $product->id ?? '' }}">
                                 <span class="material-symbols-rounded icon-heart">
                                     favorite
                                 </span>
 
                                 <!-- Tooltip -->
                                 <span
-                                    class="tooltip-text absolute right-full mr-1 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 delay-100 md:group-hover/button:opacity-100 md:group-hover/button:translate-x-0">
+                                    class="tooltip-text absolute right-full mr-1 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 delay-100 group-hover/button:opacity-100 group-hover/button:translate-x-0">
                                     Yêu thích
                                 </span>
                             </button>
@@ -162,14 +162,15 @@
 
                             <!-- Wishlist button with tooltip -->
                             <button
-                                class="wishlist-btn absolute top-1 right-1 w-10 h-10 bg-white text-orangeColor flex items-center justify-center rounded-full shadow-md group/button">
+                                class="wishlist-btn absolute top-1 right-1 w-10 h-10 bg-white text-orangeColor flex items-center justify-center rounded-full shadow-md group/button"
+                                data-product-id="{{ $product->id ?? '' }}">
                                 <span class="material-symbols-rounded icon-heart">
                                     favorite
                                 </span>
 
                                 <!-- Tooltip -->
                                 <span
-                                    class="tooltip-text absolute right-full mr-1 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 delay-100 md:group-hover/button:opacity-100 md:group-hover/button:translate-x-0">
+                                    class="tooltip-text absolute right-full mr-1 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 delay-100 group-hover/button:opacity-100 group-hover/button:translate-x-0">
                                     Yêu thích
                                 </span>
                             </button>
@@ -247,14 +248,15 @@
 
                             <!-- Wishlist button with tooltip -->
                             <button
-                                class="wishlist-btn absolute top-1 right-1 w-10 h-10 bg-white text-orangeColor flex items-center justify-center rounded-full shadow-md group/button">
+                                class="wishlist-btn absolute top-1 right-1 w-10 h-10 bg-white text-orangeColor flex items-center justify-center rounded-full shadow-md group/button"
+                                data-product-id="{{ $product->id ?? '' }}">
                                 <span class="material-symbols-rounded icon-heart">
                                     favorite
                                 </span>
 
                                 <!-- Tooltip -->
                                 <span
-                                    class="tooltip-text absolute right-full mr-1 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 delay-100 md:group-hover/button:opacity-100 md:group-hover/button:translate-x-0">
+                                    class="tooltip-text absolute right-full mr-1 px-3 py-1.5 text-xs font-medium text-white bg-gray-800 rounded-lg text-nowrap opacity-0 translate-x-2 transition-all duration-300 delay-100 group-hover/button:opacity-100 group-hover/button:translate-x-0">
                                     Yêu thích
                                 </span>
                             </button>
