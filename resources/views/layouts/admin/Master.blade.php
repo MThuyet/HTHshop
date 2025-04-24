@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') - HTH Shop</title>
     @vite(['resources/css/app.css', 'resources/js/admin/main.js'])
 
@@ -24,7 +25,7 @@
         </header>
 
         {{-- Main Content --}}
-        <main class="pt-[80px] px-5 h-screen">
+        <main class="pt-[80px] px-5 min-h-screen">
             @if (!empty($breadCrump))
                 <div class="text-sm mb-2">
                     <span class="mx-1 text-gray-400">/</span>

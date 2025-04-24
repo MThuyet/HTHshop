@@ -103,7 +103,8 @@ Route::middleware(['auth'])->group(function () {
 	Route::middleware(['auth.admin'])->group(function () {
 
 		// ========================== DASHBOARD ========================== //
-		Route::get('/admin/dashboard', function () {return view('pages.admin.dashboard');})->name('admin.dashboard');
+		Route::get('/admin/dashboard', [Admin\DashBoardController::class, 'index'])
+		->name('admin.dashboard');
 
 		// ========================== PRODUCT CATEGORIES ========================== //
 		Route::resource('/admin/product-categories', Admin\ProductCategoriesController::class)->names([
@@ -164,5 +165,15 @@ Route::middleware(['auth'])->group(function () {
 
 		Route::put('/admin/users/{user}/toggle', [Admin\UsersController::class, 'toggleActive'])->name('admin.users.toggle');
 
+		// ========================== TEMP API GET TOP FAVORITE PRODUCTS ========================== //
+		Route::get('/api/top-favorite-products', [Admin\DashBoardController::class, 'getTopFavoriteProducts']);
+		// ========================== TEMP API GET TOP VIEW PRODUCTS ========================== //
+		Route::get('/api/top-view-products', [Admin\DashBoardController::class, 'getTopViewProducts']);
+		// ========================== TEMP API GET TOP VIEW NEWS ========================== //
+		Route::get('/api/top-watch-news', [Admin\DashBoardController::class, 'getTopWatchNews']);
+		// ========================== TEMP API GET REVENUE DATA ========================== //
+		Route::get('/admin/revenue-chart', [Admin\DashboardController::class, 'revenueChart'])->name('admin.revenue.chart');
+		// ========================== TEMP API GET ORDER BY STATUS ========================== //
+		Route::get('/api/order-status', [Admin\DashboardController::class, 'getOrderStatusData']);
 	});
 });

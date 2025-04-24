@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client;
+use App\Http\Controllers\Admin;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +16,9 @@ use App\Http\Controllers\Client;
 */
 Route::post('/products/by-ids', [Client\ProductsController::class, 'getProductsByIds']);
 Route::post('products/toggle-favorite', [Client\ProductsController::class, 'toggleFavorite'])->middleware('throttle: 40,1');
+
+Route::middleware(['auth'])->group(function () {
+	Route::middleware(['auth.admin'])->group(function () {
+        Route::get('/favorite-products', [Admin\DashBoardController::class, 'getFavoriteProducts']);
+    });
+});

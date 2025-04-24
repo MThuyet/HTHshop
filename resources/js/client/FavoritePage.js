@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const productUrl = `/san-pham/${product.slug}`;
             const productPrice = product.variants[0].price;
-            const productDiscount = product.variants[0].discount;
+            const productDiscount = product.discount;
             const productImage = product.images[0].image;
 
             productCard.innerHTML += `
