@@ -37,7 +37,7 @@
                         <div class="flex flex-col-reverse sm:flex-row gap-4 overflow-hidden pb-[20px] border-b-[1px]">
                             <a href="{{ route('news.detail', $news->slug) }}" title="{{ $news->title }}"
                                 class="block overflow-hidden h-[250px] w-[200px]">
-                                <img src="{{ asset('storage/' . $news->thumbnail) }}" alt="{{ $news->title }}"
+                                <img src="{{ asset('storage/images/news/' . $news->thumbnail) }}" alt="{{ $news->title }}"
                                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
                             </a>
                             <div class="flex-1 flex flex-col justify-between">

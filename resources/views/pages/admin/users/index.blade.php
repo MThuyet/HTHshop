@@ -112,21 +112,7 @@
             </tbody>
         </table>
         {{-- Pagination --}}
-        <div class="flex flex-wrap justify-center gap-5 items-center mt-3 px-2">
-            <span class="text-sm text-gray-500">
-                Hiển thị {{ $users->firstItem() }}-{{ $users->lastItem() }}/{{ $users->total() }} dòng
-            </span>
-            <div class="flex items-center gap-1">
-                @if ($users->lastPage() > 1)
-                    {{
-                        $users->appends(['limit-row-length' => $perPage, 'search' => request('search')])
-                        ->links('vendor.pagination.tailwind')
-                    }}
-                @else
-                    <span class="text-gray-400 text-sm">Chỉ có 1 trang</span>
-                @endif
-            </div>
-        </div>
+        <x-pagination :paginator="$users" />
     </div>
 </div>
 <div id="modal-confirm-delete" class="fixed inset-0 z-[1000] hidden items-center justify-center bg-black/50">
@@ -143,7 +129,7 @@
             <h3 class="text-lg font-semibold text-gray-900" id="modal-title">Xóa Người Dùng</h3>
             <p class="text-sm text-gray-500 mt-1">Bạn có chắc muốn xóa thông tin người dùng 
                 <span class="font-bold" id="delete-user"></span> 
-                này không?
+                không?
             </p>
         </div>
       </div>
@@ -166,44 +152,47 @@
 
 @endsection
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const modal = document.getElementById('modal-confirm-delete');
-        const btnOpen = document.querySelectorAll('.btn-open-modal-confirm-delete');
-        const btnCancel = document.getElementById('btn-cancel-modal-confirm-delete');
-        const form = document.getElementById('delete-user-form');
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('modal-confirm-delete');
+            const btnOpen = document.querySelectorAll('.btn-open-modal-confirm-delete');
+            const btnCancel = document.getElementById('btn-cancel-modal-confirm-delete');
+            const form = document.getElementById('delete-user-form');
 
-        const openModal = (e) => {
-            const userId = e.dataset.id;
-            
-            const currentRow = e.closest('tr');
-            const fullname = currentRow.querySelector('td:first-child').textContent;
-            
-            document.getElementById('delete-user').textContent = fullname;
+            const openModal = (e) => {
+                const userId = e.dataset.id;
+                
+                const currentRow = e.closest('tr');
+                const fullname = currentRow.querySelector('td:nth-child(3)').textContent;
+                
+                document.getElementById('delete-user').textContent = fullname;
 
-            // Set form action
-            form.action = `/admin/users/${userId}`;
+                // Set form action
+                form.action = `/admin/users/${userId}`;
 
-            modal.classList.remove('hidden');
-        };
+                modal.classList.remove('hidden');
+            };
 
-        const closeModal = () => {
-            document.getElementById('delete-user').textContent = '';
-            form.action = `/admin/users`;
-            modal.classList.add('hidden');
-        };
+            const closeModal = () => {
+                document.getElementById('delete-user').textContent = '';
+                form.action = `/admin/users`;
+                modal.classList.add('hidden');
+            };
 
-        btnOpen.forEach(button => {
-            button.addEventListener('click', () => openModal(button));
+            btnOpen.forEach(button => {
+                button.addEventListener('click', () => openModal(button));
+            });
+
+            btnCancel.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeModal();
+            });
         });
-
-        btnCancel.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
-    });
-</script>
+    </script>
+@endpush>
+    

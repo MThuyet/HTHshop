@@ -63,46 +63,46 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($newsList as $Newsitem)
+                @foreach ($newsList as $newsItem)
                     <tr class="bg-white border-b hover:bg-gray-50">
                         <td class="px-2 md:px-6 py-1 md:py-2 font-medium text-gray-900">
-                            <a href="{{ route('dashboard.news.show', $Newsitem->id) }}" class="material-symbols-rounded inline-flex rounded-md font-medium text-blue-500 border p-1 hover:underline">
+                            <a href="{{ route('dashboard.news.show', $newsItem->id) }}" class="material-symbols-rounded inline-flex rounded-md font-medium text-blue-500 border p-1 hover:underline">
                                 info
                             </a>
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex gap-2">
-                                @if ($Newsitem->thumbnail)
-                                    <img src="{{ asset('storage/' . $Newsitem->thumbnail) }}" alt="Thumbnail" class="w-20 h-20 object-cover rounded hidden lg:block">
+                                @if ($newsItem->thumbnail)
+                                    <img src="{{ asset('storage/' . $newsItem->thumbnail) }}" alt="Thumbnail" class="w-20 h-20 object-cover rounded hidden lg:block">
                                 @else
                                     <span class="text-gray-400">Không có ảnh</span>
                                 @endif
                                 <div>
-                                    <h3 class="font-bold text-gray-900 mb-0">{{ $Newsitem->title }}</h3>
-                                    <span class="text-gray-400 text-sm">{{ $Newsitem->created_at->format('d/m/Y H:i:s') }}</span>
-                                    <p class="text-sm text-gray-500 hidden md:block">{{ Str::limit($Newsitem->excerpt, 75) }}</p>
+                                    <h3 class="font-bold text-gray-900 mb-0">{{ $newsItem->title }}</h3>
+                                    <span class="text-gray-400 text-sm">{{ $newsItem->created_at->format('d/m/Y H:i:s') }}</span>
+                                    <p class="text-sm text-gray-500 hidden md:block">{{ Str::limit($newsItem->excerpt, 75) }}</p>
                                 </div>
                             </div>
                         </td>
-                        <td class="px-6 py-4 hidden sm:table-cell">{{ $Newsitem->watch }}</td>
-                        <td class="px-6 py-4 hidden md:table-cell">{{ $Newsitem->category->name ?? 'Không xác định' }}</td>
+                        <td class="px-6 py-4 hidden sm:table-cell">{{ $newsItem->watch }}</td>
+                        <td class="px-6 py-4 hidden md:table-cell">{{ $newsItem->category->name ?? 'Không xác định' }}</td>
                         <td class="px-6 py-2 hidden sm:table-cell">
-                            <form action="{{ route('dashboard.news.toggle', $Newsitem->id) }}" method="POST" class="mb-0">
+                            <form action="{{ route('dashboard.news.toggle', $newsItem->id) }}" method="POST" class="mb-0">
                                 @csrf
                                 @method('PUT')
                                 <button type="submit">
-                                    <span style="font-size: 32px;" class="material-symbols-rounded {{ $Newsitem->active ? 'text-green-600' : 'text-gray-600' }}">
-                                        {{ $Newsitem->active ? 'toggle_on' : 'toggle_off' }}
+                                    <span style="font-size: 32px;" class="material-symbols-rounded {{ $newsItem->active ? 'text-green-600' : 'text-gray-600' }}">
+                                        {{ $newsItem->active ? 'toggle_on' : 'toggle_off' }}
                                     </span>
                                 </button>
                             </form>
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex justify-start">
-                                <a href="{{ route('dashboard.news.edit', $Newsitem->id) }}" class="inline-flex rounded-md font-medium text-yellow-500 border border-1 p-1 hover:underline mx-2">
+                                <a href="{{ route('dashboard.news.edit', $newsItem->id) }}" class="inline-flex rounded-md font-medium text-yellow-500 border border-1 p-1 hover:underline mx-2">
                                     <span class="material-symbols-rounded">edit_square</span>
                                 </a>
-                                <button class="inline-flex rounded-md font-medium text-red-500 border p-1 hover:underline btn-open-modal-confirm-delete" data-id="{{ $Newsitem->id }}">
+                                <button class="inline-flex rounded-md font-medium text-red-500 border p-1 hover:underline btn-open-modal-confirm-delete" data-id="{{ $newsItem->id }}">
                                     <span class="material-symbols-rounded">delete</span>
                                 </button>
                             </div>
@@ -112,21 +112,7 @@
             </tbody>
         </table>
         {{-- Pagination --}}
-        <div class="flex flex-wrap justify-center gap-5 items-center mt-3 px-2">
-            <span class="text-sm text-gray-500">
-                Hiển thị {{ $newsList->firstItem() }}-{{ $newsList->lastItem() }}/{{ $newsList->total() }} dòng
-            </span>
-            <div class="flex items-center gap-1">
-                @if ($newsList->lastPage() > 1)
-                    {{
-                        $newsList->appends(['limit-row-length' => $perPage, 'search' => request('search')])
-                        ->links('vendor.pagination.tailwind')
-                    }}
-                @else
-                    <span class="text-gray-400 text-sm">Chỉ có 1 trang</span>
-                @endif
-            </div>
-        </div>
+        <x-pagination :paginator="$newsList" />
     </div>
 </div>
 <div id="modal-confirm-delete" class="fixed inset-0 z-[1000] hidden items-center justify-center bg-black/50">
@@ -164,44 +150,47 @@
     </div>
 </div>
 @endsection
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const modal = document.getElementById('modal-confirm-delete');
-        const btnOpen = document.querySelectorAll('.btn-open-modal-confirm-delete');
-        const btnCancel = document.getElementById('btn-cancel-modal-confirm-delete');
-        const form = document.getElementById('delete-news-form');
 
-        const openModal = (e) => {
-            const newsId = e.dataset.id;
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('modal-confirm-delete');
+            const btnOpen = document.querySelectorAll('.btn-open-modal-confirm-delete');
+            const btnCancel = document.getElementById('btn-cancel-modal-confirm-delete');
+            const form = document.getElementById('delete-news-form');
 
-            const currentRow = e.closest('tr');
-            const fullname = currentRow.querySelector('td:nth-child(2) h3').textContent;
+            const openModal = (e) => {
+                const newsId = e.dataset.id;
 
-            document.getElementById('delete-news').textContent = fullname;
+                const currentRow = e.closest('tr');
+                const fullname = currentRow.querySelector('td:nth-child(2) h3').textContent;
 
-            // Set form action
-            form.action = `/dashboard/news/${newsId}`;
+                document.getElementById('delete-news').textContent = fullname;
 
-            modal.classList.remove('hidden');
-        };
+                // Set form action
+                form.action = `/dashboard/news/${newsId}`;
 
-        const closeModal = () => {
-            document.getElementById('delete-news').textContent = '';
-            form.action = `/dashboard/news`;
-            modal.classList.add('hidden');
-        };
+                modal.classList.remove('hidden');
+            };
 
-        btnOpen.forEach(button => {
-            button.addEventListener('click', () => openModal(button));
+            const closeModal = () => {
+                document.getElementById('delete-news').textContent = '';
+                form.action = `/dashboard/news`;
+                modal.classList.add('hidden');
+            };
+
+            btnOpen.forEach(button => {
+                button.addEventListener('click', () => openModal(button));
+            });
+
+            btnCancel.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeModal();
+            });
         });
-
-        btnCancel.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
-    });
-</script>
+    </script>
+@endpush
