@@ -19,24 +19,25 @@ class ProductsController extends Controller
 	 */
 	public function index(Request $request)
 	{
+		$perPage = $request->input('limit-row-length', 10);
+        $search = $request->get('search');
+
 		$query = Product::with(['category', 'images', 'variants']);
 
 		// Search functionality
-		if ($request->has('search') && !empty($request->search)) {
-			$searchTerm = $request->search;
-			$query->where(function ($q) use ($searchTerm) {
-				$q->where('name', 'like', "%{$searchTerm}%")
-					->orWhereHas('category', function ($q) use ($searchTerm) {
-						$q->where('name', 'like', "%{$searchTerm}%");
+		if ($search) {
+			$query->where(function ($q) use ($search) {
+				$q->where('name', 'like', "%{$search}%")
+					->orWhereHas('category', function ($q) use ($search) {
+						$q->where('name', 'like', "%{$search}%");
 					});
 			});
 		}
 
 		// Pagination
-		$perPage = $request->input('per_page', 10);
 		$products = $query->paginate($perPage);
 
-		return view('pages.admin.products.index', compact('products'));
+		return view('pages.admin.products.index', compact('products', 'perPage'));
 	}
 
 	/**

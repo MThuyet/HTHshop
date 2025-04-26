@@ -114,21 +114,7 @@
             </tbody>
         </table>
         {{-- Pagination --}}
-        <div class="flex flex-wrap justify-center gap-5 items-center mt-3 px-2">
-            <span class="text-sm text-gray-500">
-                Hiển thị {{ $newsCategories->firstItem() }}-{{ $newsCategories->lastItem() }}/{{ $newsCategories->total() }} dòng
-            </span>
-            <div class="flex items-center gap-1">
-                @if ($newsCategories->lastPage() > 1)
-                    {{ 
-                        $newsCategories->appends(['limit-row-length' => $perPage, 'search' => request('search')])
-                        ->links('vendor.pagination.tailwind') 
-                    }}
-                @else
-                    <span class="text-gray-400 text-sm">Chỉ có 1 trang</span>
-                @endif
-            </div>
-        </div>
+        <x-pagination :paginator="$newsCategories" />
     </div>
 </div>
 

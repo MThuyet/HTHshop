@@ -91,87 +91,23 @@
                 </div>
             </div>
 
-            {{-- Chi tiết tin tức --}}
-            <div class="grid lg:grid-cols-3 items-center">
-                {{-- Thông tin cơ bản --}}
-                <div
-                    class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 items-center justify-between gap-7 p-6 bg-gray-200 rounded-lg shadow-md">
-                    <div>
-                        <div class="flex justify-between mb-3">
-                            <span class="inline-block px-3 py-1 rounded font-bold text-xs capitalize bg-red-600 text-white">
-                                {{ $news->category->name }}
-                            </span>
-                            <p class="font-semibold">Ngày {{ $news->created_at->format('d/m/Y') }}</p>
-                        </div>
-                        <h2 class="text-lg font-bold uppercase line-clamp-1 break-words mb-2">
-                            {{ $news->title }}
-                        </h2>
-                        <p class="line-clamp-2 text-ellipsis overflow-clip break-words mb-2">
-                            {!! $news->excerpt !!}
-                        </p>
-                    </div>
-
-                    <img title="{{ $news->title }}" src="{{ asset('storage/' . $news->thumbnail) }}"
-                        alt="{{ $news->title }}" class="w-full h-auto aspect-[5/3] object-cover object-center rounded" />
+            {{-- Nội dung chính --}}
+            <div class="lg:col-span-3 responsive">
+                <div class="mb-4">
+                    <h1 class="uppercase text-[25px] tracking-widest mb-6">{{ $news->title }}</h1>
+                    <p class="text-sm text-gray-500">Ngày {{ $news->created_at->format('d/m/Y') }}</p>
                 </div>
 
-                {{-- Thông tin thêm --}}
-                <div class="bg-gray-50 p-4 rounded-lg shadow-sm">
-                    <h3 class="text-lg font-semibold border-b pb-2 mb-4 text-gray-700">Thông tin thêm</h3>
-
-                    <div class="space-y-4">
-                        <div class="flex flex-col md:flex-row">
-                            <span class="w-full md:w-2/3 font-medium text-gray-600">Lượt xem:</span>
-                            <span class="w-full md:w-2/3 text-gray-900">{{ $news->watch }}
-                            </span>
-                        </div>
-
-                        <div class="flex flex-col md:flex-row">
-                            <span class="w-full md:w-2/3 font-medium text-gray-600">Người tạo:</span>
-                            <span
-                                class="w-full md:w-2/3 text-gray-900">{{ $news->createdBy?->fullname ?? 'Không xác định' }}
-                            </span>
-                        </div>
-
-                        <div class="flex flex-col md:flex-row">
-                            <span class="w-full md:w-2/3 font-medium text-gray-600">Ngày tạo:</span>
-                            <span
-                                class="w-full md:w-2/3 text-gray-900">{{ $news->created_at->format('d/m/Y H:i:s') }}</span>
-                        </div>
-
-                        <div class="flex flex-col md:flex-row">
-                            <span class="w-full md:w-2/3 font-medium text-gray-600">Người cập nhật lần cuối:</span>
-                            <span
-                                class="w-full md:w-2/3 text-gray-900">{{ $news->updatedBy?->fullname ?? 'Không xác định' }}
-                            </span>
-                        </div>
-
-                        <div class="flex flex-col md:flex-row">
-                            <span class="w-full md:w-2/3 font-medium text-gray-600">Cập nhật lần cuối:</span>
-                            <span
-                                class="w-full md:w-2/3 text-gray-900">{{ $news->updated_at->format('d/m/Y H:i:s') }}</span>
-                        </div>
-                    </div>
+                <div class="mb-4">
+                    <img src="{{ asset('storage/' . $news->thumbnail) }}" alt="{{ $news->title }}">
                 </div>
 
-                {{-- Nội dung chính --}}
-                <div class="lg:col-span-3 responsive">
-                    <div class="mb-4">
-                        <h1 class="uppercase text-[25px] tracking-widest mb-6">{{ $news->title }}</h1>
-                        <p class="text-sm text-gray-500">Ngày {{ $news->created_at->format('d/m/Y') }}</p>
-                    </div>
+                <div class="news-excerpt mb-4 italic">
+                    <p>{!! $news->excerpt !!}</p>
+                </div>
 
-                    <div class="mb-4">
-                        <img src="{{ asset('storage/' . $news->thumbnail) }}" alt="{{ $news->title }}">
-                    </div>
-
-                    <div class="news-excerpt mb-4 italic">
-                        <p>{!! $news->excerpt !!}</p>
-                    </div>
-
-                    <div class="news-full-content">
-                        {!! $news->content !!}
-                    </div>
+                <div class="news-full-content">
+                    {!! $news->content !!}
                 </div>
             </div>
         </div>

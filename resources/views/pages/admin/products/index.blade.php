@@ -27,12 +27,12 @@
             </div>
 
             <div class="flex gap-4">
-                <select name="table-row-length" onchange="this.form.submit()"
+                <select name="limit-row-length" onchange="this.form.submit()"
                     class="bg-gray-50 border border-gray-300 text-gray-900 rounded-md text-sm focus:ring-blue-500 focus:border-blue-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="10" {{ request('per_page', 10) == 10 ? 'selected' : '' }}>10 Dòng</option>
-                    <option value="15" {{ request('per_page', 10) == 15 ? 'selected' : '' }}>15 Dòng</option>
-                    <option value="20" {{ request('per_page', 10) == 20 ? 'selected' : '' }}>20 Dòng</option>
-                    <option value="25" {{ request('per_page', 10) == 25 ? 'selected' : '' }}>25 Dòng</option>
+                    <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10 Dòng</option>
+                    <option value="15" {{ $perPage == 15 ? 'selected' : '' }}>15 Dòng</option>
+                    <option value="20" {{ $perPage == 20 ? 'selected' : '' }}>20 Dòng</option>
+                    <option value="25" {{ $perPage == 25 ? 'selected' : '' }}>25 Dòng</option>
                 </select>
 
                 <a href="{{ route('admin.products.create') }}"
@@ -134,70 +134,7 @@
                 </tbody>
             </table>
             {{-- Pagination --}}
-            @if ($products->hasPages())
-                <div class="flex flex-wrap justify-center gap-5 items-center mt-3 px-2">
-                    <span class="text-sm text-gray-500">
-                        Hiển thị
-                        {{ $products->firstItem() ?? 0 }}-{{ $products->lastItem() ?? 0 }}/{{ $products->total() }} dòng
-                    </span>
-                    <div class="flex items-center gap-1">
-                        @if ($products->onFirstPage())
-                            <span
-                                class="flex items-center justify-center border border-1 px-1 py-1 rounded-md text-gray-400">
-                                <span class="material-symbols-rounded">first_page</span>
-                            </span>
-                            <span
-                                class="flex items-center justify-center border border-1 px-1 py-1 rounded-md text-gray-400">
-                                <span class="material-symbols-rounded">chevron_left</span>
-                            </span>
-                        @else
-                            <a href="{{ $products->url(1) }}"
-                                class="flex items-center justify-center border border-1 px-1 py-1 rounded-md hover:border-[#333]">
-                                <span class="material-symbols-rounded">first_page</span>
-                            </a>
-                            <a href="{{ $products->previousPageUrl() }}"
-                                class="flex items-center justify-center border border-1 px-1 py-1 rounded-md hover:border-[#333]">
-                                <span class="material-symbols-rounded">chevron_left</span>
-                            </a>
-                        @endif
-
-                        @foreach ($products->getUrlRange(max(1, $products->currentPage() - 2), min($products->lastPage(), $products->currentPage() + 2)) as $page => $url)
-                            <a href="{{ $url }}"
-                                class="flex items-center justify-center border border-1 px-3 py-1 rounded-md {{ $page == $products->currentPage() ? 'border-[#333]' : 'hover:border-[#333]' }}">
-                                {{ $page }}
-                            </a>
-                        @endforeach
-
-                        @if ($products->currentPage() < $products->lastPage() - 2)
-                            <span class="flex items-center justify-center border border-1 px-3 py-1 rounded-md">...</span>
-                            <a href="{{ $products->url($products->lastPage()) }}"
-                                class="flex items-center justify-center border border-1 px-3 py-1 rounded-md hover:border-[#333]">
-                                {{ $products->lastPage() }}
-                            </a>
-                        @endif
-
-                        @if ($products->hasMorePages())
-                            <a href="{{ $products->nextPageUrl() }}"
-                                class="flex items-center justify-center border border-1 px-1 py-1 rounded-md hover:border-[#333]">
-                                <span class="material-symbols-rounded">chevron_right</span>
-                            </a>
-                            <a href="{{ $products->url($products->lastPage()) }}"
-                                class="flex items-center justify-center border border-1 px-1 py-1 rounded-md hover:border-[#333]">
-                                <span class="material-symbols-rounded">last_page</span>
-                            </a>
-                        @else
-                            <span
-                                class="flex items-center justify-center border border-1 px-1 py-1 rounded-md text-gray-400">
-                                <span class="material-symbols-rounded">chevron_right</span>
-                            </span>
-                            <span
-                                class="flex items-center justify-center border border-1 px-1 py-1 rounded-md text-gray-400">
-                                <span class="material-symbols-rounded">last_page</span>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-            @endif
+            <x-pagination :paginator="$products" />
         </div>
     </div>
 
