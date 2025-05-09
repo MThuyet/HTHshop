@@ -53,7 +53,9 @@ class OrdersController extends Controller
 		return redirect('/')->with('toast', [
 			'icon' => 'success',
 			'title' => 'Đặt hàng thành công!',
-			'message' => 'Đặt hàng thành công!'
+			'text' => 'Cảm ơn bạn đã đặt hàng. HTH Clothes sẽ sớm liên hệ với bạn để xác nhận đơn hàng',
+			'timer' => 5000
 		]);
+
 	}
 }

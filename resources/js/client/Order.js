@@ -419,6 +419,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             districtText;
                         wardContainer.querySelector("h5").textContent =
                             wardText;
+
+                        provinceDropdown.classList.add('hidden');
                     });
                 });
 
@@ -491,6 +493,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     inputHiddenDistrict.value = "";
                     resetWard();
                 }
+                districtDropdown.classList.add('hidden');
             }
 
             function handleWardClick(event) {
@@ -512,6 +515,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         liWardElement,
                         wardDropdown.querySelector("div > li").nextSibling
                     );
+                wardDropdown.classList.add('hidden');
             }
         })
         .catch((error) => {

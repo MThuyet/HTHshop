@@ -56,7 +56,7 @@
                     <input
                         class="border border-1 border-[#d9d9d9] block w-full h-[48px] px-[12px] rounded-[4px]
                     text-[13px] focus-visible:outline-[#66afe9]"
-                        type="tel" name="phone" placeholder="Số điện thoại" pattern="0[0-9]{9,10}$" required>
+                        type="tel" name="phone" placeholder="Số điện thoại zalo" pattern="0[0-9]{9,10}$" required>
                     <small class="error-message text-[var(--red-color)]"></small>
                 </div>
                 <div class="mb-[10px]">
@@ -166,7 +166,10 @@
                     <h4>Miễn phí</h4>
                 </div>
 
-                <h2 class="text-lg font-bold mb-[8px]">Thanh toán</h2>
+                <div class="flex items-center gap-2 text-lg font-bold mb-[8px]"><span style="font-size: 30px"
+                        class="material-symbols-rounded">
+                        account_balance_wallet
+                    </span> Thanh toán</div>
                 <div
                     class="flex items-center justify-between border border-1 border-[#d9d9d9] block w-full h-[48px] px-[12px] mb-[10px] rounded-[4px]
                     text-[13px]">
@@ -180,6 +183,14 @@
                         payments
                     </span>
                 </div>
+
+                <div class="flex items-center gap-2 text-lg font-bold mb-[8px]"><span style="font-size: 30px"
+                    class="material-symbols-rounded">
+                    notifications
+                </span> Lưu ý</div>
+                <p class="border border-1 border-[#d9d9d9] p-[12px] mb-[10px] rounded-[4px] text-[15px] bg-yellow-200">
+                    Sau khi bạn đặt hàng, <b>HTH Clothes</b> sẽ <b>liên hệ lại</b> với bạn qua <b>Zalo hoặc Email</b> để xác nhận và trao đổi thêm thông tin đơn hàng. Vui lòng để ý tin nhắn hoặc email nhé!
+                </p>
             </div>
         </main>
         <aside class="flex-[2] px-[20px] pb-[20px] lg:py-[20px] bg-[#FAFAFA] border-l-[1px] border-l-[#e1e1e1]">
