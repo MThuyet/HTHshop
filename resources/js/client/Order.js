@@ -83,15 +83,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 const itemTotal = item.price * item.quantity;
                 totalPrice += itemTotal;
 
+                // Ưu tiên hiển thị ảnh tùy chỉnh nếu có
+                const displayImage = item.customImageBase64 || item.image;
+
                 return `
                 <div class="flex items-center border-b mr-[16px] mb-4 py-2">
-                    <img src="${item.image}" alt="${item.productName}"
+                    <img src="${displayImage}" alt="${item.productName}"
                         class="w-24 h-24 rounded-md object-cover">
                     <div class="ml-4 flex-1">
                         <h3 class="font-semibold">${item.productName}</h3>
                         <p class="text-sm text-gray-500">${item.size} / ${
-                    item.color
+                    colorMap[item.color] || item.color
                 }</p>
+                        <p class="text-sm text-gray-500">Vị trí in: ${
+                            printPositionMap[item.printPosition] ||
+                            item.printPosition
+                        }</p>
                         <p class="mt-1">
                             <b>${item.price.toLocaleString()}đ</b>
                             <span class="text-[var(--orange-color)] font-semibold ml-2">x${
@@ -420,7 +427,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         wardContainer.querySelector("h5").textContent =
                             wardText;
 
-                        provinceDropdown.classList.add('hidden');
+                        provinceDropdown.classList.add("hidden");
                     });
                 });
 
@@ -493,7 +500,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     inputHiddenDistrict.value = "";
                     resetWard();
                 }
-                districtDropdown.classList.add('hidden');
+                districtDropdown.classList.add("hidden");
             }
 
             function handleWardClick(event) {
@@ -515,7 +522,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         liWardElement,
                         wardDropdown.querySelector("div > li").nextSibling
                     );
-                wardDropdown.classList.add('hidden');
+                wardDropdown.classList.add("hidden");
             }
         })
         .catch((error) => {

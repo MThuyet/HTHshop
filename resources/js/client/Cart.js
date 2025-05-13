@@ -91,31 +91,39 @@ document.addEventListener("DOMContentLoaded", function () {
             cartItem.querySelector(".remove-item").dataset.index = index;
 
             // Handle custom image
-            if (item.customImagePath) {
+            if (item.customImagePath || item.customImageBase64) {
                 const customImageContainer = cartItem.querySelector(
                     ".cart-item-custom-image-container"
                 );
                 customImageContainer.classList.remove("hidden");
 
-                // Chuyển đổi đường dẫn uploads/... thành URL đầy đủ
-                let imgSrc = item.customImagePath;
+                if (item.customImageBase64) {
+                    // Sử dụng trực tiếp base64 image
+                    cartItem.querySelector(".cart-item-custom-image").src =
+                        item.customImageBase64;
+                } else if (item.customImagePath) {
+                    // Chuyển đổi đường dẫn uploads/... thành URL đầy đủ
+                    let imgSrc = item.customImagePath;
 
-                // Nếu đường dẫn đã là URL đầy đủ, giữ nguyên
-                if (!imgSrc.startsWith("http")) {
-                    // Nếu chỉ là tên file trong uploads, thêm /storage/ vào trước
-                    if (imgSrc.startsWith("uploads/")) {
-                        imgSrc = "/storage/" + imgSrc;
+                    // Nếu đường dẫn đã là URL đầy đủ, giữ nguyên
+                    if (!imgSrc.startsWith("http")) {
+                        // Nếu chỉ là tên file trong uploads, thêm /storage/ vào trước
+                        if (imgSrc.startsWith("uploads/")) {
+                            imgSrc = "/storage/" + imgSrc;
+                        }
+                        // Nếu bắt đầu bằng /, đảm bảo thêm domain
+                        if (imgSrc.startsWith("/")) {
+                            imgSrc = window.location.origin + imgSrc;
+                        } else {
+                            // Trường hợp còn lại, thêm đầy đủ đường dẫn
+                            imgSrc =
+                                window.location.origin + "/storage/" + imgSrc;
+                        }
                     }
-                    // Nếu bắt đầu bằng /, đảm bảo thêm domain
-                    if (imgSrc.startsWith("/")) {
-                        imgSrc = window.location.origin + imgSrc;
-                    } else {
-                        // Trường hợp còn lại, thêm đầy đủ đường dẫn
-                        imgSrc = window.location.origin + "/storage/" + imgSrc;
-                    }
+
+                    cartItem.querySelector(".cart-item-custom-image").src =
+                        imgSrc;
                 }
-
-                cartItem.querySelector(".cart-item-custom-image").src = imgSrc;
             }
 
             cartContainer.appendChild(cartItem);

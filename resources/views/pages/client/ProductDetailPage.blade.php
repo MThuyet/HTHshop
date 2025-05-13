@@ -18,7 +18,7 @@
             <input type="hidden" name="productVariantId" id="productVariantId"
                 value="{{ $product->variants->where('print_position', 'CENTER_CHEST_A4')->first()->id ?? '' }}">
 
-            <div class="w-full flex items-center flex-col-reverse gap-2">
+            <div class="w-full flex items-center justify-end flex-col-reverse gap-2">
                 <!-- Ảnh nhỏ (thumbnail) -->
                 <div class="flex flex-row gap-2 w-full items-center justify-center">
                     @foreach ($product->images as $index => $img)
