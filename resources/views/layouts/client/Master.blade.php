@@ -41,7 +41,7 @@
         <header>
             @include('layouts.client.Header')
         </header>
-        <main>
+        <main class="pb-20 md:pb-0">
             @yield('content')
 
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.js"></script>
