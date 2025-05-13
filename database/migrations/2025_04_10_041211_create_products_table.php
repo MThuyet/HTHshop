@@ -17,7 +17,7 @@ return new class extends Migration
 			$table->enum('type', ['ROUND_NECK', 'COLLAR_NECK']);
 			$table->string('name', 100)->unique();
 			$table->string('slug', 120)->unique();
-			$table->text('description')->nullable();
+			$table->string('description')->nullable();
 			$table->boolean('active')->default(1);
 			$table->tinyInteger('discount')->default(0);
 			$table->boolean('has_customization')->default(0);

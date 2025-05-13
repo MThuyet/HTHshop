@@ -7,12 +7,39 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class OrdersController extends Controller
 {
 	public function index()
 	{
 		return view('pages.client.OrderPage');
+	}
+
+	/**
+	 * Upload base64 image to storage and return the path
+	 */
+	private function uploadBase64Image($base64Data)
+	{
+		// Remove the data:image/xyz;base64, part
+		if (preg_match('/^data:image\/(\w+);base64,/', $base64Data, $matches)) {
+			$imageType = $matches[1];
+			$base64Data = substr($base64Data, strpos($base64Data, ',') + 1);
+			$decodedData = base64_decode($base64Data);
+
+			if ($decodedData === false) {
+				return null;
+			}
+
+			$filename = 'custom_' . time() . '_' . Str::random(10) . '.' . $imageType;
+			$path = 'uploads/' . $filename;
+
+			Storage::disk('public')->put($path, $decodedData);
+
+			return $path;
+		}
+
+		return null;
 	}
 
 	public function store(Request $request)
@@ -39,13 +66,21 @@ class OrdersController extends Controller
 
 		// Lưu từng sản phẩm trong giỏ hàng vào bảng OrderDetail
 		foreach ($cartItems as $item) {
+			// Xử lý upload ảnh từ base64 nếu có
+			$customImagePath = $item['customImagePath'] ?? null;
+
+			// Nếu có base64 image, upload và lưu đường dẫn
+			if (!$customImagePath && isset($item['customImageBase64']) && $item['customImageBase64']) {
+				$customImagePath = $this->uploadBase64Image($item['customImageBase64']);
+			}
+
 			OrderDetail::create([
 				'order_id' => $order->id,
 				'product_variant_id' => $item['productVariantId'],
 				'quantity'       => $item['quantity'],
 				'color'          => $item['color'],
 				'size'           => $item['size'],
-				'custom_image'   => $item['customImagePath'] ?? null,
+				'custom_image'   => $customImagePath,
 			]);
 		}
 
@@ -56,6 +91,5 @@ class OrdersController extends Controller
 			'text' => 'Cảm ơn bạn đã đặt hàng. HTH Clothes sẽ sớm liên hệ với bạn để xác nhận đơn hàng',
 			'timer' => 5000
 		]);
-
 	}
 }

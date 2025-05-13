@@ -242,58 +242,16 @@ document.addEventListener("DOMContentLoaded", function () {
             const form = document.getElementById("productDetailForm");
             const formData = new FormData(form);
 
+            // Lấy dữ liệu từ form
             const customImageCheckbox = document.getElementById("customImage");
-            const uploadImageInput = document.getElementById("uploadImage");
+            const hasCustomImage =
+                customImageCheckbox && customImageCheckbox.checked;
 
-            // Chỉ xử lý upload ảnh nếu các phần tử tồn tại và được chọn
-            if (
-                customImageCheckbox &&
-                customImageCheckbox.checked &&
-                uploadImageInput &&
-                uploadImageInput.files.length > 0
-            ) {
-                const imageFormData = new FormData();
-                imageFormData.append("image", uploadImageInput.files[0]);
-
-                fetch("/upload-image", {
-                    method: "POST",
-                    body: imageFormData,
-                    headers: {
-                        "X-CSRF-TOKEN": document
-                            .querySelector('meta[name="csrf-token"]')
-                            .getAttribute("content"),
-                    },
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        if (data.path) {
-                            storeCartItem(formData, data.path);
-                        } else {
-                            Swal.fire({
-                                icon: "error",
-                                title: "HTH Shop",
-                                text: "Có lỗi xảy ra khi upload ảnh",
-                                toast: true,
-                                position: "top-end",
-                                showConfirmButton: false,
-                                timer: 3000,
-                            });
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("Lỗi khi upload ảnh:", error);
-                        Swal.fire({
-                            icon: "error",
-                            title: "HTH Shop",
-                            text: "Có lỗi xảy ra khi upload ảnh",
-                            toast: true,
-                            position: "top-end",
-                            showConfirmButton: false,
-                            timer: 3000,
-                        });
-                    });
+            // Nếu có ảnh tùy chỉnh, lưu base64 vào giỏ hàng
+            if (hasCustomImage && uploadedImageBase64) {
+                storeCartItem(formData, null, false, uploadedImageBase64);
             } else {
-                storeCartItem(formData, null);
+                storeCartItem(formData, null, false, null);
             }
         });
 
@@ -308,69 +266,31 @@ document.addEventListener("DOMContentLoaded", function () {
             const form = document.getElementById("productDetailForm");
             const formData = new FormData(form);
             const customImageCheckbox = document.getElementById("customImage");
-            const uploadImageInput = document.getElementById("uploadImage");
+            const hasCustomImage =
+                customImageCheckbox && customImageCheckbox.checked;
 
             // Hàm để chuyển hướng đến trang đặt hàng
             function redirectToCheckout() {
                 window.location.href = "/dat-hang";
             }
 
-            // Chỉ xử lý upload ảnh nếu các phần tử tồn tại và được chọn
-            if (
-                customImageCheckbox &&
-                customImageCheckbox.checked &&
-                uploadImageInput &&
-                uploadImageInput.files.length > 0
-            ) {
-                const imageFormData = new FormData();
-                imageFormData.append("image", uploadImageInput.files[0]);
-
-                fetch("/upload-image", {
-                    method: "POST",
-                    body: imageFormData,
-                    headers: {
-                        "X-CSRF-TOKEN": document
-                            .querySelector('meta[name="csrf-token"]')
-                            .getAttribute("content"),
-                    },
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        if (data.path) {
-                            storeCartItem(formData, data.path, true);
-                            redirectToCheckout();
-                        } else {
-                            Swal.fire({
-                                icon: "error",
-                                title: "HTH Shop",
-                                text: "Có lỗi xảy ra khi upload ảnh",
-                                toast: true,
-                                position: "top-end",
-                                showConfirmButton: false,
-                                timer: 3000,
-                            });
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("Lỗi khi upload ảnh:", error);
-                        Swal.fire({
-                            icon: "error",
-                            title: "HTH Shop",
-                            text: "Có lỗi xảy ra khi upload ảnh",
-                            toast: true,
-                            position: "top-end",
-                            showConfirmButton: false,
-                            timer: 3000,
-                        });
-                    });
+            // Nếu có ảnh tùy chỉnh, lưu base64 vào giỏ hàng
+            if (hasCustomImage && uploadedImageBase64) {
+                storeCartItem(formData, null, true, uploadedImageBase64);
+                redirectToCheckout();
             } else {
-                storeCartItem(formData, null, true);
+                storeCartItem(formData, null, true, null);
                 redirectToCheckout();
             }
         });
     }
 
-    function storeCartItem(formData, imagePath, skipAlert = false) {
+    function storeCartItem(
+        formData,
+        imagePath,
+        skipAlert = false,
+        imageBase64 = null
+    ) {
         const cartItem = {
             productId: formData.get("productId"),
             productVariantId: formData.get("productVariantId"),
@@ -381,7 +301,8 @@ document.addEventListener("DOMContentLoaded", function () {
             size: formData.get("size"),
             quantity: parseInt(formData.get("quantity")),
             customImagePath: imagePath || null,
-            price: parseInt(formData.get("price")), // Lấy giá động
+            customImageBase64: imageBase64,
+            price: parseInt(formData.get("price")),
         };
 
         // Sử dụng CartManager để thêm vào giỏ hàng (nếu có)
@@ -396,7 +317,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     item.color === cartItem.color &&
                     item.printPosition === cartItem.printPosition &&
                     item.size === cartItem.size &&
-                    item.customImagePath === cartItem.customImagePath
+                    ((!item.customImageBase64 && !cartItem.customImageBase64) ||
+                        item.customImageBase64 === cartItem.customImageBase64)
             );
 
             if (existingItemIndex !== -1) {

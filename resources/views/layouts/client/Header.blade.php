@@ -30,7 +30,7 @@
                 <div class="header-logo flex items-center cursor-pointer">
                     <img class="w-16 h-auto" src="{{ asset('images/logo-header-crop.png') }}" alt="Logo">
                     <div class="ml-2">
-                        <p class="text-nowrap text-lg lg:text-xl text-[#0576a9] font-bold">HTH Clothes</p>
+                        <p class="text-nowrap text-lg lg:text-xl text-orangeColor font-bold">HTH Clothes</p>
                         <p class="text-gray-500 text-xs">Thời trang cho mọi người</p>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                             type="text" placeholder="Tìm kiếm sản phẩm..." name="searchValue"
                             value="{{ old('searchValue', request('searchValue')) }}" autocomplete="off">
                         <button type="submit"
-                            class="absolute right-1 top-1/2 -translate-y-1/2 bg-orangeColor text-white p-2 rounded-full hover:bg-orange-600 transition-colors aspect-square w-10 h-10 flex items-center justify-center overflow-hidden">
+                            class="absolute right-2 top-1/2 -translate-y-1/2 bg-orangeColor text-white p-2 rounded-full hover:bg-orange-600 transition-colors aspect-square w-10 h-10 flex items-center justify-center overflow-hidden">
                             <span class="material-symbols-rounded" style="font-size: 24px">search</span>
                         </button>
                     </div>
@@ -130,6 +130,7 @@
                             <span id="headerCartCountMobile"
                                 class="absolute -top-1 -right-1 bg-redColor text-white w-5 h-5 flex items-center justify-center rounded-full text-xs">0</span>
                         </div>
+                        <span class="text-xs">Giỏ hàng</span>
                     </a>
 
                     {{-- Yêu thích --}}
@@ -141,6 +142,7 @@
                             <span id="headerFavoriteCountMobile"
                                 class="absolute -top-1 -right-1 bg-redColor text-white w-5 h-5 flex items-center justify-center rounded-full text-xs">0</span>
                         </div>
+                        <span class="text-xs">Yêu thích</span>
                     </a>
                 </div>
             </div>
