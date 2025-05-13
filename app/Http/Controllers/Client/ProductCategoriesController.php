@@ -11,11 +11,11 @@ class ProductCategoriesController extends Controller
 {
 	public function index(Request $request)
 	{
-		// Lấy toàn bộ danh mục sản phẩm để hiển thị checkbox filter
-		$categories = ProductCategory::all();
+		// Lấy toàn bộ danh mục sản phẩm đang active để hiển thị checkbox filter
+		$categories = ProductCategory::where('active', 1)->get();
 
-		// Khởi tạo query builder cho model Product
-		$query = Product::query();
+		// Khởi tạo query builder cho model Product với điều kiện active
+		$query = Product::where('active', 1);
 
 		// Biến lưu giá trị filter đã chọn để truyền lại view (phục vụ checked lại checkbox)
 		$selectedCategories = [];
@@ -39,13 +39,26 @@ class ProductCategoriesController extends Controller
 
 			// Nếu có chọn danh mục thì lọc theo danh mục
 			if (!empty($selectedCategories)) {
-				$query->whereIn('product_category_id', $selectedCategories);
+				// Đảm bảo chỉ lấy các sản phẩm từ các danh mục active
+				$query->whereIn('product_category_id', function ($subquery) use ($selectedCategories) {
+					$subquery->select('id')
+						->from('product_categories')
+						->whereIn('id', $selectedCategories)
+						->where('active', 1);
+				});
 			}
 
 			// Nếu có chọn loại cổ áo thì lọc theo cổ áo
 			if (!empty($selectedNeckTypes)) {
 				$query->whereIn('type', $selectedNeckTypes);
 			}
+		} else {
+			// Mặc định chỉ lấy sản phẩm từ các danh mục active
+			$query->whereIn('product_category_id', function ($subquery) {
+				$subquery->select('id')
+					->from('product_categories')
+					->where('active', 1);
+			});
 		}
 
 		// Thực hiện truy vấn, lấy danh sách sản phẩm đã lọc (hoặc tất cả nếu không có filter)

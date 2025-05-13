@@ -30,10 +30,14 @@ Route::post('/upload-image', [Client\ProductDetailsController::class, 'uploadIma
 Route::post('/products/{product_slug}/reviews', [Client\ProductDetailsController::class, 'storeReview'])->name('reviews.store');
 
 // ========================== WISH LIST ========================== //
-Route::get('/yeu-thich', function () {return view('pages.client.FavoritePage');})->name('favorite');
+Route::get('/yeu-thich', function () {
+    return view('pages.client.FavoritePage');
+})->name('favorite');
 
 // ========================== CART ========================== //
-Route::get('/gio-hang', function () {return view('pages.client.CartPage');})->name('cart');
+Route::get('/gio-hang', function () {
+    return view('pages.client.CartPage');
+})->name('cart');
 
 // ========================== ORDER ========================== //
 Route::get('/dat-hang', [Client\OrdersController::class, 'index'])->name('order');
@@ -41,19 +45,23 @@ Route::post('/dat-hang', [Client\OrdersController::class, 'store'])->name('order
 
 // ========================== NEWS ========================== //
 Route::prefix('tin-tuc')->group(function () {
-	Route::get('/danh-muc/{category_slug?}', [Client\NewsController::class, 'index'])->name('news.category');
-	Route::get('/{news_slug}', [Client\NewsController::class, 'detail'])->name('news.detail');
+    Route::get('/danh-muc/{category_slug?}', [Client\NewsController::class, 'index'])->name('news.category');
+    Route::get('/{news_slug}', [Client\NewsController::class, 'detail'])->name('news.detail');
 });
 
 // ========================== HỖ TRỢ ========================== //
-Route::get('/ho-tro', function () {return view('pages.client.HelpPage');})->name('help');
+Route::get('/ho-tro', function () {
+    return view('pages.client.HelpPage');
+})->name('help');
 
 // ========================== CONTACT ========================== //
 Route::get('/lien-he', [Client\ContactController::class, 'showForm'])->name('contact.show-form');
 Route::post('/lien-he', [Client\ContactController::class, 'submitForm'])->name('contact.submit-form')->middleware('throttle:2,5');
 
 // ========================== CHÍNH SÁCH ========================== //
-Route::get('/chinh-sach', function () {return view('pages.client.PolicyPage');});
+Route::get('/chinh-sach', function () {
+    return view('pages.client.PolicyPage');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -65,115 +73,117 @@ Route::get('/chinh-sach', function () {return view('pages.client.PolicyPage');})
 // Middleware `auth` => đã đăng nhập
 Route::middleware(['auth'])->group(function () {
 
-	/* Các route dùng chung của admin và staff. */
-	// ========================== USERS ========================== //
-	Route::get('/dashboard/profile', [Controllers\ProfileController::class, 'edit'])->name('dashboard.profile.edit');
-	Route::put('/dashboard/profile', [Controllers\ProfileController::class, 'update'])->name('dashboard.profile.update');
+    /* Các route dùng chung của admin và staff. */
+    // ========================== USERS ========================== //
+    Route::get('/dashboard/profile', [Controllers\ProfileController::class, 'edit'])->name('dashboard.profile.edit');
+    Route::put('/dashboard/profile', [Controllers\ProfileController::class, 'update'])->name('dashboard.profile.update');
 
-	// ========================== NEWS ========================== //
-	Route::resource('/dashboard/news', Admin\NewsController::class)->names([
-		'index' => 'dashboard.news',
-		'show' => 'dashboard.news.show',
-		'create' => 'dashboard.news.create',
-		'store' => 'dashboard.news.store',
-		'edit' => 'dashboard.news.edit',
-		'update' => 'dashboard.news.update',
-		'destroy' => 'dashboard.news.delete'
-	]);
+    // ========================== NEWS ========================== //
+    Route::resource('/dashboard/news', Admin\NewsController::class)->names([
+        'index' => 'dashboard.news',
+        'show' => 'dashboard.news.show',
+        'create' => 'dashboard.news.create',
+        'store' => 'dashboard.news.store',
+        'edit' => 'dashboard.news.edit',
+        'update' => 'dashboard.news.update',
+        'destroy' => 'dashboard.news.delete'
+    ]);
 
-	Route::put('/dashboard/news/{news}/toggle', [Admin\NewsController::class, 'toggleActive'])->name('dashboard.news.toggle');
+    Route::put('/dashboard/news/{news}/toggle', [Admin\NewsController::class, 'toggleActive'])->name('dashboard.news.toggle');
 
-	// ========================== NEWS CATEGORIES ========================== //
-	Route::resource('/dashboard/news-categories', Admin\NewsCategoriesController::class)->names([
-		'index' => 'dashboard.news-categories',
-		'show' => 'dashboard.news-categories.show',
-		'create' => 'dashboard.news-categories.create',
-		'store' => 'dashboard.news-categories.store',
-		'edit' => 'dashboard.news-categories.edit',
-		'update' => 'dashboard.news-categories.update',
-		'destroy' => 'dashboard.news-categories.delete'
-	]);
+    // ========================== NEWS CATEGORIES ========================== //
+    Route::resource('/dashboard/news-categories', Admin\NewsCategoriesController::class)->names([
+        'index' => 'dashboard.news-categories',
+        'show' => 'dashboard.news-categories.show',
+        'create' => 'dashboard.news-categories.create',
+        'store' => 'dashboard.news-categories.store',
+        'edit' => 'dashboard.news-categories.edit',
+        'update' => 'dashboard.news-categories.update',
+        'destroy' => 'dashboard.news-categories.delete'
+    ]);
 
-	Route::put('/dashboard/news-categories/{newsCategory}/toggle', [Admin\NewsCategoriesController::class, 'toggleActive'])->name('dashboard.news-categories.toggle');
+    Route::put('/dashboard/news-categories/{newsCategory}/toggle', [Admin\NewsCategoriesController::class, 'toggleActive'])->name('dashboard.news-categories.toggle');
 
-	// ========================== EDITOR ========================== //
-	Route::group(['prefix' => 'laravel-filemanager'], function () {Lfm::routes();});
+    // ========================== EDITOR ========================== //
+    Route::group(['prefix' => 'laravel-filemanager'], function () {
+        Lfm::routes();
+    });
 
-	// Middleware `auth.admin` => là admin
-	Route::middleware(['auth.admin'])->group(function () {
+    // Middleware `auth.admin` => là admin
+    Route::middleware(['auth.admin'])->group(function () {
 
-		// ========================== DASHBOARD ========================== //
-		Route::get('/admin/dashboard', [Admin\DashBoardController::class, 'index'])
-		->name('admin.dashboard');
+        // ========================== DASHBOARD ========================== //
+        Route::get('/admin/dashboard', [Admin\DashBoardController::class, 'index'])
+            ->name('admin.dashboard');
 
-		// ========================== PRODUCT CATEGORIES ========================== //
-		Route::resource('/admin/product-categories', Admin\ProductCategoriesController::class)->names([
-			'index' => 'admin.product-categories',
-			'show' => 'admin.product-categories.show',
-			'create' => 'admin.product-categories.create',
-			'store' => 'admin.product-categories.store',
-			'edit' => 'admin.product-categories.edit',
-			'update' => 'admin.product-categories.update',
-			'destroy' => 'admin.product-categories.delete'
-		]);
+        // ========================== PRODUCT CATEGORIES ========================== //
+        Route::resource('/admin/product-categories', Admin\ProductCategoriesController::class)->names([
+            'index' => 'admin.product-categories',
+            'show' => 'admin.product-categories.show',
+            'create' => 'admin.product-categories.create',
+            'store' => 'admin.product-categories.store',
+            'edit' => 'admin.product-categories.edit',
+            'update' => 'admin.product-categories.update',
+            'destroy' => 'admin.product-categories.delete'
+        ]);
 
-		Route::put('/admin/product-categories/{productCategory}/toggle', [Admin\ProductCategoriesController::class, 'toggleActive'])->name('admin.product-categories.toggle');
+        Route::put('/admin/product-categories/{productCategory}/toggle', [Admin\ProductCategoriesController::class, 'toggleActive'])->name('admin.product-categories.toggle');
 
-		// ========================== PRODUCTS ========================== //
-		Route::resource('/admin/products', Admin\ProductsController::class)->names([
-			'index' => 'admin.products',
-			'show' => 'admin.products.show',
-			'create' => 'admin.products.create',
-			'store' => 'admin.products.store',
-			'edit' => 'admin.products.edit',
-			'update' => 'admin.products.update',
-			'destroy' => 'admin.products.delete'
-		]);
+        // ========================== PRODUCTS ========================== //
+        Route::resource('/admin/products', Admin\ProductsController::class)->names([
+            'index' => 'admin.products',
+            'show' => 'admin.products.show',
+            'create' => 'admin.products.create',
+            'store' => 'admin.products.store',
+            'edit' => 'admin.products.edit',
+            'update' => 'admin.products.update',
+            'destroy' => 'admin.products.delete'
+        ]);
 
-		// active
-		Route::put('/admin/products/{product}/toggle', [Admin\ProductsController::class, 'toggleActive'])
-		->name('admin.products.toggle');
+        // active
+        Route::put('/admin/products/{product}/toggle', [Admin\ProductsController::class, 'toggleActive'])
+            ->name('admin.products.toggle');
 
-		// customization
-		Route::put('/admin/products/{product}/toggle-customization', [Admin\ProductsController::class, 'toggleCustomization'])->name('admin.products.toggle-customization');
+        // customization
+        Route::put('/admin/products/{product}/toggle-customization', [Admin\ProductsController::class, 'toggleCustomization'])->name('admin.products.toggle-customization');
 
-		// delete image
-		Route::delete('/admin/products/image/{image}', [Admin\ProductsController::class, 'deleteImage'])
-		->name('admin.products.image.delete');
+        // delete image
+        Route::delete('/admin/products/image/{image}', [Admin\ProductsController::class, 'deleteImage'])
+            ->name('admin.products.image.delete');
 
-		// ========================== ORDERS ========================== //
-		Route::resource('/admin/orders', Admin\OrdersController::class)->names([
-			'index' => 'admin.orders',
-			'show' => 'admin.orders.show',
-			'create' => 'admin.orders.create',
-			'store' => 'admin.orders.store',
-			'edit' => 'admin.orders.edit',
-			'update' => 'admin.orders.update',
-			'destroy' => 'admin.orders.delete'
-		]);
+        // ========================== ORDERS ========================== //
+        Route::resource('/admin/orders', Admin\OrdersController::class)->names([
+            'index' => 'admin.orders',
+            'show' => 'admin.orders.show',
+            'create' => 'admin.orders.create',
+            'store' => 'admin.orders.store',
+            'edit' => 'admin.orders.edit',
+            'update' => 'admin.orders.update',
+            'destroy' => 'admin.orders.delete'
+        ]);
 
-		// ========================== USERS ========================== //
-		Route::resource('/admin/users', Admin\UsersController::class)->names([
-			'index' => 'admin.users',
-			'show' => 'admin.users.show',
-			'create' => 'admin.users.create',
-			'store' => 'admin.users.store',
-			'edit' => 'admin.users.edit',
-			'update' => 'admin.users.update',
-			'destroy' => 'admin.users.delete'
-		]);
+        // ========================== USERS ========================== //
+        Route::resource('/admin/users', Admin\UsersController::class)->names([
+            'index' => 'admin.users',
+            'show' => 'admin.users.show',
+            'create' => 'admin.users.create',
+            'store' => 'admin.users.store',
+            'edit' => 'admin.users.edit',
+            'update' => 'admin.users.update',
+            'destroy' => 'admin.users.delete'
+        ]);
 
-		Route::put('/admin/users/{user}/toggle', [Admin\UsersController::class, 'toggleActive'])->name('admin.users.toggle');
+        Route::put('/admin/users/{user}/toggle', [Admin\UsersController::class, 'toggleActive'])->name('admin.users.toggle');
 
-		// ========================== TEMP API GET TOP FAVORITE PRODUCTS ========================== //
-		Route::get('/api/top-favorite-products', [Admin\DashBoardController::class, 'getTopFavoriteProducts']);
-		// ========================== TEMP API GET TOP VIEW PRODUCTS ========================== //
-		Route::get('/api/top-view-products', [Admin\DashBoardController::class, 'getTopViewProducts']);
-		// ========================== TEMP API GET TOP VIEW NEWS ========================== //
-		Route::get('/api/top-watch-news', [Admin\DashBoardController::class, 'getTopWatchNews']);
-		// ========================== TEMP API GET REVENUE DATA ========================== //
-		Route::get('/admin/revenue-chart', [Admin\DashboardController::class, 'revenueChart'])->name('admin.revenue.chart');
-		// ========================== TEMP API GET ORDER BY STATUS ========================== //
-		Route::get('/api/order-status', [Admin\DashboardController::class, 'getOrderStatusData']);
-	});
+        // ========================== TEMP API GET TOP FAVORITE PRODUCTS ========================== //
+        Route::get('/api/top-favorite-products', [Admin\DashBoardController::class, 'getTopFavoriteProducts']);
+        // ========================== TEMP API GET TOP VIEW PRODUCTS ========================== //
+        Route::get('/api/top-view-products', [Admin\DashBoardController::class, 'getTopViewProducts']);
+        // ========================== TEMP API GET TOP VIEW NEWS ========================== //
+        Route::get('/api/top-watch-news', [Admin\DashBoardController::class, 'getTopWatchNews']);
+        // ========================== TEMP API GET REVENUE DATA ========================== //
+        Route::get('/admin/revenue-chart', [Admin\DashBoardController::class, 'revenueChart'])->name('admin.revenue.chart');
+        // ========================== TEMP API GET ORDER BY STATUS ========================== //
+        Route::get('/api/order-status', [Admin\DashBoardController::class, 'getOrderStatusData']);
+    });
 });

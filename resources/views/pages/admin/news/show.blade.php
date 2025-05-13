@@ -40,7 +40,7 @@
                 <div>
                     <div class="flex justify-between mb-3">
                         <span class="inline-block px-3 py-1 rounded font-bold text-xs capitalize bg-red-600 text-white">
-                            {{ $news->category->name }}
+                            {{ $news->category?->name ?? 'Chưa phân loại' }}
                         </span>
                         <p class="font-semibold">Ngày {{ $news->created_at->format('d/m/Y') }}</p>
                     </div>

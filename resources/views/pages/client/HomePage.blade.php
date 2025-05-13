@@ -420,11 +420,10 @@
             {{-- Tin đầu tiên - nổi bật --}}
             @if ($latestNews->isNotEmpty())
                 @php $firstNews = $latestNews->first(); @endphp
-                <div class="slide-up-effect">
+                <a href="{{ route('news.detail', $firstNews->slug) }}" class="slide-up-effect">
                     <div class="overflow-hidden">
                         <img class="aspect-[4/3] object-cover hover:scale-110 duration-500 cursor-pointer"
-                            src="{{ asset('storage/images/news/' . $firstNews->thumbnail) }}"
-                            alt="{{ $firstNews->title }}">
+                            src="{{ asset('storage/' . $firstNews->thumbnail) }}" alt="{{ $firstNews->title }}">
                     </div>
                     <p class="my-2 text-[#888888] text-sm">{{ $firstNews->created_at->format('d/m/Y') }}</p>
                     <h3
@@ -434,15 +433,15 @@
                     <p class="text-[#888888] text-sm line-clamp-2">
                         {{ $firstNews->excerpt }}
                     </p>
-                </div>
+                </a>
             @endif
 
             <div class="md:flex flex-col gap-4 block">
                 @foreach ($latestNews->skip(1) as $news)
-                    <div class="md:flex gap-2 md:mt-0 mt-8 slide-up-effect">
+                    <a href="{{ route('news.detail', $news->slug) }}" class="md:flex gap-2 md:mt-0 mt-8 slide-up-effect">
                         <div class="overflow-hidden min-w-[200px]">
                             <img class="aspect-[4/3] md:w-[200px] object-cover hover:scale-110 duration-500 cursor-pointer"
-                                src="{{ asset('storage/images/news/' . $news->thumbnail) }}" alt="">
+                                src="{{ asset('storage/' . $news->thumbnail) }}" alt="">
                         </div>
                         <div>
                             <p class="mb-2 text-[#888888] text-sm">{{ $news->created_at->format('d/m/Y') }}</p>
@@ -454,7 +453,7 @@
                                 {{ $news->excerpt }}
                             </p>
                         </div>
-                    </div>
+                    </a>
                 @endforeach
             </div>
         </div>

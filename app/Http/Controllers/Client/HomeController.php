@@ -11,13 +11,13 @@ class HomeController extends Controller
 	public function index()
 	{
 		// Lấy 8 sản phẩm mới nhất
-		$latestProducts = Product::latest()->take(8)->get();
+		$latestProducts = Product::where('active', true)->latest()->take(8)->get();
 
 		// Được ưa chuộng
-		$mostFavoritedProducts = Product::orderBy('favorite', 'desc')->take(8)->get();
+		$mostFavoritedProducts = Product::where('active', true)->orderBy('favorite', 'desc')->take(8)->get();
 
 		// Top bán chạy
-		$bestSellingProducts = Product::orderBy('bought', 'desc')->take(8)->get();
+		$bestSellingProducts = Product::where('active', true)->orderBy('bought', 'desc')->take(8)->get();
 
 		// Gán hình ảnh đầu tiên cho từng sản phẩm
 		foreach ([$latestProducts, $mostFavoritedProducts, $bestSellingProducts] as $productList) {
@@ -28,7 +28,7 @@ class HomeController extends Controller
 		}
 
 		// Tin tức mới nhất
-		$latestNews = News::latest()->take(4)->get();
+		$latestNews = News::where('active', true)->latest()->take(4)->get();
 
 		return view('pages.client.HomePage', compact(
 			'latestProducts',

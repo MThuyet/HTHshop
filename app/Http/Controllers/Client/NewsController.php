@@ -14,41 +14,49 @@ class NewsController extends Controller
 	{
 		$perPage = 6;
 
-		$newsCategories = NewsCategory::whereHas('news')->select(['name', 'slug'])->get();
+		// Chỉ lấy danh mục có active = 1 và có tin tức với active = 1
+		$newsCategories = NewsCategory::where('active', 1)
+			->whereHas('news', function ($query) {
+				$query->where('active', 1);
+			})
+			->select(['name', 'slug'])
+			->get();
 
-		if($category_slug && $category_slug != 'tin-tong-hop') {
-			$currentCategory = NewsCategory::where('slug', $category_slug)->firstOrFail();
+		if ($category_slug && $category_slug != 'tin-tong-hop') {
+			$currentCategory = NewsCategory::where('slug', $category_slug)
+				->where('active', 1)
+				->firstOrFail();
 
-			if (!$currentCategory->news()->exists()) abort(404);
+			if (!$currentCategory->news()->where('active', 1)->exists()) abort(404);
 
 			$newsList = News::where('news_category_id', $currentCategory->id)
+				->where('active', 1)
 				->select(['title', 'slug', 'excerpt', 'thumbnail', 'created_at', 'news_category_id'])
 				->with('category:id,name,slug')
 				->orderBy('created_at', 'desc')
 				->paginate($perPage);
-		}else {
+		} else {
 			$currentCategory = (object) ['name' => 'Tin tổng hợp'];
 
-			$newsList = News::select(['title', 'slug', 'excerpt', 'thumbnail', 'created_at', 'news_category_id'])
+			$newsList = News::where('active', 1)
+				->select(['title', 'slug', 'excerpt', 'thumbnail', 'created_at', 'news_category_id'])
 				->with('category:id,name,slug')
 				->orderBy('created_at', 'desc')
-				->paginate($perPage); 
+				->paginate($perPage);
 		}
-		
+
 		return view('pages.client.NewsPage', compact('newsCategories', 'currentCategory', 'newsList'));
 	}
 
 	// Chi tiết tin tức
 	public function detail($news_slug)
 	{
-		$news = News::where('slug', $news_slug)->firstOrFail();
-		$sessionKey = 'news_viewed_' . $news->id;
+		$news = News::where('slug', $news_slug)
+			->where('active', 1)
+			->firstOrFail();
 
-		if(!session()->has($sessionKey)) {
-			$news->increment('watch');
-
-			session()->put($sessionKey, now());
-		}
+		// Tăng lượt xem bài viết
+		$news->increment('watch');
 
 		return view('pages.client.NewsDetailPage', compact('news'));
 	}
