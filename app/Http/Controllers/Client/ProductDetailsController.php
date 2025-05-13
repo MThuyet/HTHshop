@@ -13,6 +13,10 @@ class ProductDetailsController extends Controller
 	public function index($product_slug)
 	{
 		$product = Product::where('slug', $product_slug)->first();
+
+		// Increment the view count
+		$product->increment('view');
+
 		$product->images = $product->images()->get();
 		$product->variants = $product->variants()->get();
 

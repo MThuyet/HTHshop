@@ -271,10 +271,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         } else {
                             Swal.fire({
                                 icon: "error",
-                                title: `Thất bại`,
-                                text: `Có lỗi xảy ra khi upload ảnh`,
-                                timer: 3000,
+                                title: "HTH Shop",
+                                text: "Có lỗi xảy ra khi upload ảnh",
+                                toast: true,
+                                position: "top-end",
                                 showConfirmButton: false,
+                                timer: 3000,
                             });
                         }
                     })
@@ -282,10 +284,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         console.error("Lỗi khi upload ảnh:", error);
                         Swal.fire({
                             icon: "error",
-                            title: `Thất bại`,
-                            text: `Có lỗi xảy ra khi upload ảnh`,
-                            timer: 3000,
+                            title: "HTH Shop",
+                            text: "Có lỗi xảy ra khi upload ảnh",
+                            toast: true,
+                            position: "top-end",
                             showConfirmButton: false,
+                            timer: 3000,
                         });
                     });
             } else {
@@ -338,10 +342,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         } else {
                             Swal.fire({
                                 icon: "error",
-                                title: `Thất bại`,
-                                text: `Có lỗi xảy ra khi upload ảnh`,
-                                timer: 3000,
+                                title: "HTH Shop",
+                                text: "Có lỗi xảy ra khi upload ảnh",
+                                toast: true,
+                                position: "top-end",
                                 showConfirmButton: false,
+                                timer: 3000,
                             });
                         }
                     })
@@ -349,10 +355,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         console.error("Lỗi khi upload ảnh:", error);
                         Swal.fire({
                             icon: "error",
-                            title: `Thất bại`,
-                            text: `Có lỗi xảy ra khi upload ảnh`,
-                            timer: 3000,
+                            title: "HTH Shop",
+                            text: "Có lỗi xảy ra khi upload ảnh",
+                            toast: true,
+                            position: "top-end",
                             showConfirmButton: false,
+                            timer: 3000,
                         });
                     });
             } else {
@@ -398,10 +406,12 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!skipAlert) {
             Swal.fire({
                 icon: "success",
-                title: `Thành công`,
-                text: `Thêm vào giỏ hàng thành công`,
-                timer: 3000,
+                title: "HTH Shop",
+                text: "Thêm vào giỏ hàng thành công",
+                toast: true,
+                position: "top-end",
                 showConfirmButton: false,
+                timer: 3000,
             });
         }
     }

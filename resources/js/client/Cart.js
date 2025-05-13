@@ -88,8 +88,26 @@ document.addEventListener("DOMContentLoaded", function () {
                     ".cart-item-custom-image-container"
                 );
                 customImageContainer.classList.remove("hidden");
-                cartItem.querySelector(".cart-item-custom-image").src =
-                    item.customImagePath;
+
+                // Chuyển đổi đường dẫn uploads/... thành URL đầy đủ
+                let imgSrc = item.customImagePath;
+
+                // Nếu đường dẫn đã là URL đầy đủ, giữ nguyên
+                if (!imgSrc.startsWith("http")) {
+                    // Nếu chỉ là tên file trong uploads, thêm /storage/ vào trước
+                    if (imgSrc.startsWith("uploads/")) {
+                        imgSrc = "/storage/" + imgSrc;
+                    }
+                    // Nếu bắt đầu bằng /, đảm bảo thêm domain
+                    if (imgSrc.startsWith("/")) {
+                        imgSrc = window.location.origin + imgSrc;
+                    } else {
+                        // Trường hợp còn lại, thêm đầy đủ đường dẫn
+                        imgSrc = window.location.origin + "/storage/" + imgSrc;
+                    }
+                }
+
+                cartItem.querySelector(".cart-item-custom-image").src = imgSrc;
             }
 
             cartContainer.appendChild(cartItem);
@@ -103,7 +121,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (isNaN(newQuantity) || newQuantity < 1) {
             Swal.fire({
                 icon: "warning",
-                title: "Số lượng tối thiểu là 1",
+                title: "HTH Shop",
+                text: "Số lượng tối thiểu là 1",
+                toast: true,
+                position: "top-end",
                 showConfirmButton: false,
                 timer: 1500,
             });
@@ -111,7 +132,10 @@ document.addEventListener("DOMContentLoaded", function () {
         } else if (newQuantity > 50) {
             Swal.fire({
                 icon: "warning",
-                title: "Số lượng tối đa là 50",
+                title: "HTH Shop",
+                text: "Số lượng tối đa là 50",
+                toast: true,
+                position: "top-end",
                 showConfirmButton: false,
                 timer: 1500,
             });
@@ -173,9 +197,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     localStorage.setItem("cart", JSON.stringify(cart));
                     renderCart(); // Gọi renderCart khi xóa vì cần xóa mục khỏi DOM
                     Swal.fire({
-                        title: "Đã xóa!",
-                        text: "Sản phẩm đã được xóa khỏi giỏ hàng.",
+                        title: "HTH Shop",
+                        text: "Sản phẩm đã được xóa khỏi giỏ hàng",
                         icon: "success",
+                        toast: true,
+                        position: "top-end",
                         timer: 1500,
                         showConfirmButton: false,
                     });

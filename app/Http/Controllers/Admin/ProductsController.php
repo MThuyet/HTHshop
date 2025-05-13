@@ -20,9 +20,31 @@ class ProductsController extends Controller
 	public function index(Request $request)
 	{
 		$perPage = $request->input('limit-row-length', 10);
-        $search = $request->get('search');
+		$search = $request->get('search');
+		$showOnlyActive = $request->has('active_only') && $request->input('active_only') == 1;
+		$activeStatus = $request->input('active_status');
+		$categoryId = $request->input('category_id');
+		$type = $request->input('type');
+		$hasCustomization = $request->input('has_customization');
 
 		$query = Product::with(['category', 'images', 'variants']);
+
+		// Filter by active status if requested
+		if ($showOnlyActive) {
+			$query->where('active', 1);
+			// Only include products from active categories
+			$query->whereHas('category', function ($q) {
+				$q->where('active', 1);
+			});
+		} else if ($activeStatus !== null && $activeStatus !== '') {
+			$query->where('active', $activeStatus);
+			// If showing active products, only include from active categories
+			if ($activeStatus == 1) {
+				$query->whereHas('category', function ($q) {
+					$q->where('active', 1);
+				});
+			}
+		}
 
 		// Search functionality
 		if ($search) {
@@ -34,10 +56,25 @@ class ProductsController extends Controller
 			});
 		}
 
+		// Filter by category if provided
+		if ($categoryId) {
+			$query->where('product_category_id', $categoryId);
+		}
+
+		// Filter by type if provided
+		if ($type) {
+			$query->where('type', $type);
+		}
+
+		// Filter by customization option if provided
+		if ($hasCustomization !== null && $hasCustomization !== '') {
+			$query->where('has_customization', $hasCustomization);
+		}
+
 		// Pagination
 		$products = $query->paginate($perPage);
 
-		return view('pages.admin.products.index', compact('products', 'perPage'));
+		return view('pages.admin.products.index', compact('products', 'perPage', 'showOnlyActive'));
 	}
 
 	/**
@@ -256,7 +293,7 @@ class ProductsController extends Controller
 				->with('toast', [
 					'icon' => 'error',
 					'title' => 'Lỗi',
-					'text' => 'Có lỗi xảy ra khi xóa sản phẩm' . $e->getMessage() 
+					'text' => 'Có lỗi xảy ra khi xóa sản phẩm' . $e->getMessage()
 				]);
 		}
 	}

@@ -10,7 +10,7 @@
             </div>
 
             <div class="news-thumbnail mb-4">
-                <img src="{{ asset('storage/images/news/' . $news->thumbnail) }}" alt="{{ $news->title }}">
+                <img src="{{ asset('storage/' . $news->thumbnail) }}" alt="{{ $news->title }}">
             </div>
 
             <div class="news-content">

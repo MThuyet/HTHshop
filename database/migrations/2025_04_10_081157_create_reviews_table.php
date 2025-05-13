@@ -15,7 +15,7 @@ return new class extends Migration
 			$table->id();
 			$table->unsignedBigInteger('product_id');
 			$table->tinyInteger('rated')->unsigned();
-			$table->text('content');
+			$table->string('content', 255);
 			$table->string('image')->nullable();
 			$table->string('phone', 11);
 			$table->string('fullname', 50);
