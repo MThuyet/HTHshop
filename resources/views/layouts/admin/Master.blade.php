@@ -43,15 +43,21 @@
 
             @if (session('toast'))
                 <script>
-                    Swal.fire({
-                        icon: '{{ session('toast')['icon'] ?? "info" }}',
-                        title: '{{ session('toast')['title'] ?? "" }}',
-                        text: '{{ session('toast')['text'] ?? "" }}',
-                        toast: true,
-                        position: '{{ session('toast')['position'] ?? "top-end" }}',
-                        showConfirmButton: false,
-                        timer: '{{ session('toast')['timer'] ?? '3000' }}',
-                    });
+                    // Sử dụng timestamp trong khóa để phân biệt các thông báo
+                    const toastKey = 'toast_shown_{{ session()->getId() }}_{{ time() }}';
+                    if (!sessionStorage.getItem(toastKey)) {
+                        Swal.fire({
+                            icon: '{{ session('toast')['icon'] ?? 'info' }}',
+                            title: '{{ session('toast')['title'] ?? '' }}',
+                            text: '{{ session('toast')['text'] ?? '' }}',
+                            toast: true,
+                            position: '{{ session('toast')['position'] ?? 'top-end' }}',
+                            showConfirmButton: false,
+                            timer: '{{ session('toast')['timer'] ?? '3000' }}',
+                        });
+                        // Đánh dấu thông báo đã hiển thị trong sessionStorage
+                        sessionStorage.setItem(toastKey, '1');
+                    }
                 </script>
             @endif
             @stack('scripts')
