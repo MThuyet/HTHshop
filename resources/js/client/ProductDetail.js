@@ -371,8 +371,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function storeCartItem(formData, imagePath, skipAlert = false) {
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
         const cartItem = {
             productId: formData.get("productId"),
             productVariantId: formData.get("productVariantId"),
@@ -386,22 +384,37 @@ document.addEventListener("DOMContentLoaded", function () {
             price: parseInt(formData.get("price")), // Lấy giá động
         };
 
-        const existingItemIndex = cart.findIndex(
-            (item) =>
-                item.productId === cartItem.productId &&
-                item.color === cartItem.color &&
-                item.printPosition === cartItem.printPosition &&
-                item.size === cartItem.size &&
-                item.customImagePath === cartItem.customImagePath
-        );
-
-        if (existingItemIndex !== -1) {
-            cart[existingItemIndex].quantity += cartItem.quantity;
+        // Sử dụng CartManager để thêm vào giỏ hàng (nếu có)
+        if (window.CartManager) {
+            window.CartManager.addToCart(cartItem);
         } else {
-            cart.push(cartItem);
-        }
+            // Fallback cho trường hợp cũ
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const existingItemIndex = cart.findIndex(
+                (item) =>
+                    item.productId === cartItem.productId &&
+                    item.color === cartItem.color &&
+                    item.printPosition === cartItem.printPosition &&
+                    item.size === cartItem.size &&
+                    item.customImagePath === cartItem.customImagePath
+            );
 
-        localStorage.setItem("cart", JSON.stringify(cart));
+            if (existingItemIndex !== -1) {
+                cart[existingItemIndex].quantity += cartItem.quantity;
+            } else {
+                cart.push(cartItem);
+            }
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            // Dispatch cart updated event
+            window.dispatchEvent(new CustomEvent("hth:cartUpdated"));
+
+            // Nếu hàm cập nhật header có sẵn, gọi ngay lập tức
+            if (typeof window.updateHeaderCartCount === "function") {
+                window.updateHeaderCartCount();
+            }
+        }
 
         if (!skipAlert) {
             Swal.fire({

@@ -248,8 +248,16 @@ function getFavoriteProducts() {
     return JSON.parse(localStorage.getItem("favoriteProducts")) ?? [];
 }
 
-function setFavoriteProducts(data) {
-    localStorage.setItem("favoriteProducts", JSON.stringify(data));
+function setFavoriteProducts(favoriteProducts) {
+    localStorage.setItem("favoriteProducts", JSON.stringify(favoriteProducts));
+
+    // Dispatch favorite updated event
+    window.dispatchEvent(new CustomEvent("hth:favoriteUpdated"));
+
+    // Nếu hàm cập nhật header có sẵn, gọi ngay lập tức
+    if (typeof window.updateHeaderFavoriteCount === "function") {
+        window.updateHeaderFavoriteCount();
+    }
 }
 
 function showToast(message, type = "success") {

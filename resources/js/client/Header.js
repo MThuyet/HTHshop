@@ -24,6 +24,24 @@ document.addEventListener("DOMContentLoaded", function () {
     updateHeaderCartCount();
     updateHeaderFavoriteCount();
 
+    // Listen for localStorage changes to update counts in real-time
+    window.addEventListener("storage", function (e) {
+        if (e.key === "cart") {
+            updateHeaderCartCount();
+        } else if (e.key === "favoriteProducts") {
+            updateHeaderFavoriteCount();
+        }
+    });
+
+    // Create custom events for updating header counts
+    window.addEventListener("hth:cartUpdated", function () {
+        updateHeaderCartCount();
+    });
+
+    window.addEventListener("hth:favoriteUpdated", function () {
+        updateHeaderFavoriteCount();
+    });
+
     // Hàm định dạng giá tiền
     function formatCurrency(amount) {
         return new Intl.NumberFormat("vi-VN").format(amount);
@@ -148,3 +166,6 @@ document.addEventListener("DOMContentLoaded", function () {
     setupSearchSuggestions("searchInput", "searchSuggestions");
     setupSearchSuggestions("searchInputMobile", "searchSuggestionsMobile");
 });
+// Expose update functions globally so they can be called from other scripts
+window.updateHeaderCartCount = updateHeaderCartCount;
+window.updateHeaderFavoriteCount = updateHeaderFavoriteCount;

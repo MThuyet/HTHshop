@@ -35,6 +35,14 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             emptyCart.classList.add("hidden");
         }
+
+        // Dispatch cart updated event
+        window.dispatchEvent(new CustomEvent("hth:cartUpdated"));
+
+        // Nếu hàm cập nhật header có sẵn, gọi ngay lập tức
+        if (typeof window.updateHeaderCartCount === "function") {
+            window.updateHeaderCartCount();
+        }
     }
 
     function renderCart() {
