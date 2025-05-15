@@ -2,6 +2,10 @@
 @section('title', 'Liên Hệ')
 @vite(['resources/js/client/Contact.js'])
 
+@section('breadcrumb')
+    <x-breadcrumb :currentPage="'Liên hệ'" />
+@endsection
+
 @section('content')
     <div class="responsive">
         <h2 class="sub-title mt-5">Liên Hệ</h2>

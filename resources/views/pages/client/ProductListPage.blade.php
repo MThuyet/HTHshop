@@ -2,6 +2,9 @@
 @section('title', 'Danh sách sản phẩm')
 @vite('resources/js/client/HandleWishList.js')
 
+@section('breadcrumb')
+    <x-breadcrumb :currentPage="'Sản phẩm'" />
+@endsection
 
 @section('content')
     <div class="responsive flex justify-between gap-4 md:flex-row flex-col">

@@ -1,6 +1,14 @@
 @extends('layouts.client.master')
 
-@section('title', 'Tin tức')
+@section('title', isset($category) && $category ? $category->name : 'Tin tức')
+
+@section('breadcrumb')
+    @if (isset($category) && $category)
+        <x-breadcrumb :items="[['label' => 'Tin tức', 'url' => route('news.category')]]" :currentPage="$category->name" />
+    @else
+        <x-breadcrumb :currentPage="'Tin tức'" />
+    @endif
+@endsection
 
 @section('content')
     <div class="responsive flex flex-col gap-4">

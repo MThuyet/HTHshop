@@ -3,6 +3,10 @@
 
 @vite('resources/js/client/Cart.js')
 
+@section('breadcrumb')
+    <x-breadcrumb :currentPage="'Giỏ hàng'" />
+@endsection
+
 @section('content')
     <div class="responsive py-8">
         <!-- Header with cart count -->
