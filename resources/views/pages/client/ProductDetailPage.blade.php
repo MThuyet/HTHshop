@@ -3,6 +3,10 @@
 
 @vite('resources/js/client/ProductDetail.js')
 
+@section('breadcrumb')
+    <x-breadcrumb :items="[['label' => 'Sản phẩm', 'url' => route('product')]]" :currentPage="$product->name" />
+@endsection
+
 @section('content')
     <div class="responsive">
         {{-- Chi tiết sản phẩm --}}

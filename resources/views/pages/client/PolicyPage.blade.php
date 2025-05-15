@@ -2,6 +2,10 @@
 @section('title', 'Chính sách')
 @vite(['resources/css/client/PolicyPage.css'])
 
+@section('breadcrumb')
+    <x-breadcrumb :currentPage="'Chính sách'" />
+@endsection
+
 @section('content')
     <div class="responsive">
         <div class="policy">

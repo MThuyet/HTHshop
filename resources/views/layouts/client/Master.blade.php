@@ -41,6 +41,13 @@
         <header>
             @include('layouts.client.Header')
         </header>
+
+        @hasSection('breadcrumb')
+            <div class="container mx-auto">
+                @yield('breadcrumb')
+            </div>
+        @endif
+
         <main class="pb-20 md:pb-0">
             @yield('content')
 
