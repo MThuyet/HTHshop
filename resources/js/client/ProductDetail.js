@@ -256,9 +256,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
     // ======== Mua ngay ========
-    const buyNowBtn = document.querySelector(
-        'button[type="submit"]:not(#addToCartBtn)'
-    );
+    const buyNowBtn = document.getElementById("buyNowBtn");
     if (buyNowBtn) {
         buyNowBtn.addEventListener("click", function (event) {
             event.preventDefault();
@@ -269,19 +267,14 @@ document.addEventListener("DOMContentLoaded", function () {
             const hasCustomImage =
                 customImageCheckbox && customImageCheckbox.checked;
 
-            // Hàm để chuyển hướng đến trang đặt hàng
-            function redirectToCheckout() {
-                window.location.href = "/dat-hang";
-            }
-
-            // Nếu có ảnh tùy chỉnh, lưu base64 vào giỏ hàng
-            if (hasCustomImage && uploadedImageBase64) {
-                storeCartItem(formData, null, true, uploadedImageBase64);
-                redirectToCheckout();
-            } else {
-                storeCartItem(formData, null, true, null);
-                redirectToCheckout();
-            }
+            // Thêm vào giỏ hàng và chuyển hướng
+            storeCartItem(
+                formData,
+                null,
+                true,
+                hasCustomImage ? uploadedImageBase64 : null
+            );
+            window.location.href = "/dat-hang";
         });
     }
 
